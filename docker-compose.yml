@@ -1,0 +1,49 @@
+version: '3'
+services:
+    web:
+        image: nginx:latest
+        ports:
+            - "80:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+            - ./app:/app
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - ./app:/app
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: 'secret'
+            MYSQL_USER: 'tutorial'
+            MYSQL_PASSWORD: 'secret'
+            MYSQL_DATABASE: 'tutorial'
+        volumes:
+            - mysqldata:/var/lib/mysql
+        ports:
+            - 3306:3306
+    react:
+      stdin_open: true
+      environment:
+        - CHOKIDAR_USEPOLLING=true
+      build:
+        dockerfile: Dockerfile
+        context: ./client
+      volumes:
+        - './client:/app'
+        - '/app/node_modules'
+      ports:
+        - '3000:3000'
+    adminer:
+      image: adminer:latest
+      restart: unless-stopped
+      ports:
+        - 8000:8080
+      depends_on:
+        - mysql
+      environment:
+        ADMINER_DEFAULT_SERVER: mysql
+volumes:
+    mysqldata: {}
