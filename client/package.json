@@ -46,7 +46,7 @@
     "lint:fix": "eslint . --ext ts --ext tsx --ext js --fix",
     "type-check": "tsc --noEmit",
     "precommit": "pretty-quick --staged && npm run lint && npm run type-check",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -55,6 +55,11 @@
     "*.{json,js,ts,jsx,tsx,html}": [
       "prettier --write"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -85,6 +90,8 @@
     ]
   },
   "devDependencies": {
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-interactions": "^6.4.19",
