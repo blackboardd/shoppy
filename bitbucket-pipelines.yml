@@ -2,29 +2,14 @@ image: node:16
 
 pipelines:
   default:
-    - parallel:
-        - step:
-            name: Build and Test
-            caches:
-              - node
-            script:
-              - cd client
-              - npm install
-              - npm test
-        - step:
-            name: Code linting and formatting
-            script:
-              - cd client
-              - npm install
-              - npm run lint
-              - npm run format
-            caches:
-              - node
-        - step:
-            name: Build style dictionary
-            script:
-              - cd client
-              - npm install
-              - npm run build-dictionary
-            caches:
-              - node
+    - step:
+        name: Install, build dictionary, lint, format, and test
+        script:
+          - cd client
+          - npm install
+          - npm run build-dictionary
+          - npm run lint
+          - npm run format
+          - npm test
+        caches:
+          - node
