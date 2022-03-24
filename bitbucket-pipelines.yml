@@ -16,7 +16,6 @@ pipelines:
   branches:
     main:
       - step:
-          name: set up client release
           caches:
             - node
           script:
