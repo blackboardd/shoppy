@@ -11,7 +11,7 @@
     "type": "bitbucket",
     "url": "https://bitbucket.org/blackboardd/shoppy"
   },
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -141,7 +141,11 @@
     }
   },
   "release": {
-    "branches": ["master", "main", "next"],
+    "branches": [
+      "master",
+      "main",
+      "next"
+    ],
     "repositoryUrl": "https://auth@bitbucket.org/blackboardd/shoppy.git",
     "plugins": [
       "@semantic-release/commit-analyzer",
