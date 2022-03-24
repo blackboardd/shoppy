@@ -4,7 +4,7 @@ const runSequence = require('gulp4-run-sequence');
 const jsonModify = require('gulp-json-modify');
 
 gulp.task('upversion', function () {
-  let ver = require('../package.json').version; //version defined in the package.json file
+  let ver = require('package.json').version; //version defined in the package.json file
   console.log('current version: ', ver);
   let splitString = ver.split('.', 3);
   let patchVersion = splitString[2].split('"', 1);
