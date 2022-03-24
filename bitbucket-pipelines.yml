@@ -8,6 +8,7 @@ pipelines:
             caches:
               - node
             script:
+              - cd client
               - npm install
               - npm test
         - step:
