@@ -1,0 +1,40 @@
+image: node:16
+
+pipelines:
+  default:
+    - step:
+        name: Install, build dictionary, lint, format, and test
+        script:
+          - cd client
+          - npm install
+          - npm run build-dictionary
+          - npm run lint
+          - npm run format
+          - npm test
+        caches:
+          - node
+  branches:
+    main:
+      - step:
+          name: set up client release
+          caches:
+            - node
+          script:
+            # PACKAGE INSTALLATIONS
+            - cd client
+            - npm install
+            - npm install -g gulp
+            # AUTO VERSIONING
+            - git config remote.origin.url https://blackboardd@bitbucket.org/blackboardd/shoppy.git
+            - gulp autoversion
+            - git init
+            - git config user.name "blackboardd"
+            - git config user.email "brightenqtompkins@gmail.com"
+            - git add package.json
+            - git commit -m "[skip CI]"
+            - git push
+            - declare -x VERSION=$(jq -r '.version' package.json)
+            - echo $VERSION
+            - git tag $VERSION
+            - git remote -v
+            - git push origin --tags

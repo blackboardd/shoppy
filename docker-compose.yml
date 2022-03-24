@@ -7,12 +7,12 @@ services:
         volumes:
             - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
             - ./app:/app
-    php:
+    server:
         build:
-            context: .
-            dockerfile: PHP.Dockerfile
+            context: ./server
+            dockerfile: Dockerfile
         volumes:
-            - ./app:/app
+            - ./server:/app
     mysql:
         image: mariadb:latest
         environment:
@@ -24,7 +24,7 @@ services:
             - mysqldata:/var/lib/mysql
         ports:
             - 3306:3306
-    react:
+    client:
       stdin_open: true
       environment:
         - CHOKIDAR_USEPOLLING=true
@@ -32,10 +32,10 @@ services:
         dockerfile: Dockerfile
         context: ./client
       volumes:
-        - './client:/app'
-        - '/app/node_modules'
+        - /app/node_modules
+        - ./client:/app
       ports:
-        - '3000:3000'
+        - "3000:3000"
     adminer:
       image: adminer:latest
       restart: unless-stopped

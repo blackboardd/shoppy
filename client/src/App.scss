@@ -1,0 +1,10 @@
+@import 'style-dictionary-dist/variables.scss';
+
+h1 {
+  color: $token-color-font-primary;
+};
+
+.app-header {
+  background-color: $token-color-background-primary;
+  padding: $token-padding-small;
+};
