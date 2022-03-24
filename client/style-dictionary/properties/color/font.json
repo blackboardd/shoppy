@@ -1,0 +1,15 @@
+{
+  "color": {
+    "font": {
+      "primary": {
+        "value": "#fff"
+      },
+      "secondary": {
+        "value": "#000"
+      },
+      "placeholder": {
+        "value": "base.color.gray"
+      }
+    }
+  }
+}
