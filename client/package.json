@@ -142,6 +142,10 @@
   },
   "release": {
     "repositoryUrl": "https://auth@bitbucket.org/blackboardd/shoppy.git",
+    "tagFormat": "v${version}",
+    "release": {
+      "branch": ["main"]
+    },  
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
