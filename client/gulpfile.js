@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const gulp = require('gulp');
-const runSequence = require('run-sequence'); // Run tasks sequentially
+const runSequence = require('gulp4-run-sequence');
 const jsonModify = require('gulp-json-modify');
 
 gulp.task('upversion', function () {
