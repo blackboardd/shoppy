@@ -1,0 +1,13 @@
+{
+  "padding": {
+    "small": {
+      "value": "0.5rem"
+    },
+    "medium": {
+      "value": "1rem"
+    },
+    "large": {
+      "value": "1.5rem"
+    }
+  }
+}
