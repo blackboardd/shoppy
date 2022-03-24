@@ -19,6 +19,11 @@ pipelines:
           caches:
             - node
           script:
+            - apt-get update && apt-get install -y curl jq
+            - >
+              export BB_TOKEN=$(curl -s -X POST -u "${CLIENT_ID}:${CLIENT_SECRET}" \
+                https://bitbucket.org/site/oauth2/access_token \
+                -d grant_type=client_credentials -d scopes="repository"| jq --raw-output '.access_token')
             - cd client
             - npm install
             - npm test
