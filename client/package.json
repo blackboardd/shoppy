@@ -46,7 +46,8 @@
     "lint:fix": "eslint . --ext ts --ext tsx --ext js --fix",
     "type-check": "tsc --noEmit",
     "precommit": "pretty-quick --staged && npm run lint && npm run type-check",
-    "prepare": "cd .. && husky install"
+    "prepare": "cd .. && husky install",
+    "commit": "git-cz"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
@@ -92,6 +93,11 @@
   "devDependencies": {
     "@commitlint/cli": "^16.2.3",
     "@commitlint/config-conventional": "^16.2.1",
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/commit-analyzer": "^9.0.2",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/npm": "^9.0.1",
+    "@semantic-release/release-notes-generator": "^10.0.3",
     "@storybook/addon-actions": "^6.4.19",
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-interactions": "^6.4.19",
@@ -105,6 +111,7 @@
     "@storybook/testing-library": "^0.0.9",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "css-loader": "^6.7.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.11.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
@@ -113,14 +120,31 @@
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-unused-imports": "^2.0.0",
+    "gulp": "^4.0.2",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
     "prettier": "^2.6.0",
     "pretty-quick": "^3.1.3",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
+    "semantic-release": "^19.0.2",
     "style-dictionary": "^3.7.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.70.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "repositoryUrl": "https://auth@bitbucket.org/blackboardd/shoppy.git",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/changelog",
+      "@semantic-release/git"
+    ]
   }
 }
