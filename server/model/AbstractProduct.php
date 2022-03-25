@@ -28,6 +28,8 @@ enum Currency implements SymbolInterface
   case EUR;
   case GBP;
 
+  // {{{ getSymbol()
+
   /**
    * Get the symbol for the currency.
    */
@@ -50,6 +52,8 @@ enum Currency implements SymbolInterface
       Currency::GBP => '£',
     };
   }
+
+  // }}}
 }
 
 // }}}
