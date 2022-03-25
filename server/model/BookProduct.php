@@ -29,6 +29,7 @@ enum Weight implements SymbolInterface
   case KILOGRAMS;
   case POUNDS;
 
+  // {{{ getSymbol()
 
   /**
    * Get the symbol for the weight.
@@ -47,6 +48,8 @@ enum Weight implements SymbolInterface
       Weight::POUNDS => 'lbs',
     };
   }
+
+  // }}}
 }
 
 // }}}
