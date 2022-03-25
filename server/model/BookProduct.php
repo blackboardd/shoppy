@@ -65,7 +65,7 @@ class BookProduct extends AbstractProduct
   /**
    * Weight of the product.
    * 
-   * @var string
+   * @var float 
    */
   public $weight;
 
