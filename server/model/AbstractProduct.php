@@ -104,6 +104,9 @@ abstract class AbstractProduct
    */
   public $type;
 
+  // }}}
+  // {{{ __construct
+
   /**
    * Construct a product.
    * 
@@ -133,6 +136,9 @@ abstract class AbstractProduct
     self::$currency = new Currency('USD');
   }
 
+  // }}}
+  // {{{ setCurrency
+
   /**
    * Set the currency.
    * 
@@ -147,6 +153,9 @@ abstract class AbstractProduct
     self::$currency = new Currency($currency);
   }
 
+  // }}}
+  // {{{ getContent
+
   /**
    * Get the content of the product.
    * 
@@ -155,6 +164,8 @@ abstract class AbstractProduct
    * @abstract
    */
   abstract public function getContent(): string;
+
+  // }}}
 }
 
 // }}}

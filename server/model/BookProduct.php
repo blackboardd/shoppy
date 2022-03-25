@@ -73,12 +73,18 @@ class BookProduct extends AbstractProduct
    */
   public $unit;
 
+  // }}}
+  // {{{ __construct
+
   public function __construct($id, $sku, $name, $price, $type, $weight)
   {
     parent::__construct($id, $sku, $name, $price, $type);
     $this->weight = $weight;
     $this->unit = new Weight('KILOGRAMS');
   }
+
+  // }}}
+  // {{{ setUnit
 
   /**
    * Set the unit of the product.
@@ -93,6 +99,9 @@ class BookProduct extends AbstractProduct
   {
     $this->unit = new Weight($unit);
   }
+  
+  // }}}
+  // {{{ getContent
 
   /**
    * Get the content of the product.
@@ -109,4 +118,8 @@ class BookProduct extends AbstractProduct
     {$this->type}: {$this->weight}{$this->unit}
     ";
   }
+
+  // }}}
 }
+
+// }}}

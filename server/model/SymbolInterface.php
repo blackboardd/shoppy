@@ -1,6 +1,6 @@
 <?php
 /**
- * Abstract class for product objects.
+ * Symbol interface for use with product objects.
  *
  * PHP version 8.1
  *
@@ -22,7 +22,9 @@ namespace model\product;
  */
 interface SymbolInterface
 {
+  // {{{ getSymbol()
   public function getSymbol(): string;
+  // }}}
 }
 
 // }}}
