@@ -5,12 +5,19 @@
 /.pnp
 .pnp.js
 
+# pdfs
+*.pdf
+
 # testing
 /coverage
 
 # production
 /build
 client/build
+
+# environmental variables
+server/.env
+.env
 
 # misc
 .DS_Store
