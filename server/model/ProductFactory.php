@@ -16,20 +16,6 @@
 
 namespace Model\Product;
 
-// {{{ constants
-
-/**
- * Currency symbols.
- */
-$currency = array(
-    'USD' => '$',
-    'EUR' => '€',
-    'GBP' => '£',
-);
-
-$GLOBALS['currency'] = $currency;
-
-// }}}
 // {{{ ProductFactory
 
 /**

@@ -116,7 +116,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
             product_id,
             width,
             height,
-            length) VALUES (?, ?, ?, ?, ?)
+            length) VALUES (?, ?, ?, ?)
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([

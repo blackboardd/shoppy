@@ -16,20 +16,6 @@
 
 namespace Model\Product;
 
-// {{{ constants
-
-/**
- * Size units.
- */
-$weight = array(
-    "Kilobytes" => "KBs",
-    "Megabytes" => "MBs",
-    "Gigabytes" => "GBs",
-);
-
-$GLOBALS['size'] = $size;
-
-// }}}
 // {{{ DVDProduct
 
 /**

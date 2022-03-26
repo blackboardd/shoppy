@@ -113,7 +113,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
             dvd_id,
             product_id,
             size,
-            unit) VALUES (?, ?, ?, ?, ?)
+            unit) VALUES (?, ?, ?, ?)
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([

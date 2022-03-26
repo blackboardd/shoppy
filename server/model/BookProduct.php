@@ -16,19 +16,6 @@
 
 namespace Model\Product;
 
-// {{{ constants
-
-/**
- * Weight units.
- */
-$weight = array(
-    'kilograms' => 'kgs',
-    'pounds' => 'lbs',
-);
-
-$GLOBALS['weight'] = $weight;
-
-// }}}
 // {{{ BookProduct
 
 /**

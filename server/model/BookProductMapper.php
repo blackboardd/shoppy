@@ -113,7 +113,7 @@ class BookProductMapper implements BookProductMapperInterface {
             book_id,
             product_id,
             weight,
-            unit) VALUES (?, ?, ?, ?, ?)
+            unit) VALUES (?, ?, ?, ?)
         ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([

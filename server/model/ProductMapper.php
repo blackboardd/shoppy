@@ -134,7 +134,7 @@ class ProductMapper implements ProductMapperInterface {
      */
     public function update(Product $product) {
         $query = "
-            UPDATE products
+            UPDATE product
             name = ?,
             price = ?,
             currency = ?,
@@ -181,7 +181,7 @@ class ProductMapper implements ProductMapperInterface {
      */
     public function create(Product $product) {
         $query = "
-        INSERT INTO products (
+        INSERT INTO product (
             product_id,
             name,
             price,
@@ -195,7 +195,7 @@ class ProductMapper implements ProductMapperInterface {
             $product->getName(),
             $product->getPrice(),
             $product->getCurrency(),
-            $product->getType(),
+            $product->getType()
         ]);
     }
 

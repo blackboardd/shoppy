@@ -84,19 +84,6 @@ class Product implements ProductFactory {
     }
 
     // }}}
-    // {{{ getSku()
-
-    /**
-     * Get the product's SKU.
-     * 
-     * @return string The product's SKU.
-     * @access public
-     */
-    public function getSku(): string {
-        return $this->sku;
-    }
-
-    // }}}
     // {{{ getName()
 
     /**
