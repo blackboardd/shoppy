@@ -1,142 +1,102 @@
 <?php
 
 /**
- * Abstract class for product objects.
+ * Book product class.
  *
  * PHP version 8.1
  *
  * LICENSE: MIT
  *
  * @category   Product
- * @package    model\product
+ * @package    Model\Product
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace model\product;
+namespace Model\Product;
 
-include_once 'AbstractProduct.php';
-include_once 'SymbolInterface.php';
-
-// {{{ constants
-
-/**
- * Enum for weight symbols.
- */
-enum Weight implements SymbolInterface
-{
-    case KILOGRAMS;
-    case POUNDS;
-
-    // {{{ getSymbol()
-
-    /**
-     * Get the symbol for the weight.
-     */
-    public function getSymbol(): string
-    {
-        return match ($this) {
-            /**
-             * kilograms
-             */
-            Weight::KILOGRAMS => 'kg',
-
-            /**
-             * pounds
-             */
-            Weight::POUNDS => 'lbs',
-        };
-    }
-
-    // }}}
-}
-
-// }}}
 // {{{ BookProduct
 
 /**
  * Class for book product objects.
  */
-class BookProduct extends AbstractProduct
-{
-    // {{{ properties
+class BookProduct {
+    // {{{ fromState
 
     /**
-     * Weight of the product.
+     * Create a book product from a state.
      * 
-     * @var float 
+     * @param array $state The state to create the product from.
+     * @return BookProduct The product.
+     * @access public
+     * @static
      */
-    public $weight;
-
-    /**
-     * Unit of the product.
-     * 
-     * @var Weight
-     */
-    public $unit;
+    public static function fromState(array $state): BookProduct {
+        return new self(
+            $state['book_id'],
+            $state['weight'],
+            $state['unit']
+        );
+    }
 
     // }}}
     // {{{ __construct
 
     /**
-     * Construct a product.
+     * Construct a book product.
      * 
-     * @param int $id The product's id.
-     * @param string $sku The product's SKU.
-     * @param string $name The product's name.
-     * @param float $price The product's price.
-     * @param string $type The product's type.
+     * @param int $book_id The product's id.
      * @param float $weight The product's weight.
+     * @param string $unit The product's weight unit.
      * 
      * @return void
      * @access public
      */
-    public function __construct($id, $sku, $name, $price, $type, $weight)
-    {
-        parent::__construct($id, $sku, $name, $price, $type);
-        $this->weight = $weight;
-
-        /**
-         * Sets the default unit.
-         */
-        $this->unit = new Weight('KILOGRAMS');
+    public function __construct(
+        private int $book_id,
+        private float $weight,
+        private string $unit
+    ) {
     }
 
     // }}}
-    // {{{ setUnit
+    // {{{ getId()
 
     /**
-     * Set the unit of the product.
+     * Get the product's id.
      * 
-     * @param string $unit
-     *  The unit of the product.
-     * 
-     * @return void
+     * @return int The product's id.
      * @access public
      */
-    public function setUnit($unit): void
-    {
-        $this->unit = new Weight($unit);
+    public function getId(): int {
+        return $this->book_id;
     }
 
     // }}}
-    // {{{ getContent
+    // {{{ getWeight()
 
     /**
-     * Get the content of the product.
+     * Get the product's weight.
      * 
-     * @return string
+     * @return float The product's weight.
      * @access public
      */
-    public function getContent(): string
-    {
-        return "
-    {$this->sku}
-    {$this->name}
-    {$this->currency}{$this->price}
-    {$this->type}: {$this->weight}{$this->unit}
-    ";
+    public function getWeight(): float {
+        return $this->weight;
+    }
+
+    // }}}
+    // {{{ getUnit()
+
+    /**
+     * Get the product's weight unit.
+     * 
+     * @return string The product's weight unit.
+     * @access public
+     */
+    public function getUnit(): string {
+        return $this->unit;
     }
 
     // }}}

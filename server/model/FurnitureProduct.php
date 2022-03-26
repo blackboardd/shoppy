@@ -1,52 +1,45 @@
 <?php
 
 /**
- * Abstract class for product objects.
+ * Furniture product class.
  *
  * PHP version 8.1
  *
  * LICENSE: MIT
  *
  * @category   Product
- * @package    model\product
+ * @package    Model\Product\Furniture
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace model\product;
-
-include_once 'AbstractProduct.php';
+namespace Model\Product;
 
 // {{{ FurnitureProduct
 
 /**
  * Class for furniture product objects. 
  */
-class FurnitureProduct extends AbstractProduct
-{
-    // {{{ properties
-    
-    /**
-     * The product's height.
-     * 
-     * @var float
-     */
-    public $height;
+class FurnitureProduct {
+    // {{{ fromState
 
     /**
-     * The product's width.
+     * Create a furniture product from a state.
      * 
-     * @var float
+     * @param array $state The state to create the product from.
+     * @return FurnitureProduct The product.
+     * @access public
+     * @static
      */
-    public $width;
-
-    /**
-     * The product's length.
-     * 
-     * @var float
-     */
-    public $length;
+    public static function fromState(array $state): FurnitureProduct {
+        return new self(
+            $state['furniture_id'],
+            $state['width'],
+            $state['height'],
+            $state['length']
+        );
+    }
 
     // }}}
     // {{{ __construct()
@@ -54,55 +47,75 @@ class FurnitureProduct extends AbstractProduct
     /**
      * Constructor for the furniture product.
      * 
-     * @param int $id The product's id.
-     * @param string $sku The product's SKU.
-     * @param string $name The product's name.
-     * @param float $price The product's price.
-     * @param string $type The product's type.
-     * @param float $height The product's height.
+     * @param int $furniture_id The product's id.
      * @param float $width The product's width.
+     * @param float $height The product's height.
      * @param float $length The product's length.
      * 
      * @return void
      * @access public
      */
     public function __construct(
-        $id,
-        $sku,
-        $name,
-        $price,
-        $type,
-        $height,
-        $width,
-        $length
+        private int $furniture_id,
+        private float $width,
+        private float $height,
+        private float $length
     ) {
-        parent::__construct($id, $sku, $name, $price, $type);
-        $this->height = $height;
-        $this->width = $width;
-        $this->length = $length;
     }
 
     // }}}
-    // {{{ getContent()
+    // {{{ getId()
 
     /**
-     * Get the content of the product.
+     * Get the product's id.
      * 
-     * @return string
-     * The content of the product.
-     * 
+     * @return int The product's id.
      * @access public
      */
-    public function getContent(): string
-    {
-        return "
-    {$this->sku}
-    {$this->name}
-    {$this->currency}{$this->price}
-    {$this->type}: {$this->height}x{$this->width}x{$this->length}
-    ";
+    public function getId(): int {
+        return $this->furniture_id;
+    }
+
+    // }}}
+    // {{{ getWidth()
+
+    /**
+     * Get the product's width.
+     * 
+     * @return float The product's width.
+     * @access public
+     */
+    public function getWidth(): float {
+        return $this->width;
+    }
+
+    // }}}
+    // {{{ getHeight()
+
+    /**
+     * Get the product's height.
+     * 
+     * @return float The product's height.
+     * @access public
+     */
+    public function getHeight(): float {
+        return $this->height;
+    }
+
+    // }}}
+    // {{{ getLength()
+
+    /**
+     * Get the product's length.
+     * 
+     * @return float The product's length.
+     * @access public
+     */
+    public function getLength(): float {
+        return $this->length;
     }
 
     // }}}
 }
+
 // }}}
