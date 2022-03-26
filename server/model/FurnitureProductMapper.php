@@ -24,19 +24,6 @@ namespace Model\Product;
  * Interface for furniture product mapper objects.
  */
 interface FurnitureProductMapperInterface {
-    // {{{ get()
-
-    /**
-     * Get a furniture product by id.
-     * 
-     * @param int $id The id of the product to find.
-     * 
-     * @access public
-     * @return FurnitureProduct The product.
-     */
-    public function get(int $id): FurnitureProduct;
-
-    // }}}
     // {{{ update()
 
     /**
@@ -50,19 +37,6 @@ interface FurnitureProductMapperInterface {
     public function update(FurnitureProduct $product);
 
     // }}}
-    // {{{ delete()
-
-    /**
-     * Delete a furniture product.
-     * 
-     * @param FurnitureProduct $product The product to delete.
-     * 
-     * @access public
-     * @return void
-     */
-    public function delete(FurnitureProduct $product);
-
-    // }}}
     // {{{ create()
 
     /**
@@ -73,7 +47,7 @@ interface FurnitureProductMapperInterface {
      * @access public
      * @return void
      */
-    public function create(FurnitureProduct $product);
+    public function create(FurnitureProduct $product, int $product_id);
 }
 
 // }}}
@@ -97,29 +71,6 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
     }
 
     // }}}
-    // {{{ get()
-
-    /**
-     * Get a furniture product by id.
-     * 
-     * @param int $id The id of the product to find.
-     * 
-     * @access public
-     * @return FurnitureProduct The product.
-     */
-    public function get(int $id): FurnitureProduct {
-        $query = "SELECT * FROM furniture_products WHERE furniture_product_id = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if (!$result) {
-            die("Record not found");
-        }
-
-        return FurnitureProduct::fromState($result);
-    }
-
-    // }}}
     // {{{ update()
 
     /**
@@ -131,36 +82,20 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
      * @return void
      */
     public function update(FurnitureProduct $product) {
-        $query = "UPDATE furniture_products SET furniture_product_sku = ?, furniture_product_name = ?, furniture_product_price = ?, furniture_product_currency = ?, furniture_product_type = ?, furniture_product_width = ?, furniture_product_height = ?, furniture_product_length = ? WHERE furniture_product_id = ?";
+        $query = "
+            UPDATE product_furniture
+            width = ?,
+            height = ?,
+            length = ?
+            WHERE furniture_id = ?
+        ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
-            $product->getSku(),
-            $product->getName(),
-            $product->getPrice(),
-            $product->getCurrency(),
-            $product->getType(),
             $product->getWidth(),
             $product->getHeight(),
             $product->getLength(),
             $product->getId()
         ]);
-    }
-
-    // }}}
-    // {{{ delete()
-
-    /**
-     * Delete a furniture product.
-     * 
-     * @param FurnitureProduct $product The product to delete.
-     * 
-     * @access public
-     * @return void
-     */
-    public function delete(FurnitureProduct $product) {
-        $query = "DELETE FROM furniture_products WHERE furniture_product_id = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$product->getId()]);
     }
 
     // }}}
@@ -174,16 +109,19 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
      * @access public
      * @return void
      */
-    public function create(FurnitureProduct $product) {
-        $query = "INSERT INTO furniture_products (furniture_product_id, furniture_product_sku, furniture_product_name, furniture_product_price, furniture_product_currency, furniture_product_type, furniture_product_width, furniture_product_height, furniture_product_length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function create(FurnitureProduct $product, int $product_id) {
+        $query = "
+        INSERT INTO product_furniture (
+            furniture_id,
+            product_id,
+            width,
+            height,
+            length) VALUES (?, ?, ?, ?, ?)
+        ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),
-            $product->getSku(),
-            $product->getName(),
-            $product->getPrice(),
-            $product->getCurrency(),
-            $product->getType(),
+            $product_id,
             $product->getWidth(),
             $product->getHeight(),
             $product->getLength()

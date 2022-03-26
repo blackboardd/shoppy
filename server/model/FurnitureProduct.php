@@ -8,7 +8,7 @@
  * LICENSE: MIT
  *
  * @category   Product
- * @package    Model\Product
+ * @package    Model\Product\Furniture
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
@@ -16,14 +16,12 @@
 
 namespace Model\Product;
 
-include_once 'ProductFactory.php';
-
 // {{{ FurnitureProduct
 
 /**
  * Class for furniture product objects. 
  */
-class FurnitureProduct implements ProductFactory {
+class FurnitureProduct {
     // {{{ fromState
 
     /**
@@ -36,15 +34,10 @@ class FurnitureProduct implements ProductFactory {
      */
     public static function fromState(array $state): FurnitureProduct {
         return new self(
-            $state['id'],
-            $state['sku'],
-            $state['name'],
-            $state['price'],
-            $state['currency'],
-            $state['type'],
+            $state['furniture_id'],
             $state['width'],
             $state['height'],
-            $state['length'],
+            $state['length']
         );
     }
 
@@ -54,12 +47,7 @@ class FurnitureProduct implements ProductFactory {
     /**
      * Constructor for the furniture product.
      * 
-     * @param int $id The product's id.
-     * @param string $sku The product's SKU.
-     * @param string $name The product's name.
-     * @param float $price The product's price.
-     * @param string $currency The product's currency.
-     * @param string $type The product's type.
+     * @param int $furniture_id The product's id.
      * @param float $width The product's width.
      * @param float $height The product's height.
      * @param float $length The product's length.
@@ -68,12 +56,7 @@ class FurnitureProduct implements ProductFactory {
      * @access public
      */
     public function __construct(
-        private int $id,
-        private string $sku,
-        private string $name,
-        private float $price,
-        private string $currency,
-        private string $type,
+        private int $furniture_id,
         private float $width,
         private float $height,
         private float $length
@@ -90,72 +73,7 @@ class FurnitureProduct implements ProductFactory {
      * @access public
      */
     public function getId(): int {
-        return $this->id;
-    }
-
-    // }}}
-    // {{{ getSku()
-
-    /**
-     * Get the product's SKU.
-     * 
-     * @return string The product's SKU.
-     * @access public
-     */
-    public function getSku(): string {
-        return $this->sku;
-    }
-
-    // }}}
-    // {{{ getName()
-
-    /**
-     * Get the product's name.
-     * 
-     * @return string The product's name.
-     * @access public
-     */
-    public function getName(): string {
-        return $this->name;
-    }
-
-    // }}}
-    // {{{ getPrice()
-
-    /**
-     * Get the product's price.
-     * 
-     * @return float The product's price.
-     * @access public
-     */
-    public function getPrice(): float {
-        return $this->price;
-    }
-
-    // }}}
-    // {{{ getCurrency()
-
-    /**
-     * Get the product's currency.
-     * 
-     * @return string The product's currency.
-     * @access public
-     */
-    public function getCurrency(): string {
-        return $this->currency;
-    }
-
-    // }}}
-    // {{{ getType()
-
-    /**
-     * Get the product's type.
-     * 
-     * @return string The product's type.
-     * @access public
-     */
-    public function getType(): string {
-        return $this->type;
+        return $this->furniture_id;
     }
 
     // }}}

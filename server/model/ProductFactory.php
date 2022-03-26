@@ -40,22 +40,13 @@ interface ProductFactory {
 
     /**
      * Get the product's id.
+     * 
+     * This is also used as the SKU.
      *
      * @return int The product's id.
      * @access public
      */
     public function getId(): int;
-
-    // }}}
-    // {{{ getSku()
-
-    /**
-     * Get the product's SKU.
-     *
-     * @return string The product's SKU.
-     * @access public
-     */
-    public function getSku(): string;
 
     // }}}
     // {{{ getName()

@@ -16,8 +16,6 @@
 
 namespace Model\Product;
 
-include_once 'ProductFactory.php';
-
 // {{{ constants
 
 /**
@@ -36,7 +34,7 @@ $GLOBALS['weight'] = $weight;
 /**
  * Class for book product objects.
  */
-class BookProduct implements ProductFactory {
+class BookProduct {
     // {{{ fromState
 
     /**
@@ -49,12 +47,7 @@ class BookProduct implements ProductFactory {
      */
     public static function fromState(array $state): BookProduct {
         return new self(
-            $state['id'],
-            $state['sku'],
-            $state['name'],
-            $state['price'],
-            $state['currency'],
-            $state['type'],
+            $state['book_id'],
             $state['weight'],
             $state['unit']
         );
@@ -66,12 +59,7 @@ class BookProduct implements ProductFactory {
     /**
      * Construct a book product.
      * 
-     * @param int $id The product's id.
-     * @param string $sku The product's SKU.
-     * @param string $name The product's name.
-     * @param float $price The product's price.
-     * @param string $currency The product's currency.
-     * @param string $type The product's type.
+     * @param int $book_id The product's id.
      * @param float $weight The product's weight.
      * @param string $unit The product's weight unit.
      * 
@@ -79,12 +67,7 @@ class BookProduct implements ProductFactory {
      * @access public
      */
     public function __construct(
-        private int $id,
-        private string $sku,
-        private string $name,
-        private float $price,
-        private string $currency,
-        private string $type,
+        private int $book_id,
         private float $weight,
         private string $unit
     ) {
@@ -100,72 +83,7 @@ class BookProduct implements ProductFactory {
      * @access public
      */
     public function getId(): int {
-        return $this->id;
-    }
-
-    // }}}
-    // {{{ getSku()
-
-    /**
-     * Get the product's SKU.
-     * 
-     * @return string The product's SKU.
-     * @access public
-     */
-    public function getSku(): string {
-        return $this->sku;
-    }
-
-    // }}}
-    // {{{ getName()
-
-    /**
-     * Get the product's name.
-     * 
-     * @return string The product's name.
-     * @access public
-     */
-    public function getName(): string {
-        return $this->name;
-    }
-
-    // }}}
-    // {{{ getPrice()
-
-    /**
-     * Get the product's price.
-     * 
-     * @return float The product's price.
-     * @access public
-     */
-    public function getPrice(): float {
-        return $this->price;
-    }
-
-    // }}}
-    // {{{ getCurrency()
-
-    /**
-     * Get the product's currency.
-     * 
-     * @return string The product's currency.
-     * @access public
-     */
-    public function getCurrency(): string {
-        return $this->currency;
-    }
-
-    // }}}
-    // {{{ getType()
-
-    /**
-     * Get the product's type.
-     * 
-     * @return string The product's type.
-     * @access public
-     */
-    public function getType(): string {
-        return $this->type;
+        return $this->book_id;
     }
 
     // }}}

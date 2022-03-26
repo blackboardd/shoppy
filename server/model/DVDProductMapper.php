@@ -24,19 +24,6 @@ namespace Model\Product;
  * Interface for DVD product mapper objects.
  */
 interface DVDProductMapperInterface {
-    // {{{ get()
-
-    /**
-     * Get a DVD product by id.
-     * 
-     * @param int $id The id of the product to find.
-     * 
-     * @access public
-     * @return DVDProduct The product.
-     */
-    public function get(int $id): DVDProduct;
-
-    // }}}
     // {{{ update()
 
     /**
@@ -50,19 +37,6 @@ interface DVDProductMapperInterface {
     public function update(DVDProduct $product);
 
     // }}}
-    // {{{ delete()
-
-    /**
-     * Delete a DVD product.
-     * 
-     * @param DVDProduct $product The product to delete.
-     * 
-     * @access public
-     * @return void
-     */
-    public function delete(DVDProduct $product);
-
-    // }}}
     // {{{ create()
 
     /**
@@ -73,7 +47,7 @@ interface DVDProductMapperInterface {
      * @access public
      * @return void
      */
-    public function create(DVDProduct $product);
+    public function create(DVDProduct $product, int $product_id);
 }
 
 // }}}
@@ -97,29 +71,6 @@ class DVDProductMapper implements DVDProductMapperInterface {
     }
 
     // }}}
-    // {{{ get()
-
-    /**
-     * Get a DVD product by id.
-     * 
-     * @param int $id The id of the product to find.
-     * 
-     * @access public
-     * @return DVDProduct The product.
-     */
-    public function get(int $id): DVDProduct {
-        $query = "SELECT * FROM dvd_products WHERE dvd_product_id = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
-        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if (!$result) {
-            die("Record not found");
-        }
-
-        return DVDProduct::fromState($result);
-    }
-
-    // }}}
     // {{{ update()
 
     /**
@@ -131,35 +82,18 @@ class DVDProductMapper implements DVDProductMapperInterface {
      * @return void
      */
     public function update(DVDProduct $product) {
-        $query = "UPDATE dvd_products SET dvd_product_sku = ?, dvd_product_name = ?, dvd_product_price = ?, dvd_product_currency = ?, dvd_product_type = ?, dvd_product_size = ?, dvd_product_unit = ? WHERE dvd_product_id = ?";
+        $query = "
+            UPDATE product_dvd
+            size = ?,
+            unit = ?
+            WHERE dvd_id = ?
+        ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
-            $product->getId(),
-            $product->getSku(),
-            $product->getName(),
-            $product->getPrice(),
-            $product->getCurrency(),
-            $product->getType(),
             $product->getSize(),
-            $product->getUnit()
+            $product->getUnit(),
+            $product->getId()
         ]);
-    }
-
-    // }}}
-    // {{{ delete()
-
-    /**
-     * Delete a DVD product.
-     * 
-     * @param DVDProduct $product The product to delete.
-     * 
-     * @access public
-     * @return void
-     */
-    public function delete(DVDProduct $product) {
-        $query = "DELETE FROM dvd_products WHERE dvd_product_id = ?";
-        $stmt = $this->db->prepare($query);
-        $stmt->execute([$product->getId()]);
     }
 
     // }}}
@@ -173,16 +107,18 @@ class DVDProductMapper implements DVDProductMapperInterface {
      * @access public
      * @return void
      */
-    public function create(DVDProduct $product) {
-        $query = "INSERT INTO dvd_products (dvd_product_id, dvd_product_sku, dvd_product_name, dvd_product_price, dvd_product_currency, dvd_product_type, dvd_product_size, dvd_product_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function create(DVDProduct $product, int $product_id) {
+        $query = "
+        INSERT INTO product_dvd (
+            dvd_id,
+            product_id,
+            size,
+            unit) VALUES (?, ?, ?, ?, ?)
+        ";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),
-            $product->getSku(),
-            $product->getName(),
-            $product->getPrice(),
-            $product->getCurrency(),
-            $product->getType(),
+            $product_id,
             $product->getSize(),
             $product->getUnit()
         ]);
