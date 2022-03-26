@@ -16,8 +16,6 @@
 
 namespace Model\Product;
 
-include_once 'ProductFactory.php';
-
 // {{{ constants
 
 /**

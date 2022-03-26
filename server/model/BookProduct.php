@@ -16,8 +16,7 @@
 
 namespace Model\Product;
 
-include_once 'ProductFactory.php';
-include_once 'Symbol.php';
+use Model\Symbol;
 
 // {{{ constants
 
@@ -66,7 +65,7 @@ class BookProduct implements ProductFactory
      * Create a book product from a state.
      * 
      * @param array $state The state to create the product from.
-     * @return DVDProduct The product.
+     * @return BookProduct The product.
      * @access public
      * @static
      */

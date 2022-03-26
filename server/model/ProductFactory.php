@@ -16,7 +16,7 @@
 
 namespace Model\Product;
 
-include_once 'Symbol.php';
+use Model\Symbol;
 
 // {{{ constants
 

@@ -8,20 +8,20 @@
  * LICENSE: MIT
  *
  * @category   Product
- * @package    model\product
+ * @package    Model
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace model\product;
+namespace Model;
 
 // {{{ SymbolInterface
 
 /** 
  * Interface for symbols.
  */
-interface SymbolInterface
+interface Symbol
 {
     // {{{ getSymbol()
     public function getSymbol(): string;
