@@ -5,6 +5,13 @@
 /.pnp
 .pnp.js
 
+# ignore database folder
+/db
+
+# composer files
+composer.phar
+/vendor/
+
 # pdfs
 # *.pdf
 
