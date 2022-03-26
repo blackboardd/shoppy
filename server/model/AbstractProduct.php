@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Abstract class for product objects.
  *
@@ -24,36 +25,36 @@ include_once 'SymbolInterface.php';
  */
 enum Currency implements SymbolInterface
 {
-  case USD;
-  case EUR;
-  case GBP;
+    case USD;
+    case EUR;
+    case GBP;
 
-  // {{{ getSymbol()
+    // {{{ getSymbol()
 
-  /**
-   * Get the symbol for the currency.
-   */
-  public function getSymbol(): string
-  {
-    return match ($this) {
-      /**
-       * United States Dollar
-       */
-      Currency::USD => '$',
+    /**
+     * Get the symbol for the currency.
+     */
+    public function getSymbol(): string
+    {
+        return match ($this) {
+            /**
+             * United States Dollar
+             */
+            Currency::USD => '$',
 
-      /**
-       * Euro
-       */
-      Currency::EUR => '€',
+            /**
+             * Euro
+             */
+            Currency::EUR => '€',
 
-      /**
-       * British Pound
-       */
-      Currency::GBP => '£',
-    };
-  }
+            /**
+             * British Pound
+             */
+            Currency::GBP => '£',
+        };
+    }
 
-  // }}}
+    // }}}
 }
 
 // }}}
@@ -64,112 +65,112 @@ enum Currency implements SymbolInterface
  */
 abstract class AbstractProduct
 {
-  // {{{ properties
-  
-  /**
-   * Product ID.
-   *
-   * @var int
-   */
-  public $id;
-
-  /**
-   * Product SKU.
-   * 
-   * @var string
-   */
-  public $sku;
-
-  /**
-   * Product name.
-   * 
-   * @var string
-   */
-  public $name;
-
-  /** 
-   * Product price.
-   * 
-   * @var float
-   */
-  public $price;
-
-  /**
-   * Product currency.
-   * 
-   * @var Currency
-   */
-  public $currency;
-
-  /**
-   * Product type.
-   * 
-   * @var string
-   */
-  public $type;
-
-  // }}}
-  // {{{ __construct
-
-  /**
-   * Construct a product.
-   * 
-   * @param int $id
-   * @param string $sku
-   * @param string $name
-   * @param float $price
-   * @param string $type
-   * 
-   * @return void
-   * @access public
-   */
-  public function __construct($id, $sku, $name, $price, $type)
-  {
-    /**
-     * Initialize the product.
-     */
-    $this->id = $id;
-    $this->sku = $sku;
-    $this->name = $name;
-    $this->price = $price;
-    $this->type = $type;
+    // {{{ properties
 
     /**
-     * Set the default currency.
+     * Product ID.
+     *
+     * @var int
      */
-    self::$currency = new Currency('USD');
-  }
+    public $id;
 
-  // }}}
-  // {{{ setCurrency
+    /**
+     * Product SKU.
+     * 
+     * @var string
+     */
+    public $sku;
 
-  /**
-   * Set the currency.
-   * 
-   * @param Currency $currency
-   * 
-   * @return void
-   * @access public
-   * @static
-   */
-  public static function setCurrency($currency): void
-  {
-    self::$currency = new Currency($currency);
-  }
+    /**
+     * Product name.
+     * 
+     * @var string
+     */
+    public $name;
 
-  // }}}
-  // {{{ getContent
+    /** 
+     * Product price.
+     * 
+     * @var float
+     */
+    public $price;
 
-  /**
-   * Get the content of the product.
-   * 
-   * @return string
-   * @access public
-   * @abstract
-   */
-  abstract public function getContent(): string;
+    /**
+     * Product currency.
+     * 
+     * @var Currency
+     */
+    public $currency;
 
-  // }}}
+    /**
+     * Product type.
+     * 
+     * @var string
+     */
+    public $type;
+
+    // }}}
+    // {{{ __construct
+
+    /**
+     * Construct a product.
+     * 
+     * @param int $id
+     * @param string $sku
+     * @param string $name
+     * @param float $price
+     * @param string $type
+     * 
+     * @return void
+     * @access public
+     */
+    public function __construct($id, $sku, $name, $price, $type)
+    {
+        /**
+         * Initialize the product.
+         */
+        $this->id = $id;
+        $this->sku = $sku;
+        $this->name = $name;
+        $this->price = $price;
+        $this->type = $type;
+
+        /**
+         * Set the default currency.
+         */
+        self::$currency = new Currency('USD');
+    }
+
+    // }}}
+    // {{{ setCurrency
+
+    /**
+     * Set the currency.
+     * 
+     * @param Currency $currency
+     * 
+     * @return void
+     * @access public
+     * @static
+     */
+    public static function setCurrency($currency): void
+    {
+        self::$currency = new Currency($currency);
+    }
+
+    // }}}
+    // {{{ getContent
+
+    /**
+     * Get the content of the product.
+     * 
+     * @return string
+     * @access public
+     * @abstract
+     */
+    abstract public function getContent(): string;
+
+    // }}}
 }
 
 // }}}

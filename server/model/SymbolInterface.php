@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Symbol interface for use with product objects.
  *
@@ -22,9 +23,9 @@ namespace model\product;
  */
 interface SymbolInterface
 {
-  // {{{ getSymbol()
-  public function getSymbol(): string;
-  // }}}
+    // {{{ getSymbol()
+    public function getSymbol(): string;
+    // }}}
 }
 
 // }}}

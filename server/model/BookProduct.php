@@ -26,30 +26,30 @@ include_once 'SymbolInterface.php';
  */
 enum Weight implements SymbolInterface
 {
-  case KILOGRAMS;
-  case POUNDS;
+    case KILOGRAMS;
+    case POUNDS;
 
-  // {{{ getSymbol()
+    // {{{ getSymbol()
 
-  /**
-   * Get the symbol for the weight.
-   */
-  public function getSymbol(): string
-  {
-    return match ($this) {
-      /**
-       * kilograms
-       */
-      Weight::KILOGRAMS => 'kg',
+    /**
+     * Get the symbol for the weight.
+     */
+    public function getSymbol(): string
+    {
+        return match ($this) {
+            /**
+             * kilograms
+             */
+            Weight::KILOGRAMS => 'kg',
 
-      /**
-       * pounds
-       */
-      Weight::POUNDS => 'lbs',
-    };
-  }
+            /**
+             * pounds
+             */
+            Weight::POUNDS => 'lbs',
+        };
+    }
 
-  // }}}
+    // }}}
 }
 
 // }}}
@@ -60,69 +60,69 @@ enum Weight implements SymbolInterface
  */
 class BookProduct extends AbstractProduct
 {
-  // {{{ properties
+    // {{{ properties
 
-  /**
-   * Weight of the product.
-   * 
-   * @var float 
-   */
-  public $weight;
+    /**
+     * Weight of the product.
+     * 
+     * @var float 
+     */
+    public $weight;
 
-  /**
-   * unit of the product.
-   * 
-   * @var Weight
-   */
-  public $unit;
+    /**
+     * unit of the product.
+     * 
+     * @var Weight
+     */
+    public $unit;
 
-  // }}}
-  // {{{ __construct
+    // }}}
+    // {{{ __construct
 
-  public function __construct($id, $sku, $name, $price, $type, $weight)
-  {
-    parent::__construct($id, $sku, $name, $price, $type);
-    $this->weight = $weight;
-    $this->unit = new Weight('KILOGRAMS');
-  }
+    public function __construct($id, $sku, $name, $price, $type, $weight)
+    {
+        parent::__construct($id, $sku, $name, $price, $type);
+        $this->weight = $weight;
+        $this->unit = new Weight('KILOGRAMS');
+    }
 
-  // }}}
-  // {{{ setUnit
+    // }}}
+    // {{{ setUnit
 
-  /**
-   * Set the unit of the product.
-   * 
-   * @param string $unit
-   *  The unit of the product.
-   * 
-   * @return void
-   * @access public
-   */
-  public function setUnit($unit): void
-  {
-    $this->unit = new Weight($unit);
-  }
-  
-  // }}}
-  // {{{ getContent
+    /**
+     * Set the unit of the product.
+     * 
+     * @param string $unit
+     *  The unit of the product.
+     * 
+     * @return void
+     * @access public
+     */
+    public function setUnit($unit): void
+    {
+        $this->unit = new Weight($unit);
+    }
 
-  /**
-   * Get the content of the product.
-   * 
-   * @return string
-   * @access public
-   */
-  public function getContent(): string
-  {
-    return "
+    // }}}
+    // {{{ getContent
+
+    /**
+     * Get the content of the product.
+     * 
+     * @return string
+     * @access public
+     */
+    public function getContent(): string
+    {
+        return "
     {$this->sku}
     {$this->name}
     {$this->currency}{$this->price}
     {$this->type}: {$this->weight}{$this->unit}
     ";
-  }
+    }
 
-  // }}}
+    // }}}
 }
 
 // }}}
