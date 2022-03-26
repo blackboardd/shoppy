@@ -1,22 +1,22 @@
 <?php
 
 /**
- * Abstract class for product objects.
+ * DVD product class.
  *
  * PHP version 8.1
  *
  * LICENSE: MIT
  *
  * @category   Product
- * @package    model\product
+ * @package    Model\Product
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace model\product;
+namespace Model\Product;
 
-include_once 'AbstractProduct.php';
+include_once 'ProductFactory.php';
 
 // {{{ constants
 
@@ -58,31 +58,39 @@ enum Size
 }
 
 // }}}
-// {{{ AbstractProduct
+// {{{ DVDProduct
 
 /**
  * Class for DVD product objects.
  */
-class DVDProduct extends AbstractProduct
+class DVDProduct implements ProductFactory
 {
-    // {{{ properties
-
+    // {{{ fromState
+    
     /**
-     * Size of the product.
+     * Create a DVD product from a state.
      * 
-     * @var float
+     * @param array $state The state to create the product from.
+     * @return DVDProduct The product.
+     * @access public
+     * @static
      */
-    public $size;
-
-    /**
-     * Unit of the product.
-     * 
-     * @var Size
-     */
-    public $unit;
+    public static function fromState(array $state): DVDProduct
+    {
+        return new self(
+            $state['id'],
+            $state['sku'],
+            $state['name'],
+            $state['price'],
+            $state['currency'],
+            $state['type'],
+            $state['size'],
+            $state['unit']
+        );
+    }
 
     // }}}
-    // {{{ getSymbol()
+    // {{{ __construct
 
     /**
      * Construct a DVD product.
@@ -91,55 +99,136 @@ class DVDProduct extends AbstractProduct
      * @param string $sku The product's SKU.
      * @param string $name The product's name.
      * @param float $price The product's price.
+     * @param Currency $currency The product's currency.
      * @param string $type The product's type.
      * @param float $size The product's size.
+     * @param Size $unit The product's size unit.
      * 
      * @return void
      * @access public
      */
-    public function __construct($id, $sku, $name, $price, $type, $size)
-    {
-        parent::__construct($id, $sku, $name, $price, $type);
-        $this->size = $size;
-        
-        /**
-         * Sets the default unit.
-         */
-        $this->unit = new Size('MEGABYTES');
+    public function __construct(
+        private int $id,
+        private string $sku,
+        private string $name,
+        private float $price,
+        private Currency $currency,
+        private string $type,
+        private float $size,
+        private Size $unit
+    ) {
     }
 
     // }}}
-    // {{{ setUnit()
-
-    /**
-     * Set the unit of the product.
-     * 
-     * @param Size $unit
-     * @return void
-     * @access public
-     */
-    public function setUnit($unit)
-    {
-        $this->unit = new Weight($unit);
-    }
-
-    // }}}
-    // {{{ getContent()
+    // {{{ getId()
     
     /**
-     * Get the content of the product.
-     * 
-     * @return string
+     * Get the product's id.
+     *
+     * @return int The product's id.
      * @access public
      */
-    public function getContent(): string
+    public function getId(): int
     {
-        return "
-    {$this->sku}
-    {$this->name}
-    {$this->currency}{$this->price}
-    {$this->type}: {$this->size}{$this->unit}
-    ";
+        return $this->id;
+    }
+
+    // }}}
+    // {{{ getSku()
+    
+    /**
+     * Get the product's SKU.
+     *
+     * @return string The product's SKU.
+     * @access public
+     */
+    public function getSku(): string
+    {
+        return $this->sku;
+    }
+
+    // }}}
+    // {{{ getName()
+    
+    /**
+     * Get the product's name.
+     *
+     * @return string The product's name.
+     * @access public
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    // }}}
+    // {{{ getPrice()
+    
+    /**
+     * Get the product's price.
+     *
+     * @return float The product's price.
+     * @access public
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    // }}}
+    // {{{ getCurrency()
+    
+    /**
+     * Get the product's currency.
+     *
+     * @return Currency The product's currency.
+     * @access public
+     */
+    public function getCurrency(): Currency
+    {
+        return new Currency($this->currency);
+    }
+
+    // }}}
+    // {{{ getType()
+    
+    /**
+     * Get the product's type.
+     *
+     * @return string The product's type.
+     * @access public
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    // }}}
+    // {{{ getSize()
+    
+    /**
+     * Get the product's size.
+     *
+     * @return float The product's size.
+     * @access public
+     */
+    public function getSize(): float
+    {
+        return $this->size;
+    }
+
+    // }}}
+    // {{{ getUnit()
+    
+    /**
+     * Get the product's size unit.
+     *
+     * @return Size The product's size unit.
+     * @access public
+     */
+    public function getUnit(): Size
+    {
+        return new Size($this->unit);
     }
 
     // }}}
