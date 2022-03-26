@@ -75,7 +75,7 @@ class DVDProduct extends AbstractProduct
     public $size;
 
     /**
-     * unit of the product.
+     * Unit of the product.
      * 
      * @var Size
      */
@@ -85,12 +85,26 @@ class DVDProduct extends AbstractProduct
     // {{{ getSymbol()
 
     /**
-     * Get the symbol for the size.
+     * Construct a DVD product.
+     * 
+     * @param int $id The product's id.
+     * @param string $sku The product's SKU.
+     * @param string $name The product's name.
+     * @param float $price The product's price.
+     * @param string $type The product's type.
+     * @param float $size The product's size.
+     * 
+     * @return void
+     * @access public
      */
     public function __construct($id, $sku, $name, $price, $type, $size)
     {
         parent::__construct($id, $sku, $name, $price, $type);
         $this->size = $size;
+        
+        /**
+         * Sets the default unit.
+         */
         $this->unit = new Size('MEGABYTES');
     }
 

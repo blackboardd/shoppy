@@ -115,11 +115,11 @@ abstract class AbstractProduct
     /**
      * Construct a product.
      * 
-     * @param int $id
-     * @param string $sku
-     * @param string $name
-     * @param float $price
-     * @param string $type
+     * @param int $id The product's id.
+     * @param string $sku The product's SKU.
+     * @param string $name The product's name.
+     * @param float $price The product's price.
+     * @param string $type The product's type.
      * 
      * @return void
      * @access public
@@ -147,7 +147,7 @@ abstract class AbstractProduct
     /**
      * Set the currency.
      * 
-     * @param Currency $currency
+     * @param Currency $currency The currency to set.
      * 
      * @return void
      * @access public

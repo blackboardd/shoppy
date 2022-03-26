@@ -70,7 +70,7 @@ class BookProduct extends AbstractProduct
     public $weight;
 
     /**
-     * unit of the product.
+     * Unit of the product.
      * 
      * @var Weight
      */
@@ -79,10 +79,27 @@ class BookProduct extends AbstractProduct
     // }}}
     // {{{ __construct
 
+    /**
+     * Construct a product.
+     * 
+     * @param int $id The product's id.
+     * @param string $sku The product's SKU.
+     * @param string $name The product's name.
+     * @param float $price The product's price.
+     * @param string $type The product's type.
+     * @param float $weight The product's weight.
+     * 
+     * @return void
+     * @access public
+     */
     public function __construct($id, $sku, $name, $price, $type, $weight)
     {
         parent::__construct($id, $sku, $name, $price, $type);
         $this->weight = $weight;
+
+        /**
+         * Sets the default unit.
+         */
         $this->unit = new Weight('KILOGRAMS');
     }
 
