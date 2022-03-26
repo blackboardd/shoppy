@@ -1,9 +1,22 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+# vs code
+.vscode/
+
 # dependencies
 /client/node_modules
 /.pnp
 .pnp.js
+
+# ignore database folder
+/db
+
+# composer files
+composer.phar
+/server/vendor/
+
+# pdfs
+# *.pdf
 
 # testing
 /coverage
@@ -11,6 +24,10 @@
 # production
 /build
 client/build
+
+# environmental variables
+server/.env
+.env
 
 # misc
 .DS_Store

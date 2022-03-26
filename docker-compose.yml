@@ -1,49 +1,64 @@
-version: '3'
+version: "3.8"
 services:
-    web:
-        image: nginx:latest
+    nginx:
+        image: nginx:alpine
+        container_name: nginx-container
         ports:
-            - "80:80"
+            - 8000:80
+        links:
+            - php
         volumes:
-            - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
-            - ./app:/app
-    server:
-        build:
-            context: ./server
-            dockerfile: Dockerfile
+            - ./server:/var/www
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+    php:
+        build: .
+        container_name: php-container
+        expose:
+            - 9000
+        links:
+            - mysql
+        working_dir: /var/www/
         volumes:
-            - ./server:/app
+            - ./server:/var/www
+        networks:
+            - app-network
     mysql:
-        image: mariadb:latest
-        environment:
-            MYSQL_ROOT_PASSWORD: 'secret'
-            MYSQL_USER: 'tutorial'
-            MYSQL_PASSWORD: 'secret'
-            MYSQL_DATABASE: 'tutorial'
-        volumes:
-            - mysqldata:/var/lib/mysql
+        image: mysql:8
+        container_name: mysql-container
         ports:
             - 3306:3306
-    client:
-      stdin_open: true
-      environment:
-        - CHOKIDAR_USEPOLLING=true
-      build:
-        dockerfile: Dockerfile
-        context: ./client
-      volumes:
-        - /app/node_modules
-        - ./client:/app
-      ports:
-        - "3000:3000"
+        volumes:
+            - ./db:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        networks:
+            - app-network
     adminer:
-      image: adminer:latest
-      restart: unless-stopped
-      ports:
-        - 8000:8080
-      depends_on:
-        - mysql
-      environment:
-        ADMINER_DEFAULT_SERVER: mysql
-volumes:
-    mysqldata: {}
+        image: adminer:latest
+        container_name: adminer-container
+        environment:
+            ADMINER_DEFAULT_SERVER: mysql
+            ADMINER_DESIGN: hydra
+        restart: always
+        links:
+            - mysql
+        ports:
+            - 8080:8080
+        networks:
+            - app-network
+    composer:
+        image: composer:2.3
+        container_name: composer-container
+        command: ["composer", "install"]
+        working_dir: /var/www/
+        volumes:
+            - ./server:/var/www
+
+networks:
+    app-network:
+        driver: bridge
