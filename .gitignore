@@ -10,7 +10,7 @@
 
 # composer files
 composer.phar
-/vendor/
+/server/vendor/
 
 # pdfs
 # *.pdf
