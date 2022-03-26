@@ -23,10 +23,9 @@ namespace Model\Product;
 /**
  * Interface for DVD product mapper objects.
  */
-interface DVDProductMapperInterface
-{
+interface DVDProductMapperInterface {
     // {{{ get()
-    
+
     /**
      * Get a DVD product by id.
      * 
@@ -39,7 +38,7 @@ interface DVDProductMapperInterface
 
     // }}}
     // {{{ update()
-    
+
     /**
      * Update a DVD product.
      * 
@@ -65,7 +64,7 @@ interface DVDProductMapperInterface
 
     // }}}
     // {{{ create()
-    
+
     /**
      * Create a DVD product.
      * 
@@ -83,8 +82,7 @@ interface DVDProductMapperInterface
 /**
  * Class for DVD product objects.
  */
-class DVDProductMapper implements DVDProductMapperInterface
-{
+class DVDProductMapper implements DVDProductMapperInterface {
     // {{{ __construct()
 
     /**
@@ -95,13 +93,12 @@ class DVDProductMapper implements DVDProductMapperInterface
      * @access public
      * @return void
      */
-    public function __construct(private \PDO $db)
-    {
+    public function __construct(private \PDO $db) {
     }
 
     // }}}
     // {{{ get()
-    
+
     /**
      * Get a DVD product by id.
      * 
@@ -110,9 +107,8 @@ class DVDProductMapper implements DVDProductMapperInterface
      * @access public
      * @return DVDProduct The product.
      */
-    public function get(int $id): DVDProduct
-    {
-        $query = "SELECT * FROM dvd_products WHERE id = ?";
+    public function get(int $id): DVDProduct {
+        $query = "SELECT * FROM dvd_products WHERE dvd_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -125,7 +121,7 @@ class DVDProductMapper implements DVDProductMapperInterface
 
     // }}}
     // {{{ update()
-    
+
     /**
      * Update a DVD product.
      * 
@@ -134,9 +130,8 @@ class DVDProductMapper implements DVDProductMapperInterface
      * @access public
      * @return void
      */
-    public function update(DVDProduct $product)
-    {
-        $query = "UPDATE dvd_products SET sku = ?, name = ?, price = ?, currency = ?, type = ?, size = ?, unit = ? WHERE id = ?";
+    public function update(DVDProduct $product) {
+        $query = "UPDATE dvd_products SET dvd_product_sku = ?, dvd_product_name = ?, dvd_product_price = ?, dvd_product_currency = ?, dvd_product_type = ?, dvd_product_size = ?, dvd_product_unit = ? WHERE dvd_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),
@@ -149,7 +144,7 @@ class DVDProductMapper implements DVDProductMapperInterface
             $product->getUnit()
         ]);
     }
-    
+
     // }}}
     // {{{ delete()
 
@@ -161,16 +156,15 @@ class DVDProductMapper implements DVDProductMapperInterface
      * @access public
      * @return void
      */
-    public function delete(DVDProduct $product)
-    {
-        $query = "DELETE FROM dvd_products WHERE id = ?";
+    public function delete(DVDProduct $product) {
+        $query = "DELETE FROM dvd_products WHERE dvd_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$product->getId()]);
     }
-    
+
     // }}}
     // {{{ create()
-    
+
     /**
      * Create a DVD product.
      * 
@@ -179,9 +173,8 @@ class DVDProductMapper implements DVDProductMapperInterface
      * @access public
      * @return void
      */
-    public function create(DVDProduct $product)
-    {
-        $query = "INSERT INTO dvd_products (id, sku, name, price, currency, type, size, unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function create(DVDProduct $product) {
+        $query = "INSERT INTO dvd_products (dvd_product_id, dvd_product_sku, dvd_product_name, dvd_product_price, dvd_product_currency, dvd_product_type, dvd_product_size, dvd_product_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),

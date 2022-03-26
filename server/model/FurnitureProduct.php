@@ -23,8 +23,7 @@ include_once 'ProductFactory.php';
 /**
  * Class for furniture product objects. 
  */
-class FurnitureProduct implements ProductFactory
-{
+class FurnitureProduct implements ProductFactory {
     // {{{ fromState
 
     /**
@@ -35,8 +34,7 @@ class FurnitureProduct implements ProductFactory
      * @access public
      * @static
      */
-    public static function fromState(array $state): FurnitureProduct
-    {
+    public static function fromState(array $state): FurnitureProduct {
         return new self(
             $state['id'],
             $state['sku'],
@@ -60,7 +58,7 @@ class FurnitureProduct implements ProductFactory
      * @param string $sku The product's SKU.
      * @param string $name The product's name.
      * @param float $price The product's price.
-     * @param Currency $currency The product's currency.
+     * @param string $currency The product's currency.
      * @param string $type The product's type.
      * @param float $width The product's width.
      * @param float $height The product's height.
@@ -74,7 +72,7 @@ class FurnitureProduct implements ProductFactory
         private string $sku,
         private string $name,
         private float $price,
-        private Currency $currency,
+        private string $currency,
         private string $type,
         private float $width,
         private float $height,
@@ -91,8 +89,7 @@ class FurnitureProduct implements ProductFactory
      * @return int The product's id.
      * @access public
      */
-    public function getId(): int
-    {
+    public function getId(): int {
         return $this->id;
     }
 
@@ -105,8 +102,7 @@ class FurnitureProduct implements ProductFactory
      * @return string The product's SKU.
      * @access public
      */
-    public function getSku(): string
-    {
+    public function getSku(): string {
         return $this->sku;
     }
 
@@ -119,8 +115,7 @@ class FurnitureProduct implements ProductFactory
      * @return string The product's name.
      * @access public
      */
-    public function getName(): string
-    {
+    public function getName(): string {
         return $this->name;
     }
 
@@ -133,8 +128,7 @@ class FurnitureProduct implements ProductFactory
      * @return float The product's price.
      * @access public
      */
-    public function getPrice(): float
-    {
+    public function getPrice(): float {
         return $this->price;
     }
 
@@ -144,11 +138,10 @@ class FurnitureProduct implements ProductFactory
     /**
      * Get the product's currency.
      * 
-     * @return Currency The product's currency.
+     * @return string The product's currency.
      * @access public
      */
-    public function getCurrency(): Currency
-    {
+    public function getCurrency(): string {
         return $this->currency;
     }
 
@@ -161,8 +154,7 @@ class FurnitureProduct implements ProductFactory
      * @return string The product's type.
      * @access public
      */
-    public function getType(): string
-    {
+    public function getType(): string {
         return $this->type;
     }
 
@@ -175,8 +167,7 @@ class FurnitureProduct implements ProductFactory
      * @return float The product's width.
      * @access public
      */
-    public function getWidth(): float
-    {
+    public function getWidth(): float {
         return $this->width;
     }
 
@@ -189,8 +180,7 @@ class FurnitureProduct implements ProductFactory
      * @return float The product's height.
      * @access public
      */
-    public function getHeight(): float
-    {
+    public function getHeight(): float {
         return $this->height;
     }
 
@@ -203,8 +193,7 @@ class FurnitureProduct implements ProductFactory
      * @return float The product's length.
      * @access public
      */
-    public function getLength(): float
-    {
+    public function getLength(): float {
         return $this->length;
     }
 

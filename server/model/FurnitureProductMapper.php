@@ -23,8 +23,7 @@ namespace Model\Product;
 /**
  * Interface for furniture product mapper objects.
  */
-interface FurnitureProductMapperInterface
-{
+interface FurnitureProductMapperInterface {
     // {{{ get()
 
     /**
@@ -83,8 +82,7 @@ interface FurnitureProductMapperInterface
 /**
  * Class for furniture product objects.
  */
-class FurnitureProductMapper implements FurnitureProductMapperInterface
-{
+class FurnitureProductMapper implements FurnitureProductMapperInterface {
     // {{{ __construct()
 
     /**
@@ -95,8 +93,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface
      * @access public
      * @return void
      */
-    public function __construct(private \PDO $db)
-    {
+    public function __construct(private \PDO $db) {
     }
 
     // }}}
@@ -110,9 +107,8 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface
      * @access public
      * @return FurnitureProduct The product.
      */
-    public function get(int $id): FurnitureProduct
-    {
-        $query = "SELECT * FROM furniture_products WHERE id = ?";
+    public function get(int $id): FurnitureProduct {
+        $query = "SELECT * FROM furniture_products WHERE furniture_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -134,9 +130,8 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface
      * @access public
      * @return void
      */
-    public function update(FurnitureProduct $product)
-    {
-        $query = "UPDATE furniture_products SET sku = ?, name = ?, price = ?, currency = ?, type = ?, width = ?, height = ?, length = ? WHERE id = ?";
+    public function update(FurnitureProduct $product) {
+        $query = "UPDATE furniture_products SET furniture_product_sku = ?, furniture_product_name = ?, furniture_product_price = ?, furniture_product_currency = ?, furniture_product_type = ?, furniture_product_width = ?, furniture_product_height = ?, furniture_product_length = ? WHERE furniture_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getSku(),
@@ -162,9 +157,8 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface
      * @access public
      * @return void
      */
-    public function delete(FurnitureProduct $product)
-    {
-        $query = "DELETE FROM furniture_products WHERE id = ?";
+    public function delete(FurnitureProduct $product) {
+        $query = "DELETE FROM furniture_products WHERE furniture_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$product->getId()]);
     }
@@ -180,9 +174,8 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface
      * @access public
      * @return void
      */
-    public function create(FurnitureProduct $product)
-    {
-        $query = "INSERT INTO furniture_products (id, sku, name, price, currency, type, width, height, length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function create(FurnitureProduct $product) {
+        $query = "INSERT INTO furniture_products (furniture_product_id, furniture_product_sku, furniture_product_name, furniture_product_price, furniture_product_currency, furniture_product_type, furniture_product_width, furniture_product_height, furniture_product_length) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),

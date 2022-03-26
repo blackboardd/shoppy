@@ -26,10 +26,9 @@ use RecordNotFoundException;
 /**
  * Interface for book product mapper objects.
  */
-interface BookProductMapperInterface
-{
+interface BookProductMapperInterface {
     // {{{ get()
-    
+
     /**
      * Get a book product by id.
      * 
@@ -42,7 +41,7 @@ interface BookProductMapperInterface
 
     // }}}
     // {{{ update()
-    
+
     /**
      * Update a book product.
      * 
@@ -68,7 +67,7 @@ interface BookProductMapperInterface
 
     // }}}
     // {{{ create()
-    
+
     /**
      * Create a book product.
      * 
@@ -86,8 +85,7 @@ interface BookProductMapperInterface
 /**
  * Class for book product objects.
  */
-class BookProductMapper implements BookProductMapperInterface
-{
+class BookProductMapper implements BookProductMapperInterface {
     // {{{ __construct()
 
     /**
@@ -98,13 +96,12 @@ class BookProductMapper implements BookProductMapperInterface
      * @access public
      * @return void
      */
-    public function __construct(private \PDO $db)
-    {
+    public function __construct(private \PDO $db) {
     }
 
     // }}}
     // {{{ get()
-    
+
     /**
      * Get a book product by id.
      * 
@@ -113,9 +110,8 @@ class BookProductMapper implements BookProductMapperInterface
      * @access public
      * @return BookProduct The product.
      */
-    public function get(int $id): BookProduct
-    {
-        $query = "SELECT * FROM book_products WHERE id = ?";
+    public function get(int $id): BookProduct {
+        $query = "SELECT * FROM book_products WHERE book_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -128,7 +124,7 @@ class BookProductMapper implements BookProductMapperInterface
 
     // }}}
     // {{{ update()
-    
+
     /**
      * Update a book product.
      * 
@@ -137,9 +133,8 @@ class BookProductMapper implements BookProductMapperInterface
      * @access public
      * @return void
      */
-    public function update(BookProduct $product)
-    {
-        $query = "UPDATE book_products SET sku = ?, name = ?, price = ?, currency = ?, type = ?, weight = ?, unit = ? WHERE id = ?";
+    public function update(BookProduct $product) {
+        $query = "UPDATE book_products SET book_product_sku = ?, book_product_name = ?, book_product_price = ?, book_product_currency = ?, book_product_type = ?, book_product_weight = ?, book_product_unit = ? WHERE book_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getSku(),
@@ -152,7 +147,7 @@ class BookProductMapper implements BookProductMapperInterface
             $product->getId()
         ]);
     }
-    
+
     // }}}
     // {{{ delete()
 
@@ -164,16 +159,15 @@ class BookProductMapper implements BookProductMapperInterface
      * @access public
      * @return void
      */
-    public function delete(BookProduct $product)
-    {
-        $query = "DELETE FROM book_products WHERE id = ?";
+    public function delete(BookProduct $product) {
+        $query = "DELETE FROM book_products WHERE book_product_id = ?";
         $stmt = $this->db->prepare($query);
         $stmt->execute([$product->getId()]);
     }
-    
+
     // }}}
     // {{{ create()
-    
+
     /**
      * Create a book product.
      * 
@@ -182,9 +176,8 @@ class BookProductMapper implements BookProductMapperInterface
      * @access public
      * @return void
      */
-    public function create(BookProduct $product)
-    {
-        $query = "INSERT INTO book_products (id, sku, name, price, currency, type, weight, unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    public function create(BookProduct $product) {
+        $query = "INSERT INTO book_products (book_product_id, book_product_sku, book_product_name, book_product_price, book_product_currency, book_product_type, book_product_weight, book_product_unit) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),

@@ -16,46 +16,18 @@
 
 namespace Model\Product;
 
-use Model\Symbol;
-
 // {{{ constants
 
 /**
- * Enum for currency symbols.
+ * Currency symbols.
  */
-enum Currency implements Symbol
-{
-    case USD;
-    case EUR;
-    case GBP;
+$currency = array(
+    'USD' => '$',
+    'EUR' => '€',
+    'GBP' => '£',
+);
 
-    // {{{ getSymbol()
-
-    /**
-     * Get the symbol for the currency.
-     */
-    public function getSymbol(): string
-    {
-        return match ($this) {
-            /**
-             * United States Dollar
-             */
-            Currency::USD => '$',
-
-            /**
-             * Euro
-             */
-            Currency::EUR => '€',
-
-            /**
-             * British Pound
-             */
-            Currency::GBP => '£',
-        };
-    }
-
-    // }}}
-}
+$GLOBALS['currency'] = $currency;
 
 // }}}
 // {{{ ProductFactory
@@ -63,10 +35,9 @@ enum Currency implements Symbol
 /**
  * Factory for product objects.
  */
-interface ProductFactory
-{
+interface ProductFactory {
     // {{{ getId()
-    
+
     /**
      * Get the product's id.
      *
@@ -77,7 +48,7 @@ interface ProductFactory
 
     // }}}
     // {{{ getSku()
-    
+
     /**
      * Get the product's SKU.
      *
@@ -88,7 +59,7 @@ interface ProductFactory
 
     // }}}
     // {{{ getName()
-    
+
     /**
      * Get the product's name.
      *
@@ -99,7 +70,7 @@ interface ProductFactory
 
     // }}}
     // {{{ getPrice()
-    
+
     /**
      * Get the product's price.
      *
@@ -110,18 +81,18 @@ interface ProductFactory
 
     // }}}
     // {{{ getCurrency()
-    
+
     /**
      * Get the product's currency.
      *
-     * @return Currency The product's currency.
+     * @return string The product's currency.
      * @access public
      */
-    public function getCurrency(): Currency;
+    public function getCurrency(): string;
 
     // }}}
     // {{{ getType()
-    
+
     /**
      * Get the product's type.
      *

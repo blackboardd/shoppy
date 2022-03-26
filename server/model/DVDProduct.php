@@ -16,44 +16,20 @@
 
 namespace Model\Product;
 
+include_once 'ProductFactory.php';
+
 // {{{ constants
 
 /**
- * Enum for size symbols.
+ * Size units.
  */
-enum Size
-{
-    case KILOBYTES;
-    case MEGABYTES;
-    case GIGABYTES;
+$weight = array(
+    "Kilobytes" => "KBs",
+    "Megabytes" => "MBs",
+    "Gigabytes" => "GBs",
+);
 
-    // {{{ getSymbol()
-
-    /**
-     * Get the symbol for the size.
-     */
-    public function getSymbol(): string
-    {
-        return match ($this) {
-            /**
-             * kilobytes
-             */
-            Size::KILOBYTES => 'kbs',
-
-            /**
-             * megabytes
-             */
-            Size::MEGABYTES => 'mbs',
-
-            /**
-             * gigabytes
-             */
-            Size::GIGABYTES => 'gbs',
-        };
-    }
-
-    // }}}
-}
+$GLOBALS['size'] = $size;
 
 // }}}
 // {{{ DVDProduct
@@ -61,10 +37,9 @@ enum Size
 /**
  * Class for DVD product objects.
  */
-class DVDProduct implements ProductFactory
-{
+class DVDProduct implements ProductFactory {
     // {{{ fromState
-    
+
     /**
      * Create a DVD product from a state.
      * 
@@ -73,8 +48,7 @@ class DVDProduct implements ProductFactory
      * @access public
      * @static
      */
-    public static function fromState(array $state): DVDProduct
-    {
+    public static function fromState(array $state): DVDProduct {
         return new self(
             $state['id'],
             $state['sku'],
@@ -97,10 +71,10 @@ class DVDProduct implements ProductFactory
      * @param string $sku The product's SKU.
      * @param string $name The product's name.
      * @param float $price The product's price.
-     * @param Currency $currency The product's currency.
+     * @param string $currency The product's currency.
      * @param string $type The product's type.
      * @param float $size The product's size.
-     * @param Size $unit The product's size unit.
+     * @param string $unit The product's size unit.
      * 
      * @return void
      * @access public
@@ -110,123 +84,115 @@ class DVDProduct implements ProductFactory
         private string $sku,
         private string $name,
         private float $price,
-        private Currency $currency,
+        private string $currency,
         private string $type,
         private float $size,
-        private Size $unit
+        private string $unit
     ) {
     }
 
     // }}}
     // {{{ getId()
-    
+
     /**
      * Get the product's id.
      *
      * @return int The product's id.
      * @access public
      */
-    public function getId(): int
-    {
+    public function getId(): int {
         return $this->id;
     }
 
     // }}}
     // {{{ getSku()
-    
+
     /**
      * Get the product's SKU.
      *
      * @return string The product's SKU.
      * @access public
      */
-    public function getSku(): string
-    {
+    public function getSku(): string {
         return $this->sku;
     }
 
     // }}}
     // {{{ getName()
-    
+
     /**
      * Get the product's name.
      *
      * @return string The product's name.
      * @access public
      */
-    public function getName(): string
-    {
+    public function getName(): string {
         return $this->name;
     }
 
     // }}}
     // {{{ getPrice()
-    
+
     /**
      * Get the product's price.
      *
      * @return float The product's price.
      * @access public
      */
-    public function getPrice(): float
-    {
+    public function getPrice(): float {
         return $this->price;
     }
 
     // }}}
     // {{{ getCurrency()
-    
+
     /**
      * Get the product's currency.
      *
-     * @return Currency The product's currency.
+     * @return string The product's currency.
      * @access public
      */
-    public function getCurrency(): Currency
-    {
-        return new Currency($this->currency);
+    public function getCurrency(): string {
+        return $this->currency;
     }
 
     // }}}
     // {{{ getType()
-    
+
     /**
      * Get the product's type.
      *
      * @return string The product's type.
      * @access public
      */
-    public function getType(): string
-    {
+    public function getType(): string {
         return $this->type;
     }
 
     // }}}
     // {{{ getSize()
-    
+
     /**
      * Get the product's size.
      *
      * @return float The product's size.
      * @access public
      */
-    public function getSize(): float
-    {
+    public function getSize(): float {
         return $this->size;
     }
 
     // }}}
     // {{{ getUnit()
-    
+
     /**
      * Get the product's size unit.
      *
-     * @return Size The product's size unit.
+     * @return string The product's size unit.
      * @access public
      */
-    public function getUnit(): Size
-    {
-        return new Size($this->unit);
+    public function getUnit(): string {
+        return $this->unit;
     }
 
     // }}}

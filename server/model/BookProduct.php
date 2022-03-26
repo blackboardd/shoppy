@@ -16,40 +16,19 @@
 
 namespace Model\Product;
 
-use Model\Symbol;
+include_once 'ProductFactory.php';
 
 // {{{ constants
 
 /**
- * Enum for weight symbols.
+ * Weight units.
  */
-enum Weight implements Symbol
-{
-    case KILOGRAMS;
-    case POUNDS;
+$weight = array(
+    'kilograms' => 'kgs',
+    'pounds' => 'lbs',
+);
 
-    // {{{ getSymbol()
-
-    /**
-     * Get the symbol for the weight.
-     */
-    public function getSymbol(): string
-    {
-        return match ($this) {
-            /**
-             * kilograms
-             */
-            Weight::KILOGRAMS => 'kg',
-
-            /**
-             * pounds
-             */
-            Weight::POUNDS => 'lbs',
-        };
-    }
-
-    // }}}
-}
+$GLOBALS['weight'] = $weight;
 
 // }}}
 // {{{ BookProduct
@@ -57,8 +36,7 @@ enum Weight implements Symbol
 /**
  * Class for book product objects.
  */
-class BookProduct implements ProductFactory
-{
+class BookProduct implements ProductFactory {
     // {{{ fromState
 
     /**
@@ -69,8 +47,7 @@ class BookProduct implements ProductFactory
      * @access public
      * @static
      */
-    public static function fromState(array $state): BookProduct
-    {
+    public static function fromState(array $state): BookProduct {
         return new self(
             $state['id'],
             $state['sku'],
@@ -93,10 +70,10 @@ class BookProduct implements ProductFactory
      * @param string $sku The product's SKU.
      * @param string $name The product's name.
      * @param float $price The product's price.
-     * @param Currency $currency The product's currency.
+     * @param string $currency The product's currency.
      * @param string $type The product's type.
      * @param float $weight The product's weight.
-     * @param Weight $unit The product's weight unit.
+     * @param string $unit The product's weight unit.
      * 
      * @return void
      * @access public
@@ -106,10 +83,10 @@ class BookProduct implements ProductFactory
         private string $sku,
         private string $name,
         private float $price,
-        private Currency $currency,
+        private string $currency,
         private string $type,
         private float $weight,
-        private Weight $unit
+        private string $unit
     ) {
     }
 
@@ -122,8 +99,7 @@ class BookProduct implements ProductFactory
      * @return int The product's id.
      * @access public
      */
-    public function getId(): int
-    {
+    public function getId(): int {
         return $this->id;
     }
 
@@ -136,8 +112,7 @@ class BookProduct implements ProductFactory
      * @return string The product's SKU.
      * @access public
      */
-    public function getSku(): string
-    {
+    public function getSku(): string {
         return $this->sku;
     }
 
@@ -150,8 +125,7 @@ class BookProduct implements ProductFactory
      * @return string The product's name.
      * @access public
      */
-    public function getName(): string
-    {
+    public function getName(): string {
         return $this->name;
     }
 
@@ -164,8 +138,7 @@ class BookProduct implements ProductFactory
      * @return float The product's price.
      * @access public
      */
-    public function getPrice(): float
-    {
+    public function getPrice(): float {
         return $this->price;
     }
 
@@ -175,11 +148,10 @@ class BookProduct implements ProductFactory
     /**
      * Get the product's currency.
      * 
-     * @return Currency The product's currency.
+     * @return string The product's currency.
      * @access public
      */
-    public function getCurrency(): Currency
-    {
+    public function getCurrency(): string {
         return $this->currency;
     }
 
@@ -192,8 +164,7 @@ class BookProduct implements ProductFactory
      * @return string The product's type.
      * @access public
      */
-    public function getType(): string
-    {
+    public function getType(): string {
         return $this->type;
     }
 
@@ -206,8 +177,7 @@ class BookProduct implements ProductFactory
      * @return float The product's weight.
      * @access public
      */
-    public function getWeight(): float
-    {
+    public function getWeight(): float {
         return $this->weight;
     }
 
@@ -217,11 +187,10 @@ class BookProduct implements ProductFactory
     /**
      * Get the product's weight unit.
      * 
-     * @return Weight The product's weight unit.
+     * @return string The product's weight unit.
      * @access public
      */
-    public function getUnit(): Weight
-    {
+    public function getUnit(): string {
         return $this->unit;
     }
 
