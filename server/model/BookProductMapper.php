@@ -21,7 +21,7 @@ namespace Shoppy\Model\Product;
 // {{{ BookProductMapperInterface
 
 /**
- * Interface for Book product mapper objects.
+ * Interface for book product mapper objects.
  */
 interface BookProductMapperInterface {
     // {{{ get()
@@ -29,25 +29,26 @@ interface BookProductMapperInterface {
     /**
      * Get a book product by id.
      * 
-     * @param int $id The id of the product to find.
+     * @param int $product_id The id of the product to find.
      * 
      * @access public
      * @return BookProduct The product.
      */
-    public function get(int $id): BookProduct;
+    public function get(int $product_id): BookProduct;
 
     // }}}
     // {{{ update()
 
     /**
-     * Update a Book product.
+     * Update a book product.
      * 
      * @param BookProduct $product The product to update.
+     * @param int $product_id The id of the product to update.
      * 
      * @access public
      * @return void
      */
-    public function update(BookProduct $product);
+    public function update(BookProduct $product, int $product_id);
 
     // }}}
     // {{{ delete()
@@ -66,7 +67,7 @@ interface BookProductMapperInterface {
     // {{{ create()
 
     /**
-     * Create a Book product.
+     * Create a book product.
      * 
      * @param BookProduct $product The product to create.
      * 
@@ -102,15 +103,47 @@ class BookProductMapper implements BookProductMapperInterface {
     /**
      * Get a product by id.
      * 
-     * @param int $id The id of the product to find.
+     * @param int $product_id The id of the product to find.
      * 
      * @access public
      * @return BookProduct The product.
      */
-    public function get(int $id): BookProduct {
-        $query = "SELECT * FROM book_product WHERE product_id = ?";
+    public function get(int $product_id): BookProduct {
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
+        $query = "SELECT * FROM book_product WHERE product_id = :id";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_GET,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        /**
+         * Fetches the product from the database.
+         */
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if (!$result) {
             die("Record not found");
@@ -126,23 +159,81 @@ class BookProductMapper implements BookProductMapperInterface {
      * Update a book product.
      * 
      * @param BookProduct $product The product to update.
+     * @param int $product_id The id of the product to update.
      * 
      * @access public
      * @return void
      */
-    public function update(BookProduct $product) {
+    public function update(BookProduct $product, int $product_id) {
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
         $query = "
             UPDATE product_book
-            weight = ?,
-            unit = ?
-            WHERE book_id = ?
+            weight = :weight,
+            unit = :unit
+            WHERE book_id = :id
         ";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
-            $product->getWeight(),
+
+        /**
+         * Sanitized weight for the query.
+         * 
+         * @var float $weight
+         */
+        $weight = filter_input(
+            INPUT_POST,
+            number_format($product->getWeight(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the weight to the query.
+         */
+        $stmt->bindParam(':weight', $weight, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized unit for the query.
+         * 
+         * @var string $unit
+         */
+        $unit = filter_input(
+            INPUT_POST,
             $product->getUnit(),
-            $product->getId()
-        ]);
+            FILTER_SANITIZE_FULL_SPECIAL_CHARS
+        );
+
+        /**
+         * Binds the unit to the query.
+         */
+        $stmt->bindParam(':unit', $unit, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_POST,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     // }}}
@@ -157,9 +248,37 @@ class BookProductMapper implements BookProductMapperInterface {
      * @return void
      */
     public function delete(int $product_id) {
-        $query = "DELETE FROM book_product WHERE product_id = ?";
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
+        $query = "DELETE FROM book_product WHERE product_id = :id";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$product_id]);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_GET,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     // }}}
@@ -174,20 +293,97 @@ class BookProductMapper implements BookProductMapperInterface {
      * @return void
      */
     public function create(BookProduct $product, int $product_id) {
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
         $query = "
         INSERT INTO product_book (
-            book_id,
-            product_id,
-            weight,
-            unit) VALUES (?, ?, ?, ?)
+                book_id,
+                product_id,
+                weight,
+                unit
+            )
+            VALUES (
+                :id,
+                :product_id,
+                :weight,
+                :unit
+            )
         ";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
-            $product->getId(),
-            $product_id,
-            $product->getWeight(),
-            $product->getUnit()
-        ]);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_POST,
+            number_format($product->getId(), 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        /**
+         * Sanitized weight for the query.
+         * 
+         * @var float $weight
+         */
+        $weight = filter_input(
+            INPUT_POST,
+            number_format($product->getWeight(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the weight to the query.
+         */
+        $stmt->bindParam(':weight', $weight, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized unit for the query.
+         * 
+         * @var string $unit
+         */
+        $unit = filter_input(
+            INPUT_POST,
+            $product->getUnit(),
+            FILTER_SANITIZE_FULL_SPECIAL_CHARS
+        );
+
+        /**
+         * Binds the unit to the query.
+         */
+        $stmt->bindParam(':unit', $unit, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized product id for the query.
+         */
+        $product_id = filter_input(
+            INPUT_POST,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the product id to the query.
+         */
+        $stmt->bindParam(':product_id', $product_id, \PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     // }}}

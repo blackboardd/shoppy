@@ -29,12 +29,12 @@ interface FurnitureProductMapperInterface {
     /**
      * Get a furniture product by id.
      * 
-     * @param int $id The id of the product to find.
+     * @param int $product_id The id of the product to find.
      * 
      * @access public
      * @return FurnitureProduct The product.
      */
-    public function get(int $id): FurnitureProduct;
+    public function get(int $product_id): FurnitureProduct;
 
     // }}}
     // {{{ update()
@@ -43,11 +43,12 @@ interface FurnitureProductMapperInterface {
      * Update a furniture product.
      * 
      * @param FurnitureProduct $product The product to update.
+     * @param int $product_id The id of the product to update.
      * 
      * @access public
      * @return void
      */
-    public function update(FurnitureProduct $product);
+    public function update(FurnitureProduct $product, int $product_id);
 
     // }}}
     // {{{ delete()
@@ -102,15 +103,47 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
     /**
      * Get a product by id.
      * 
-     * @param int $id The id of the product to find.
+     * @param int $product_id The id of the product to find.
      * 
      * @access public
      * @return FurnitureProduct The product.
      */
-    public function get(int $id): FurnitureProduct {
-        $query = "SELECT * FROM furniture_product WHERE product_id = ?";
+    public function get(int $product_id): FurnitureProduct {
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
+        $query = "SELECT * FROM furniture_product WHERE product_id = :id";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$id]);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_GET,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        /**
+         * Fetches the product from the database.
+         */
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if (!$result) {
             die("Record not found");
@@ -126,25 +159,100 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
      * Update a furniture product.
      * 
      * @param FurnitureProduct $product The product to update.
+     * @param int $product_id The id of the product to update.
      * 
      * @access public
      * @return void
      */
-    public function update(FurnitureProduct $product) {
+    public function update(FurnitureProduct $product, int $product_id) {
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
         $query = "
             UPDATE product_furniture
-            width = ?,
-            height = ?,
-            length = ?
-            WHERE furniture_id = ?
+            width = :width,
+            height = :height,
+            length = :length,
+            WHERE product_id = :id
         ";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
-            $product->getWidth(),
-            $product->getHeight(),
-            $product->getLength(),
-            $product->getId()
-        ]);
+
+        /**
+         * Sanitized width for the query.
+         * 
+         * @var float $width
+         */
+        $width = filter_input(
+            INPUT_POST,
+            number_format($product->getWidth(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the width to the query.
+         */
+        $stmt->bindParam(':width', $width, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized height for the query.
+         * 
+         * @var float $height
+         */
+        $height = filter_input(
+            INPUT_POST,
+            number_format($product->getHeight(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the height to the query.
+         */
+        $stmt->bindParam(':height', $height, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized length for the query.
+         * 
+         * @var float $length
+         */
+        $length = filter_input(
+            INPUT_POST,
+            number_format($product->getLength(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the length to the query.
+         */
+        $stmt->bindParam(':length', $length, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_POST,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     // }}}
@@ -159,9 +267,37 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
      * @return void
      */
     public function delete(int $product_id) {
-        $query = "DELETE FROM furniture_product WHERE product_id = ?";
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
+        $query = "DELETE FROM furniture_product WHERE product_id = :id";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([$product_id]);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_GET,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     // }}}
@@ -176,22 +312,117 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
      * @return void
      */
     public function create(FurnitureProduct $product, int $product_id) {
+        /**
+         * query string for getting a product by id.
+         * 
+         * @var string $query
+         */
         $query = "
         INSERT INTO product_furniture (
-            furniture_id,
-            product_id,
-            width,
-            height,
-            length) VALUES (?, ?, ?, ?)
+                furniture_id,
+                product_id,
+                width,
+                height,
+                length
+            )
+            VALUES (
+                :id,
+                :product_id,
+                :width,
+                :height,
+                :length
+            )
         ";
+
+        /**
+         * Statement that prepares a database with the given query.
+         * 
+         * @var PDOStatement $stmt
+         */
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
-            $product->getId(),
-            $product_id,
-            $product->getWidth(),
-            $product->getHeight(),
-            $product->getLength()
-        ]);
+
+        /**
+         * Sanitized id for the query.
+         * 
+         * @var int $id
+         */
+        $id = filter_input(
+            INPUT_POST,
+            number_format($product->getId(), 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the id to the query.
+         */
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+
+        /**
+         * Sanitized width for the query.
+         * 
+         * @var float $width
+         */
+        $width = filter_input(
+            INPUT_POST,
+            number_format($product->getWidth(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the size to the query.
+         */
+        $stmt->bindParam(':width', $width, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized height for the query.
+         * 
+         * @var float $height
+         */
+        $height = filter_input(
+            INPUT_POST,
+            number_format($product->getHeight(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the height to the query.
+         */
+        $stmt->bindParam(':height', $height, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized length for the query.
+         * 
+         * @var float $length
+         */
+        $length = filter_input(
+            INPUT_POST,
+            number_format($product->getLength(), 2, '.', ''),
+            FILTER_SANITIZE_NUMBER_FLOAT,
+            FILTER_FLAG_ALLOW_FRACTION
+        );
+
+        /**
+         * Binds the length to the query.
+         */
+        $stmt->bindParam(':length', $length, \PDO::PARAM_STR);
+
+        /**
+         * Sanitized product id for the query.
+         */
+        $product_id = filter_input(
+            INPUT_POST,
+            number_format($product_id, 0, '.', ''),
+            FILTER_SANITIZE_NUMBER_INT
+        );
+
+        /**
+         * Binds the product id to the query.
+         */
+        $stmt->bindParam(':product_id', $product_id, \PDO::PARAM_INT);
+
+        $stmt->execute();
     }
 
     // }}}
