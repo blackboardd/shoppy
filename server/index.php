@@ -43,6 +43,11 @@ $router = new Router(new Request);
 // Fetch an existing product.
 $router->get('/api/v1/product', function ($request) {
     /**
+     * test variable
+     */
+    $product_id = 12;
+
+    /**
      * Create database connection using .env file.
      * 
      * @var Dotenv $dotenv
@@ -121,7 +126,7 @@ $router->get('/api/v1/product', function ($request) {
              * 
              * @var DiscProduct $discProduct
              */
-            $discProduct = $discProductMapper->get($body['id']);
+            $discProduct = $discProductMapper->get($product_id);
 
             // return disc product
             return $discProduct;
@@ -140,7 +145,7 @@ $router->get('/api/v1/product', function ($request) {
              * 
              * @var BookProduct $bookProduct
              */
-            $bookProduct = $bookProductMapper->get($body['id']);
+            $bookProduct = $bookProductMapper->get($product_id);
 
             // return book product
             return $bookProduct;
@@ -159,7 +164,7 @@ $router->get('/api/v1/product', function ($request) {
              * 
              * @var FurnitureProduct $furnitureProduct
              */
-            $furnitureProduct = $furnitureProductMapper->get($body['id']);
+            $furnitureProduct = $furnitureProductMapper->get($product_id);
 
             // return furniture product
             return $furnitureProduct;
