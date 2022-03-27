@@ -5,36 +5,45 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Shoppy\Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 namespace Shoppy\Model\Product;
 
-include_once 'ProductFactory.php';
+require_once 'ProductFactory.php';
 
 // {{{ Product
 
 /**
- * Class for product objects. 
+ * Class for product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class Product implements ProductFactory {
+class Product implements ProductFactory
+{
     // {{{ fromState
 
     /**
      * Create a furniture product from a state.
-     * 
+     *
      * @param array $state The state to create the product from.
+     *
      * @return Product The product.
      * @access public
      * @static
      */
-    public static function fromState(array $state): Product {
+    public static function fromState(array $state): Product
+    {
         return new self(
             $state['id'],
             $state['name'],
@@ -49,13 +58,13 @@ class Product implements ProductFactory {
 
     /**
      * Constructor for the furniture product.
-     * 
-     * @param int $id The product's id.
-     * @param string $name The product's name.
-     * @param float $price The product's price.
+     *
+     * @param int    $id       The product's id.
+     * @param string $name     The product's name.
+     * @param float  $price    The product's price.
      * @param string $currency The product's currency.
-     * @param string $type The product's type.
-     * 
+     * @param string $type     The product's type.
+     *
      * @return void
      * @access public
      */
@@ -79,7 +88,8 @@ class Product implements ProductFactory {
      * @return int The product's id.
      * @access public
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->id;
     }
 
@@ -88,11 +98,12 @@ class Product implements ProductFactory {
 
     /**
      * Get the product's name.
-     * 
+     *
      * @return string The product's name.
      * @access public
      */
-    public function getName(): string {
+    public function getName(): string
+    {
         return $this->name;
     }
 
@@ -101,11 +112,12 @@ class Product implements ProductFactory {
 
     /**
      * Get the product's price.
-     * 
+     *
      * @return float The product's price.
      * @access public
      */
-    public function getPrice(): float {
+    public function getPrice(): float
+    {
         return $this->price;
     }
 
@@ -114,11 +126,12 @@ class Product implements ProductFactory {
 
     /**
      * Get the product's currency.
-     * 
+     *
      * @return string The product's currency.
      * @access public
      */
-    public function getCurrency(): string {
+    public function getCurrency(): string
+    {
         return $this->currency;
     }
 
@@ -127,11 +140,12 @@ class Product implements ProductFactory {
 
     /**
      * Get the product's type.
-     * 
+     *
      * @return string The product's type.
      * @access public
      */
-    public function getType(): string {
+    public function getType(): string
+    {
         return $this->type;
     }
 

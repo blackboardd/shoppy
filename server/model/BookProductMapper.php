@@ -5,13 +5,12 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Shoppy\Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 declare(strict_types=1);
@@ -22,15 +21,23 @@ namespace Shoppy\Model\Product;
 
 /**
  * Interface for book product mapper objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-interface BookProductMapperInterface {
+interface BookProductMapperInterface
+{
     // {{{ get()
 
     /**
      * Get a book product by id.
-     * 
+     *
      * @param int $product_id The id of the product to find.
-     * 
+     *
      * @access public
      * @return BookProduct The product.
      */
@@ -41,10 +48,10 @@ interface BookProductMapperInterface {
 
     /**
      * Update a book product.
-     * 
-     * @param BookProduct $product The product to update.
-     * @param int $product_id The id of the product to update.
-     * 
+     *
+     * @param BookProduct $product    The product to update.
+     * @param int         $product_id The id of the product to update.
+     *
      * @access public
      * @return void
      */
@@ -55,9 +62,9 @@ interface BookProductMapperInterface {
 
     /**
      * Delete a product.
-     * 
+     *
      * @param int $product_id The id of the product to delete.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -68,9 +75,10 @@ interface BookProductMapperInterface {
 
     /**
      * Create a book product.
-     * 
-     * @param BookProduct $product The product to create.
-     * 
+     *
+     * @param BookProduct $product    The product to create.
+     * @param int         $product_id The id of the product to create.
+     *
      * @access public
      * @return void
      */
@@ -82,19 +90,28 @@ interface BookProductMapperInterface {
 
 /**
  * Class for book product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class BookProductMapper implements BookProductMapperInterface {
+class BookProductMapper implements BookProductMapperInterface
+{
     // {{{ __construct()
 
     /**
      * Constructor.
-     * 
+     *
      * @param PDO $db The database connection.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function __construct(private \PDO $db) {
+    public function __construct(private \PDO $db)
+    {
     }
 
     // }}}
@@ -102,30 +119,31 @@ class BookProductMapper implements BookProductMapperInterface {
 
     /**
      * Get a product by id.
-     * 
+     *
      * @param int $product_id The id of the product to find.
-     * 
+     *
      * @access public
      * @return BookProduct The product.
      */
-    public function get(int $product_id): BookProduct {
+    public function get(int $product_id): BookProduct
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = 'SELECT * FROM book_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -157,17 +175,18 @@ class BookProductMapper implements BookProductMapperInterface {
 
     /**
      * Update a book product.
-     * 
-     * @param BookProduct $product The product to update.
-     * @param int $product_id The id of the product to update.
-     * 
+     *
+     * @param BookProduct $product    The product to update.
+     * @param int         $product_id The id of the product to update.
+     *
      * @access public
      * @return void
      */
-    public function update(BookProduct $product, int $product_id) {
+    public function update(BookProduct $product, int $product_id)
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = '
@@ -179,14 +198,14 @@ class BookProductMapper implements BookProductMapperInterface {
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized weight for the query.
-         * 
+         *
          * @var float $weight
          */
         $weight = filter_input(
@@ -203,7 +222,7 @@ class BookProductMapper implements BookProductMapperInterface {
 
         /**
          * Sanitized unit for the query.
-         * 
+         *
          * @var string $unit
          */
         $unit = filter_input(
@@ -219,7 +238,7 @@ class BookProductMapper implements BookProductMapperInterface {
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -241,30 +260,31 @@ class BookProductMapper implements BookProductMapperInterface {
 
     /**
      * Delete a product.
-     * 
-     * @param BookProduct $product The product to delete.
-     * 
+     *
+     * @param int $product_id The id of the product to delete.
+     *
      * @access public
      * @return void
      */
-    public function delete(int $product_id) {
+    public function delete(int $product_id)
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = 'DELETE FROM book_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -286,16 +306,18 @@ class BookProductMapper implements BookProductMapperInterface {
 
     /**
      * Create a book product.
-     * 
-     * @param BookProduct $product The product to create.
-     * 
+     *
+     * @param BookProduct $product    The product to create.
+     * @param int         $product_id The id of the product to create.
+     *
      * @access public
      * @return void
      */
-    public function create(BookProduct $product, int $product_id) {
+    public function create(BookProduct $product, int $product_id)
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = '
@@ -315,14 +337,14 @@ class BookProductMapper implements BookProductMapperInterface {
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -338,7 +360,7 @@ class BookProductMapper implements BookProductMapperInterface {
 
         /**
          * Sanitized weight for the query.
-         * 
+         *
          * @var float $weight
          */
         $weight = filter_input(
@@ -355,7 +377,7 @@ class BookProductMapper implements BookProductMapperInterface {
 
         /**
          * Sanitized unit for the query.
-         * 
+         *
          * @var string $unit
          */
         $unit = filter_input(

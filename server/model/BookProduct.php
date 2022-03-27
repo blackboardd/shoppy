@@ -5,13 +5,12 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Shoppy\Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 namespace Shoppy\Model\Product;
@@ -20,19 +19,29 @@ namespace Shoppy\Model\Product;
 
 /**
  * Class for book product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class BookProduct {
+class BookProduct
+{
     // {{{ fromState
 
     /**
      * Create a book product from a state.
-     * 
+     *
      * @param array $state The state to create the product from.
+     *
      * @return BookProduct The product.
      * @access public
      * @static
      */
-    public static function fromState(array $state): BookProduct {
+    public static function fromState(array $state): BookProduct
+    {
         return new self(
             $state['book_id'],
             $state['weight'],
@@ -45,11 +54,11 @@ class BookProduct {
 
     /**
      * Construct a book product.
-     * 
-     * @param int $book_id The product's id.
-     * @param float $weight The product's weight.
-     * @param string $unit The product's weight unit.
-     * 
+     *
+     * @param int    $book_id The product's id.
+     * @param float  $weight  The product's weight.
+     * @param string $unit    The product's weight unit.
+     *
      * @return void
      * @access public
      */
@@ -65,11 +74,12 @@ class BookProduct {
 
     /**
      * Get the product's id.
-     * 
+     *
      * @return int The product's id.
      * @access public
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->book_id;
     }
 
@@ -78,11 +88,12 @@ class BookProduct {
 
     /**
      * Get the product's weight.
-     * 
+     *
      * @return float The product's weight.
      * @access public
      */
-    public function getWeight(): float {
+    public function getWeight(): float
+    {
         return $this->weight;
     }
 
@@ -91,11 +102,12 @@ class BookProduct {
 
     /**
      * Get the product's weight unit.
-     * 
+     *
      * @return string The product's weight unit.
      * @access public
      */
-    public function getUnit(): string {
+    public function getUnit(): string
+    {
         return $this->unit;
     }
 

@@ -5,34 +5,41 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Shoppy\Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 declare(strict_types=1);
 
 namespace Shoppy\Model\Product;
 
-include_once 'Product.php';
+require_once 'Product.php';
 
 // {{{ ProductMapperInterface
 
 /**
  * Interface for product mapper objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-interface ProductMapperInterface {
+interface ProductMapperInterface
+{
     // {{{ get()
 
     /**
      * Get a furniture product by id.
-     * 
+     *
      * @param int $id The id of the product to find.
-     * 
+     *
      * @access public
      * @return Product The product.
      */
@@ -43,9 +50,9 @@ interface ProductMapperInterface {
 
     /**
      * Update a product.
-     * 
+     *
      * @param Product $product The product to update.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -56,9 +63,9 @@ interface ProductMapperInterface {
 
     /**
      * Delete a product.
-     * 
+     *
      * @param Product $product The product to delete.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -69,9 +76,9 @@ interface ProductMapperInterface {
 
     /**
      * Create a product.
-     * 
+     *
      * @param Product $product The product to create.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -83,19 +90,28 @@ interface ProductMapperInterface {
 
 /**
  * Class for furniture product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class ProductMapper implements ProductMapperInterface {
+class ProductMapper implements ProductMapperInterface
+{
     // {{{ __construct()
 
     /**
      * Constructor.
-     * 
+     *
      * @param PDO $db The database connection.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function __construct(private \PDO $db) {
+    public function __construct(private \PDO $db)
+    {
     }
 
     // }}}
@@ -103,13 +119,14 @@ class ProductMapper implements ProductMapperInterface {
 
     /**
      * Get a product by id.
-     * 
+     *
      * @param int $id The id of the product to find.
-     * 
+     *
      * @access public
      * @return Product The product.
      */
-    public function get(int $id): Product {
+    public function get(int $id): Product
+    {
         $query = 'SELECT * FROM product WHERE product_id = ?';
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
@@ -126,13 +143,14 @@ class ProductMapper implements ProductMapperInterface {
 
     /**
      * Update a furniture product.
-     * 
+     *
      * @param Product $product The product to update.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function update(Product $product) {
+    public function update(Product $product)
+    {
         $query = '
             UPDATE product
             name = ?,
@@ -142,13 +160,15 @@ class ProductMapper implements ProductMapperInterface {
             WHERE product_id = ?
         ';
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
+        $stmt->execute(
+            [
             $product->getName(),
             $product->getPrice(),
             $product->getCurrency(),
             $product->getType(),
             $product->getId()
-        ]);
+            ]
+        );
     }
 
     // }}}
@@ -156,13 +176,14 @@ class ProductMapper implements ProductMapperInterface {
 
     /**
      * Delete a product.
-     * 
+     *
      * @param Product $product The product to delete.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function delete(Product $product) {
+    public function delete(Product $product)
+    {
         $query = 'DELETE FROM product WHERE product_id = ?';
         $stmt = $this->db->prepare($query);
         $stmt->execute([$product->getId()]);
@@ -173,13 +194,14 @@ class ProductMapper implements ProductMapperInterface {
 
     /**
      * Create a furniture product.
-     * 
+     *
      * @param Product $product The product to create.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function create(Product $product) {
+    public function create(Product $product)
+    {
         $query = '
         INSERT INTO product (
             product_id,
@@ -190,13 +212,15 @@ class ProductMapper implements ProductMapperInterface {
         ) VALUES (?, ?, ?, ?, ?)
         ';
         $stmt = $this->db->prepare($query);
-        $stmt->execute([
+        $stmt->execute(
+            [
             $product->getId(),
             $product->getName(),
             $product->getPrice(),
             $product->getCurrency(),
             $product->getType()
-        ]);
+            ]
+        );
     }
 
     // }}}

@@ -8,6 +8,9 @@
 /.pnp
 .pnp.js
 
+# php fixer
+.php-cs-fixer.cache
+
 # ignore database folder
 /db
 

@@ -5,13 +5,12 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Shoppy\Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 declare(strict_types=1);
@@ -22,15 +21,23 @@ namespace Shoppy\Model\Product;
 
 /**
  * Interface for furniture product mapper objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-interface FurnitureProductMapperInterface {
+interface FurnitureProductMapperInterface
+{
     // {{{ get()
 
     /**
      * Get a furniture product by id.
-     * 
+     *
      * @param int $product_id The id of the product to find.
-     * 
+     *
      * @access public
      * @return FurnitureProduct The product.
      */
@@ -41,10 +48,10 @@ interface FurnitureProductMapperInterface {
 
     /**
      * Update a furniture product.
-     * 
-     * @param FurnitureProduct $product The product to update.
-     * @param int $product_id The id of the product to update.
-     * 
+     *
+     * @param FurnitureProduct $product    The product to update.
+     * @param int              $product_id The id of the product to update.
+     *
      * @access public
      * @return void
      */
@@ -55,9 +62,9 @@ interface FurnitureProductMapperInterface {
 
     /**
      * Delete a product.
-     * 
+     *
      * @param int $product_id The id of the product to delete.
-     * 
+     *
      * @access public
      * @return void
      */
@@ -68,9 +75,10 @@ interface FurnitureProductMapperInterface {
 
     /**
      * Create a furniture product.
-     * 
-     * @param FurnitureProduct $product The product to create.
-     * 
+     *
+     * @param FurnitureProduct $product    The product to create.
+     * @param int              $product_id The id of the product to create.
+     *
      * @access public
      * @return void
      */
@@ -82,19 +90,28 @@ interface FurnitureProductMapperInterface {
 
 /**
  * Class for furniture product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class FurnitureProductMapper implements FurnitureProductMapperInterface {
+class FurnitureProductMapper implements FurnitureProductMapperInterface
+{
     // {{{ __construct()
 
     /**
      * Constructor.
-     * 
+     *
      * @param PDO $db The database connection.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function __construct(private \PDO $db) {
+    public function __construct(private \PDO $db)
+    {
     }
 
     // }}}
@@ -102,30 +119,31 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
     /**
      * Get a product by id.
-     * 
+     *
      * @param int $product_id The id of the product to find.
-     * 
+     *
      * @access public
      * @return FurnitureProduct The product.
      */
-    public function get(int $product_id): FurnitureProduct {
+    public function get(int $product_id): FurnitureProduct
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = 'SELECT * FROM furniture_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -157,17 +175,18 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
     /**
      * Update a furniture product.
-     * 
-     * @param FurnitureProduct $product The product to update.
-     * @param int $product_id The id of the product to update.
-     * 
+     *
+     * @param FurnitureProduct $product    The product to update.
+     * @param int              $product_id The id of the product to update.
+     *
      * @access public
      * @return void
      */
-    public function update(FurnitureProduct $product, int $product_id) {
+    public function update(FurnitureProduct $product, int $product_id)
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = '
@@ -180,14 +199,14 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized width for the query.
-         * 
+         *
          * @var float $width
          */
         $width = filter_input(
@@ -204,7 +223,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Sanitized height for the query.
-         * 
+         *
          * @var float $height
          */
         $height = filter_input(
@@ -221,7 +240,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Sanitized length for the query.
-         * 
+         *
          * @var float $length
          */
         $length = filter_input(
@@ -238,7 +257,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -260,30 +279,31 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
     /**
      * Delete a product.
-     * 
-     * @param FurnitureProduct $product The product to delete.
-     * 
+     *
+     * @param int $product_id The id of the product to delete.
+     *
      * @access public
      * @return void
      */
-    public function delete(int $product_id) {
+    public function delete(int $product_id)
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = 'DELETE FROM furniture_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -305,16 +325,18 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
     /**
      * Create a furniture product.
-     * 
-     * @param FurnitureProduct $product The product to create.
-     * 
+     *
+     * @param FurnitureProduct $product    The product to create.
+     * @param int              $product_id The id of the product to create.
+     *
      * @access public
      * @return void
      */
-    public function create(FurnitureProduct $product, int $product_id) {
+    public function create(FurnitureProduct $product, int $product_id)
+    {
         /**
-         * query string for getting a product by id.
-         * 
+         * Query string for getting a product by id.
+         *
          * @var string $query
          */
         $query = '
@@ -336,14 +358,14 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Statement that prepares a database with the given query.
-         * 
+         *
          * @var PDOStatement $stmt
          */
         $stmt = $this->db->prepare($query);
 
         /**
          * Sanitized id for the query.
-         * 
+         *
          * @var int $id
          */
         $id = filter_input(
@@ -359,7 +381,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Sanitized width for the query.
-         * 
+         *
          * @var float $width
          */
         $width = filter_input(
@@ -376,7 +398,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Sanitized height for the query.
-         * 
+         *
          * @var float $height
          */
         $height = filter_input(
@@ -393,7 +415,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
 
         /**
          * Sanitized length for the query.
-         * 
+         *
          * @var float $length
          */
         $length = filter_input(
