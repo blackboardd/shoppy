@@ -8,7 +8,7 @@
  * LICENSE: MIT
  *
  * @category   Product
- * @package    Model\Product
+ * @package    Shoppy\Model\Product
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
@@ -16,7 +16,7 @@
 
 declare(strict_types=1);
 
-namespace Model\Product;
+namespace Shoppy\Model\Product;
 
 // {{{ FurnitureProductMapperInterface
 
@@ -24,6 +24,19 @@ namespace Model\Product;
  * Interface for furniture product mapper objects.
  */
 interface FurnitureProductMapperInterface {
+    // {{{ get()
+
+    /**
+     * Get a furniture product by id.
+     * 
+     * @param int $id The id of the product to find.
+     * 
+     * @access public
+     * @return FurnitureProduct The product.
+     */
+    public function get(int $id): FurnitureProduct;
+
+    // }}}
     // {{{ update()
 
     /**
@@ -35,6 +48,19 @@ interface FurnitureProductMapperInterface {
      * @return void
      */
     public function update(FurnitureProduct $product);
+
+    // }}}
+    // {{{ delete()
+
+    /**
+     * Delete a product.
+     * 
+     * @param int $product_id The id of the product to delete.
+     * 
+     * @access public
+     * @return void
+     */
+    public function delete(int $product_id);
 
     // }}}
     // {{{ create()
@@ -71,6 +97,29 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
     }
 
     // }}}
+    // {{{ get()
+
+    /**
+     * Get a product by id.
+     * 
+     * @param int $id The id of the product to find.
+     * 
+     * @access public
+     * @return FurnitureProduct The product.
+     */
+    public function get(int $id): FurnitureProduct {
+        $query = "SELECT * FROM furniture_product WHERE product_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if (!$result) {
+            die("Record not found");
+        }
+
+        return FurnitureProduct::fromState($result);
+    }
+
+    // }}}
     // {{{ update()
 
     /**
@@ -96,6 +145,23 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
             $product->getLength(),
             $product->getId()
         ]);
+    }
+
+    // }}}
+    // {{{ delete()
+
+    /**
+     * Delete a product.
+     * 
+     * @param FurnitureProduct $product The product to delete.
+     * 
+     * @access public
+     * @return void
+     */
+    public function delete(int $product_id) {
+        $query = "DELETE FROM furniture_product WHERE product_id = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$product_id]);
     }
 
     // }}}

@@ -8,13 +8,13 @@
  * LICENSE: MIT
  *
  * @category   Product
- * @package    Model\Product\Furniture
+ * @package    Shoppy\Model\Product
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace Model\Product;
+namespace Shoppy\Model\Product;
 
 // {{{ FurnitureProduct
 

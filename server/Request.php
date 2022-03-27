@@ -8,16 +8,33 @@
  * LICENSE: MIT
  *
  * @category   Server
- * @package    Server
+ * @package    Shoppy\Server
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace Server;
+namespace Shoppy\Server;
 
-include_once 'AbstractRequest.php';
+// {{{ AbstractRequest
 
+/**
+ * Abstract class for handling requests.
+ */
+abstract class AbstractRequest {
+    // {{{ getBody()
+
+    /**
+     * Get the request body.
+     * 
+     * @access public
+     */
+    abstract public function getBody();
+
+    // }}}
+}
+
+// }}}
 // {{{ Request
 
 /**

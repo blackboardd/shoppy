@@ -8,7 +8,7 @@
  * LICENSE: MIT
  *
  * @category   Product
- * @package    Model\Product
+ * @package    Shoppy\Model\Product
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
@@ -16,7 +16,7 @@
 
 declare(strict_types=1);
 
-namespace Model\Product;
+namespace Shoppy\Model\Product;
 
 include_once 'Product.php';
 

@@ -8,13 +8,13 @@
  * LICENSE: MIT
  *
  * @category   Server
- * @package    Server
+ * @package    Shoppy\Server
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace Server;
+namespace Shoppy\Server;
 
 // {{{ Router
 

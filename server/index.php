@@ -8,13 +8,13 @@
  * LICENSE: MIT
  *
  * @category   Server
- * @package    Server
+ * @package    Shoppy\Server
  * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
  * @copyright  2022 Brighten Tompkins
  * @license    https://opensource.org/licenses/MIT MIT
  */
 
-namespace Server;
+namespace Shoppy\Server;
 
 require_once __DIR__ . '/vendor/autoload.php';
 include_once 'Request.php';
@@ -83,7 +83,7 @@ $router->get('/api/v1/product', function ($request) {
      * 
      * @var string $dsn
      */
-    $dsn = "mysql:host={$host};dbname={$database};charset=utf8";
+    $dsn = "mysql:host={$host};dbname={$database};charset=utf8mb4";
 
     try {
         /**
