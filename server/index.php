@@ -28,7 +28,7 @@ include_once './model/FurnitureProduct.php';
 include_once './model/ProductMapper.php';
 include_once './model/Product.php';
 
-use Model\Product;
+use Shoppy\Model\Product;
 use Dotenv;
 use PDOException;
 use PDO;
@@ -62,7 +62,7 @@ $router->get('/api/v1/product', function ($request) {
      * 
      * @var string $user
      */
-    $user = "root";
+    $user = 'root';
 
     /**
      * Database password.
@@ -76,14 +76,14 @@ $router->get('/api/v1/product', function ($request) {
      * 
      * @var string $host
      */
-    $host = "mysql";
+    $host = 'mysql';
 
     /**
      * Database schema name.
      * 
      * @var string $dsn
      */
-    $dsn = "mysql:host={$host};dbname={$database};charset=utf8mb4";
+    $dsn = 'mysql:host={$host};dbname={$database};charset=utf8mb4';
 
     try {
         /**
@@ -167,7 +167,7 @@ $router->get('/api/v1/product', function ($request) {
 
         
     } catch (PDOException $e) {
-        return "Connection failed: " . $e->getMessage();
+        return 'Connection failed: ' . $e->getMessage();
     }
 
     $body = $request->getBody();
@@ -198,7 +198,7 @@ $router->post('/api/v1/product', function ($request) {
      * 
      * @var string $user
      */
-    $user = "root";
+    $user = 'root';
 
     /**
      * Database password.
@@ -212,14 +212,14 @@ $router->post('/api/v1/product', function ($request) {
      * 
      * @var string $host
      */
-    $host = "mysql";
+    $host = 'mysql';
 
     /**
      * Database schema name.
      * 
      * @var string $dsn
      */
-    $dsn = "mysql:host={$host};dbname={$database};charset=utf8mb4";
+    $dsn = 'mysql:host={$host};dbname={$database};charset=utf8mb4';
 
     try {
         /**
@@ -323,7 +323,7 @@ $router->post('/api/v1/product', function ($request) {
             );
         }
     } catch (PDOException $e) {
-        return "Connection failed: " . $e->getMessage();
+        return 'Connection failed: ' . $e->getMessage();
     }
 
     $body = $request->getBody();

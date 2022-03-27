@@ -29,8 +29,8 @@ class Router {
      * @var array $supportedHttpMethods
      */
     private $supportedHttpMethods = array(
-        "GET",
-        "POST"
+        'GET',
+        'POST'
     );
 
     // }}}
@@ -109,7 +109,7 @@ class Router {
      * @return void
      */
     private function invalidMethodHandler() {
-        header("{$this->request->serverProtocol} 405 Method Not Allowed");
+        header('{$this->request->serverProtocol} 405 Method Not Allowed');
     }
 
     // }}}
@@ -122,7 +122,7 @@ class Router {
      * @return void
      */
     private function defaultRequestHandler() {
-        header("{$this->request->serverProtocol} 404 Not Found");
+        header('{$this->request->serverProtocol} 404 Not Found');
     }
 
     // }}}

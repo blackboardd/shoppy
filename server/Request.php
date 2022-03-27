@@ -108,11 +108,11 @@ class Request extends AbstractRequest {
      * @return string The request body.
      */
     public function getBody() {
-        if ($this->requestMethod === "GET") {
+        if ($this->requestMethod === 'GET') {
             return;
         }
 
-        if ($this->requestMethod === "POST") {
+        if ($this->requestMethod === 'POST') {
             /**
              * Body initialized to empty array.
              * 

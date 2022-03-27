@@ -114,7 +114,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "SELECT * FROM dvd_product WHERE product_id = :id";
+        $query = 'SELECT * FROM dvd_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -146,7 +146,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
          */
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if (!$result) {
-            die("Record not found");
+            die('Record not found');
         }
 
         return DVDProduct::fromState($result);
@@ -170,12 +170,12 @@ class DVDProductMapper implements DVDProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "
+        $query = '
             UPDATE product_dvd
             size = :size,
             unit = :unit
             WHERE product_id = :id
-        ";
+        ';
 
         /**
          * Statement that prepares a database with the given query.
@@ -253,7 +253,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "DELETE FROM dvd_product WHERE product_id = :id";
+        $query = 'DELETE FROM dvd_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -298,7 +298,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "
+        $query = '
         INSERT INTO product_dvd (
                 dvd_id,
                 product_id,
@@ -311,7 +311,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
                 :size,
                 :unit
             )
-        ";
+        ';
 
         /**
          * Statement that prepares a database with the given query.

@@ -114,7 +114,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "SELECT * FROM furniture_product WHERE product_id = :id";
+        $query = 'SELECT * FROM furniture_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -146,7 +146,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
          */
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if (!$result) {
-            die("Record not found");
+            die('Record not found');
         }
 
         return FurnitureProduct::fromState($result);
@@ -170,13 +170,13 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "
+        $query = '
             UPDATE product_furniture
             width = :width,
             height = :height,
             length = :length,
             WHERE product_id = :id
-        ";
+        ';
 
         /**
          * Statement that prepares a database with the given query.
@@ -272,7 +272,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "DELETE FROM furniture_product WHERE product_id = :id";
+        $query = 'DELETE FROM furniture_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -317,7 +317,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "
+        $query = '
         INSERT INTO product_furniture (
                 furniture_id,
                 product_id,
@@ -332,7 +332,7 @@ class FurnitureProductMapper implements FurnitureProductMapperInterface {
                 :height,
                 :length
             )
-        ";
+        ';
 
         /**
          * Statement that prepares a database with the given query.

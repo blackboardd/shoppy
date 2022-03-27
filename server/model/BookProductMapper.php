@@ -114,7 +114,7 @@ class BookProductMapper implements BookProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "SELECT * FROM book_product WHERE product_id = :id";
+        $query = 'SELECT * FROM book_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -146,7 +146,7 @@ class BookProductMapper implements BookProductMapperInterface {
          */
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if (!$result) {
-            die("Record not found");
+            die('Record not found');
         }
 
         return BookProduct::fromState($result);
@@ -170,12 +170,12 @@ class BookProductMapper implements BookProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "
+        $query = '
             UPDATE product_book
             weight = :weight,
             unit = :unit
             WHERE book_id = :id
-        ";
+        ';
 
         /**
          * Statement that prepares a database with the given query.
@@ -253,7 +253,7 @@ class BookProductMapper implements BookProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "DELETE FROM book_product WHERE product_id = :id";
+        $query = 'DELETE FROM book_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -298,7 +298,7 @@ class BookProductMapper implements BookProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = "
+        $query = '
         INSERT INTO product_book (
                 book_id,
                 product_id,
@@ -311,7 +311,7 @@ class BookProductMapper implements BookProductMapperInterface {
                 :weight,
                 :unit
             )
-        ";
+        ';
 
         /**
          * Statement that prepares a database with the given query.

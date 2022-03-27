@@ -110,12 +110,12 @@ class ProductMapper implements ProductMapperInterface {
      * @return Product The product.
      */
     public function get(int $id): Product {
-        $query = "SELECT * FROM product WHERE product_id = ?";
+        $query = 'SELECT * FROM product WHERE product_id = ?';
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         if (!$result) {
-            die("Record not found");
+            die('Record not found');
         }
 
         return Product::fromState($result);
@@ -133,14 +133,14 @@ class ProductMapper implements ProductMapperInterface {
      * @return void
      */
     public function update(Product $product) {
-        $query = "
+        $query = '
             UPDATE product
             name = ?,
             price = ?,
             currency = ?,
             type = ?
             WHERE product_id = ?
-        ";
+        ';
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getName(),
@@ -163,7 +163,7 @@ class ProductMapper implements ProductMapperInterface {
      * @return void
      */
     public function delete(Product $product) {
-        $query = "DELETE FROM product WHERE product_id = ?";
+        $query = 'DELETE FROM product WHERE product_id = ?';
         $stmt = $this->db->prepare($query);
         $stmt->execute([$product->getId()]);
     }
@@ -180,7 +180,7 @@ class ProductMapper implements ProductMapperInterface {
      * @return void
      */
     public function create(Product $product) {
-        $query = "
+        $query = '
         INSERT INTO product (
             product_id,
             name,
@@ -188,7 +188,7 @@ class ProductMapper implements ProductMapperInterface {
             currency,
             type
         ) VALUES (?, ?, ?, ?, ?)
-        ";
+        ';
         $stmt = $this->db->prepare($query);
         $stmt->execute([
             $product->getId(),
