@@ -42,6 +42,138 @@ $router = new Router(new Request);
 
 // Fetch an existing product.
 $router->get('/api/v1/product', function ($request) {
+    /**
+     * Create database connection using .env file.
+     * 
+     * @var Dotenv $dotenv
+     */
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
+    /**
+     * Database name.
+     * 
+     * @var string $database
+     */
+    $database = $_ENV['MYSQL_DATABASE'];
+
+    /**
+     * Database username.
+     * 
+     * @var string $user
+     */
+    $user = "root";
+
+    /**
+     * Database password.
+     * 
+     * @var string $pass
+     */
+    $pass = $_ENV['MYSQL_ROOT_PASSWORD'];
+
+    /**
+     * Database host.
+     * 
+     * @var string $host
+     */
+    $host = "mysql";
+
+    /**
+     * Database schema name.
+     * 
+     * @var string $dsn
+     */
+    $dsn = "mysql:host={$host};dbname={$database};charset=utf8";
+
+    try {
+        /**
+         * Database base handler.
+         * 
+         * @var PDO $dbh
+         */
+        $dbh = new PDO($dsn, $user, $pass);
+
+        // set the PDO error mode to exception.
+        $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        /**
+         * Product mapper.
+         * 
+         * @var ProductMapper $product
+         */
+        $productMapper = new Product\ProductMapper($dbh);
+
+        /**
+         * Get product by id.
+         */
+        $product = $productMapper->get($product_id);
+
+        if ($product['type'] === 'dvd') {
+            /**
+             * DVDProduct mapper.
+             * 
+             * @var DVDProductMapper $dvdProductMapper
+             */
+            $dvdProductMapper = new Product\DVDProductMapper($dbh);
+
+            /**
+             * DVDProduct.
+             * 
+             * @var DVDProduct $dvdProduct
+             */
+            $dvdProduct = $dvdProductMapper->get($body['id']);
+
+            // return dvd product
+            return $dvdProduct;
+        }
+
+        if ($product['type'] === 'book') {
+            /**
+             * BookProduct mapper.
+             * 
+             * @var BookProductMapper $bookProductMapper
+             */
+            $bookProductMapper = new Product\BookProductMapper($dbh);
+
+            /**
+             * BookProduct.
+             * 
+             * @var BookProduct $bookProduct
+             */
+            $bookProduct = $bookProductMapper->get($body['id']);
+
+            // return book product
+            return $bookProduct;
+        }
+
+        if ($product['type'] === 'furniture') {
+            /**
+             * FurnitureProduct mapper.
+             * 
+             * @var FurnitureProductMapper $furnitureProductMapper
+             */
+            $furnitureProductMapper = new Product\FurnitureProductMapper($dbh);
+
+            /**
+             * FurnitureProduct.
+             * 
+             * @var FurnitureProduct $furnitureProduct
+             */
+            $furnitureProduct = $furnitureProductMapper->get($body['id']);
+
+            // return furniture product
+            return $furnitureProduct;
+        }
+
+        
+    } catch (PDOException $e) {
+        return "Connection failed: " . $e->getMessage();
+    }
+
+    $body = $request->getBody();
+
+    // Return json encoded data on completion.
+    return json_encode($body);
 });
 
 // Create a new product.
@@ -87,7 +219,7 @@ $router->post('/api/v1/product', function ($request) {
      * 
      * @var string $dsn
      */
-    $dsn = "mysql:host={$host};dbname={$database};charset=utf8";
+    $dsn = "mysql:host={$host};dbname={$database};charset=utf8mb4";
 
     try {
         /**
