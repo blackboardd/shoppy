@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DVD product data mapper.
+ * Disc product data mapper.
  *
  * PHP version 8.1
  *
@@ -18,37 +18,37 @@ declare(strict_types=1);
 
 namespace Shoppy\Model\Product;
 
-// {{{ DVDProductMapperInterface
+// {{{ DiscProductMapperInterface
 
 /**
- * Interface for dvd product mapper objects.
+ * Interface for disc product mapper objects.
  */
-interface DVDProductMapperInterface {
+interface DiscProductMapperInterface {
     // {{{ get()
 
     /**
-     * Get a dvd product by id.
+     * Get a disc product by id.
      * 
      * @param int $product_id The id of the product to find.
      * 
      * @access public
-     * @return DVDProduct The product.
+     * @return DiscProduct The product.
      */
-    public function get(int $product_id): DVDProduct;
+    public function get(int $product_id): DiscProduct;
 
     // }}}
     // {{{ update()
 
     /**
-     * Update a dvd product.
+     * Update a disc product.
      * 
-     * @param DVDProduct $product The product to update.
+     * @param DiscProduct $product The product to update.
      * @param int $product_id The id of the product to update.
      * 
      * @access public
      * @return void
      */
-    public function update(DVDProduct $product, int $product_id);
+    public function update(DiscProduct $product, int $product_id);
 
     // }}}
     // {{{ delete()
@@ -67,23 +67,23 @@ interface DVDProductMapperInterface {
     // {{{ create()
 
     /**
-     * Create a DVD product.
+     * Create a disc product.
      * 
-     * @param DVDProduct $product The product to create.
+     * @param DiscProduct $product The product to create.
      * 
      * @access public
      * @return void
      */
-    public function create(DVDProduct $product, int $product_id);
+    public function create(DiscProduct $product, int $product_id);
 }
 
 // }}}
-// {{{ DVDProductMapper
+// {{{ DiscProductMapper
 
 /**
- * Class for dvd product objects.
+ * Class for disc product objects.
  */
-class DVDProductMapper implements DVDProductMapperInterface {
+class DiscProductMapper implements DiscProductMapperInterface {
     // {{{ __construct()
 
     /**
@@ -106,15 +106,15 @@ class DVDProductMapper implements DVDProductMapperInterface {
      * @param int $product_id The id of the product to find.
      * 
      * @access public
-     * @return DVDProduct The product.
+     * @return DiscProduct The product.
      */
-    public function get(int $product_id): DVDProduct {
+    public function get(int $product_id): DiscProduct {
         /**
          * query string for getting a product by id.
          * 
          * @var string $query
          */
-        $query = 'SELECT * FROM dvd_product WHERE product_id = :id';
+        $query = 'SELECT * FROM disc_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -149,29 +149,29 @@ class DVDProductMapper implements DVDProductMapperInterface {
             die('Record not found');
         }
 
-        return DVDProduct::fromState($result);
+        return DiscProduct::fromState($result);
     }
 
     // }}}
     // {{{ update()
 
     /**
-     * Update a dvd product.
+     * Update a disc product.
      * 
-     * @param DVDProduct $product The product to update.
+     * @param DiscProduct $product The product to update.
      * @param int $product_id The id of the product to update.
      * 
      * @access public
      * @return void
      */
-    public function update(DVDProduct $product, int $product_id) {
+    public function update(DiscProduct $product, int $product_id) {
         /**
          * query string for getting a product by id.
          * 
          * @var string $query
          */
         $query = '
-            UPDATE product_dvd
+            UPDATE product_disc
             size = :size,
             unit = :unit
             WHERE product_id = :id
@@ -200,7 +200,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
          * Binds the size to the query.
          */
         $stmt->bindParam(':size', $size, \PDO::PARAM_STR);
-        
+
         /**
          * Sanitized unit for the query.
          * 
@@ -242,7 +242,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
     /**
      * Delete a product.
      * 
-     * @param DVDProduct $product The product to delete.
+     * @param DiscProduct $product The product to delete.
      * 
      * @access public
      * @return void
@@ -253,7 +253,7 @@ class DVDProductMapper implements DVDProductMapperInterface {
          * 
          * @var string $query
          */
-        $query = 'DELETE FROM dvd_product WHERE product_id = :id';
+        $query = 'DELETE FROM disc_product WHERE product_id = :id';
 
         /**
          * Statement that prepares a database with the given query.
@@ -285,22 +285,22 @@ class DVDProductMapper implements DVDProductMapperInterface {
     // {{{ create()
 
     /**
-     * Create a dvd product.
+     * Create a disc product.
      * 
-     * @param DVDProduct $product The product to create.
+     * @param DiscProduct $product The product to create.
      * 
      * @access public
      * @return void
      */
-    public function create(DVDProduct $product, int $product_id) {
+    public function create(DiscProduct $product, int $product_id) {
         /**
          * query string for getting a product by id.
          * 
          * @var string $query
          */
         $query = '
-        INSERT INTO product_dvd (
-                dvd_id,
+        INSERT INTO product_disc (
+                disc_id,
                 product_id,
                 size,
                 unit

@@ -21,8 +21,8 @@ include_once 'Request.php';
 include_once 'Router.php';
 include_once './model/BookProductMapper.php';
 include_once './model/BookProduct.php';
-include_once './model/DVDProductMapper.php';
-include_once './model/DVDProduct.php';
+include_once './model/DiscProductMapper.php';
+include_once './model/DiscProduct.php';
 include_once './model/FurnitureProductMapper.php';
 include_once './model/FurnitureProduct.php';
 include_once './model/ProductMapper.php';
@@ -108,23 +108,23 @@ $router->get('/api/v1/product', function ($request) {
          */
         $product = $productMapper->get($product_id);
 
-        if ($product['type'] === 'dvd') {
+        if ($product['type'] === 'disc') {
             /**
-             * DVDProduct mapper.
+             * DiscProduct mapper.
              * 
-             * @var DVDProductMapper $dvdProductMapper
+             * @var DiscProductMapper $discProductMapper
              */
-            $dvdProductMapper = new Product\DVDProductMapper($dbh);
+            $discProductMapper = new Product\DiscProductMapper($dbh);
 
             /**
-             * DVDProduct.
+             * DiscProduct.
              * 
-             * @var DVDProduct $dvdProduct
+             * @var DiscProduct $discProduct
              */
-            $dvdProduct = $dvdProductMapper->get($body['id']);
+            $discProduct = $discProductMapper->get($body['id']);
 
-            // return dvd product
-            return $dvdProduct;
+            // return disc product
+            return $discProduct;
         }
 
         if ($product['type'] === 'book') {
@@ -259,20 +259,20 @@ $router->post('/api/v1/product', function ($request) {
             )
         );
 
-        if ($body['dvd_id']) {
+        if ($body['disc_id']) {
             /**
-             * DVD product mapper
+             * Disc product mapper
              * 
-             * @var Product\DVDProductMapper $dvd
+             * @var Product\DiscProductMapper $disc
              */
-            $dvd = new Product\DVDProductMapper($dbh);
+            $disc = new Product\DiscProductMapper($dbh);
 
             /**
-             * Insert dvd product into the database.
+             * Insert disc product into the database.
              */
-            $dvd->create(
-                new Product\DVDProduct(
-                    $body['dvd_id'],
+            $disc->create(
+                new Product\DiscProduct(
+                    $body['disc_id'],
                     $body['size'],
                     $body['unit']
                 ),

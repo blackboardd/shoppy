@@ -1,7 +1,3 @@
-%        File : data.tex
-%     Created : Fri Aug 27 10 :00 PM 2021 PDT
-% Last Change : Fri Aug 27 10 :00 PM 2021 PDT
-%
 \documentclass[border=8mm]{standalone}
 \usepackage{tikz}
 \usetikzlibrary{shadows}
@@ -35,8 +31,8 @@
     \attribute{weight DECIMAL(4,2)}
     \attribute{unit VARCHAR(20)}
 \end{class}
-\begin{class}{product\string_dvd}{10,-7}
-    \attribute{dvd\_id SMALLINT(5)}
+\begin{class}{product\string_disc}{10,-7}
+    \attribute{disc\_id SMALLINT(5)}
     \attribute{product\_id SMALLINT(5)}
     \attribute{size DECIMAL(4,2)}
     \attribute{unit VARCHAR(20)}
@@ -49,7 +45,7 @@
     \attribute{length DECIMAL(4,2)}
 \end{class}
 \association{product}{1..*}{}{product\string_book}{1..*}{}
-\association{product}{\quad\quad1..*}{}{product\string_dvd}{\quad\quad1..*}{}
+\association{product}{\quad\quad1..*}{}{product\string_disc}{\quad\quad1..*}{}
 \association{product}{\quad\quad1..*}{}{product\string_furniture}{\quad\quad1..*}{}
 \end{tikzpicture}
 \end{document}

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * DVD product class.
+ * Disc product class.
  *
  * PHP version 8.1
  *
@@ -16,25 +16,25 @@
 
 namespace Shoppy\Model\Product;
 
-// {{{ DVDProduct
+// {{{ DiscProduct
 
 /**
- * Class for DVD product objects.
+ * Class for disc product objects.
  */
-class DVDProduct {
+class DiscProduct {
     // {{{ fromState
 
     /**
-     * Create a DVD product from a state.
+     * Create a disc product from a state.
      * 
      * @param array $state The state to create the product from.
-     * @return DVDProduct The product.
+     * @return DiscProduct The product.
      * @access public
      * @static
      */
-    public static function fromState(array $state): DVDProduct {
+    public static function fromState(array $state): DiscProduct {
         return new self(
-            $state['dvd_id'],
+            $state['disc_id'],
             $state['size'],
             $state['unit']
         );
@@ -44,9 +44,9 @@ class DVDProduct {
     // {{{ __construct
 
     /**
-     * Construct a DVD product.
+     * Construct a disc product.
      * 
-     * @param int $dvd_id The product's id.
+     * @param int $disc_id The product's id.
      * @param float $size The product's size.
      * @param string $unit The product's size unit.
      * 
@@ -54,7 +54,7 @@ class DVDProduct {
      * @access public
      */
     public function __construct(
-        private int $dvd_id,
+        private int $disc_id,
         private float $size,
         private string $unit
     ) {
@@ -70,7 +70,7 @@ class DVDProduct {
      * @access public
      */
     public function getId(): int {
-        return $this->dvd_id;
+        return $this->disc_id;
     }
 
     // }}}
