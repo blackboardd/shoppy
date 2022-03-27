@@ -5,13 +5,12 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Server
- * @package    Shoppy\Server
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Server
+ * @package   Shoppy\Server
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 namespace Shoppy\Server;
@@ -20,14 +19,23 @@ namespace Shoppy\Server;
 
 /**
  * Abstract class for handling requests.
+ *
+ * @category  Server
+ * @package   Shoppy\Server
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-abstract class AbstractRequest {
+abstract class AbstractRequest
+{
     // {{{ getBody()
 
     /**
      * Get the request body.
-     * 
+     *
      * @access public
+     * @return string The request body.
      */
     abstract public function getBody();
 
@@ -39,50 +47,62 @@ abstract class AbstractRequest {
 
 /**
  * Class for handling requests.
+ *
+ * @category  Server
+ * @package   Shoppy\Server
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class Request extends AbstractRequest {
+class Request extends AbstractRequest
+{
     // {{{ __construct()
 
     /**
      * Construct a request.
-     * 
+     *
      * @access public
      * @return void
      */
-    public function __construct() {
-        $this->bootstrapSelf();
+    public function __construct()
+    {
+        $this->_bootstrapSelf();
     }
 
     // }}}
-    // {{{ bootstrapSelf()
+    // {{{ _bootstrapSelf()
 
     /**
      * Bootstrap the request.
-     * 
+     *
      * @access private
      * @return void
      */
-    private function bootstrapSelf() {
+    private function _bootstrapSelf()
+    {
         // Get the request method
         foreach ($_SERVER as $key => $value) {
-            $this->{$this->toCamelCase($key)} = $value;
+            $this->{$this->_toCamelCase($key)} = $value;
         }
     }
 
     // }}}
-    // {{{ toCamelCase()
+    // {{{ _toCamelCase()
 
     /**
      * Convert a string to camel case.
-     * 
+     *
      * @param string $string The string to convert.
+     *
      * @return string The converted string.
      * @access private
      */
-    private function toCamelCase($string) {
+    private function _toCamelCase($string)
+    {
         /**
          * Result of the string as lowercase
-         * 
+         *
          * @var string $result
          */
         $result = strtolower($string);
@@ -103,11 +123,12 @@ class Request extends AbstractRequest {
 
     /**
      * Get the request body.
-     * 
+     *
      * @access public
      * @return string The request body.
      */
-    public function getBody() {
+    public function getBody()
+    {
         if ($this->requestMethod === 'GET') {
             return;
         }
@@ -115,7 +136,7 @@ class Request extends AbstractRequest {
         if ($this->requestMethod === 'POST') {
             /**
              * Body initialized to empty array.
-             * 
+             *
              * @var array $body
              */
             $body = array();

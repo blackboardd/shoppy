@@ -5,13 +5,12 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Server
- * @package    Shoppy\Server
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Server
+ * @package   Shoppy\Server
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 namespace Shoppy\Server;
@@ -20,15 +19,23 @@ namespace Shoppy\Server;
 
 /**
  * Class for handling requests.
+ *
+ * @category  Server
+ * @package   Shoppy\Server
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class Router {
+class Router
+{
     // {{{ properties
     /**
      * Supported routes.
-     * 
-     * @var array $supportedHttpMethods
+     *
+     * @var array $_supportedHttpMethods
      */
-    private $supportedHttpMethods = array(
+    private $_supportedHttpMethods = array(
         'GET',
         'POST'
     );
@@ -38,13 +45,14 @@ class Router {
 
     /**
      * Construct a router.
-     * 
-     * @param mixed $request
-     * 
+     *
+     * @param mixed $request The request to route.
+     *
      * @access public
      * @return void
      */
-    public function __construct(private mixed $request) {
+    public function __construct(private mixed $request)
+    {
     }
 
     // }}}
@@ -52,41 +60,43 @@ class Router {
 
     /**
      * Handle a request.
-     * 
-     * @param string $name
-     * @param array $args
-     * 
+     *
+     * @param string $name The name of the method to call.
+     * @param array  $args The arguments to pass to the method.
+     *
      * @access public
      * @return void
      */
-    public function __call($name, $args) {
+    public function __call($name, $args)
+    {
         // Get the request method
         list($route, $method) = $args;
 
         // Check if the request method is supported
-        if (!in_array(strtoupper($name), $this->supportedHttpMethods)) {
-            $this->invalidMethodHandler();
+        if (!in_array(strtoupper($name), $this->_supportedHttpMethods)) {
+            $this->_invalidMethodHandler();
         }
 
         // Check if the route is supported
-        $this->{strtolower($name)}[$this->formatRoute($route)] = $method;
+        $this->{strtolower($name)}[$this->_formatRoute($route)] = $method;
     }
-    
+
     // }}}
-    // {{{ formatRoute()
+    // {{{ _formatRoute()
 
     /**
      * Removes trailing forward slashes from the right of the route.
      *
      * @param string $route The route to format.
-     * 
+     *
      * @access private
      * @return string The formatted route.
      */
-    private function formatRoute($route) {
+    private function _formatRoute($route)
+    {
         /**
          * Result of the route with trailing forward slashes removed.
-         * 
+         *
          * @var string $result
          */
         $result = rtrim($route, '/');
@@ -100,28 +110,30 @@ class Router {
     }
 
     // }}}
-    // {{{ invalidMethodHandler()
-    
+    // {{{ _invalidMethodHandler()
+
     /**
      * Handle an invalid request method.
-     * 
+     *
      * @access private
      * @return void
      */
-    private function invalidMethodHandler() {
+    private function _invalidMethodHandler()
+    {
         header('{$this->request->serverProtocol} 405 Method Not Allowed');
     }
 
     // }}}
-    // {{{ defaultRequestHandler()
+    // {{{ _defaultRequestHandler()
 
     /**
      * Handle a default request.
-     * 
+     *
      * @access private
      * @return void
      */
-    private function defaultRequestHandler() {
+    private function _defaultRequestHandler()
+    {
         header('{$this->request->serverProtocol} 404 Not Found');
     }
 
@@ -130,35 +142,36 @@ class Router {
 
     /**
      * Resolves a route.
-     * 
+     *
      * @access public
      * @return void;
      */
-    public function resolve() {
+    public function resolve()
+    {
         /**
          * The request method.
-         * 
+         *
          * @var string $methodDictionary
          */
         $methodDictionary = $this->{strtolower($this->request->requestMethod)};
 
         /**
          * The formatted route.
-         * 
+         *
          * @var string $fRoute
          */
-        $fRoute = $this->formatRoute($this->request->requestUri);
+        $fRoute = $this->_formatRoute($this->request->requestUri);
 
         /**
          * The method to call.
-         * 
+         *
          * @var string $method
          */
         $method = $methodDictionary[$fRoute];
 
         // Check if the method exists.
         if (is_null($method)) {
-            $this->defaultRequestHandler();
+            $this->_defaultRequestHandler();
             return;
         }
 
@@ -171,11 +184,12 @@ class Router {
 
     /**
      * Destruct a router.
-     * 
+     *
      * @access public
      * @return void
      */
-    function __destruct() {
+    public function __destruct()
+    {
         $this->resolve();
     }
 

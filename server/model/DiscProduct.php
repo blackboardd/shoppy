@@ -5,13 +5,12 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Shoppy\Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
 namespace Shoppy\Model\Product;
@@ -20,19 +19,29 @@ namespace Shoppy\Model\Product;
 
 /**
  * Class for disc product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-class DiscProduct {
+class DiscProduct
+{
     // {{{ fromState
 
     /**
      * Create a disc product from a state.
-     * 
+     *
      * @param array $state The state to create the product from.
+     *
      * @return DiscProduct The product.
      * @access public
      * @static
      */
-    public static function fromState(array $state): DiscProduct {
+    public static function fromState(array $state): DiscProduct
+    {
         return new self(
             $state['disc_id'],
             $state['size'],
@@ -45,11 +54,11 @@ class DiscProduct {
 
     /**
      * Construct a disc product.
-     * 
-     * @param int $disc_id The product's id.
-     * @param float $size The product's size.
-     * @param string $unit The product's size unit.
-     * 
+     *
+     * @param int    $disc_id The product's id.
+     * @param float  $size    The product's size.
+     * @param string $unit    The product's size unit.
+     *
      * @return void
      * @access public
      */
@@ -69,7 +78,8 @@ class DiscProduct {
      * @return int The product's id.
      * @access public
      */
-    public function getId(): int {
+    public function getId(): int
+    {
         return $this->disc_id;
     }
 
@@ -82,7 +92,8 @@ class DiscProduct {
      * @return float The product's size.
      * @access public
      */
-    public function getSize(): float {
+    public function getSize(): float
+    {
         return $this->size;
     }
 
@@ -95,7 +106,8 @@ class DiscProduct {
      * @return string The product's size unit.
      * @access public
      */
-    public function getUnit(): string {
+    public function getUnit(): string
+    {
         return $this->unit;
     }
 

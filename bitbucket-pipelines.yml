@@ -20,9 +20,9 @@ pipelines:
           - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           - cd server
           - composer install
-          - vendor/bin/phpcs -h
-          - vendor/bin/phpcbf -h
-          - vendor/bin/php-cs-fixer fix ./
+          - vendor/bin/phpcs --ignore=*/vendor/* .
+          - vendor/bin/phpcbf --ignore=*/vendor/* .
+          - vendor/bin/php-cs-fixer -v fix .
           - vendor/bin/phpunit tests
   branches:
     main:
