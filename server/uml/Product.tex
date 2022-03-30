@@ -1,0 +1,32 @@
+\documentclass[border=8mm]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shadows}
+\usepackage{pgf-umlcd}
+\usepackage{xcolor}
+\usepackage[T1]{fontenc}
+
+\definecolor{page}{HTML}{8bd4e0}
+\pagecolor{page}
+
+\definecolor{text}{HTML}{3b3b3b}
+\definecolor{draw}{HTML}{000000} % {999999}
+\definecolor{fill}{HTML}{ededed}
+
+\renewcommand{\umltextcolor}{text}
+\renewcommand{\umldrawcolor}{draw}
+\renewcommand{\umlfillcolor}{fill}
+
+\begin{document}
+\begin{tikzpicture}[{umlcd style class}/.append style={rounded corners=4pt, drop shadow={opacity=.85, fill=black},}]
+\begin{class}{product}{0,0}
+    \attribute{product\_id SMALLINT(5)}
+    \attribute{sku VARCHAR(255)}
+    \attribute{name VARCHAR(255)}
+    \attribute{price DECIMAL(4,2)}
+    \attribute{currency CHAR(3)}
+    \attribute{type VARCHAR(20)}
+    \attribute{unit VARCHAR(20)}
+    \attribute{unit\_value DECIMAL(4,2)}
+\end{class}
+\end{tikzpicture}
+\end{document}
