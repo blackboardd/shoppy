@@ -5,34 +5,52 @@
  *
  * PHP version 8.1
  *
- * LICENSE: MIT
- *
- * @category   Product
- * @package    Model\Product
- * @author     Brighten Tompkins <brightenqtompkins@gmail.com>
- * @copyright  2022 Brighten Tompkins
- * @license    https://opensource.org/licenses/MIT MIT
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
-namespace Model\Product;
+namespace Shoppy\Model;
 
 // {{{ ProductFactory
 
 /**
  * Factory for product objects.
+ *
+ * @category  Product
+ * @package   Shoppy\Model\Product
+ * @author    Brighten Tompkins <brightenqtompkins@gmail.com>
+ * @copyright 2022 Brighten Tompkins
+ * @license   https://opensource.org/licenses/MIT MIT
+ * @link      https://bitbucket.org/blackboardd/shoppy
  */
-interface ProductFactory {
+interface ProductFactory
+{
     // {{{ getId()
 
     /**
      * Get the product's id.
-     * 
+     *
      * This is also used as the SKU.
      *
      * @return int The product's id.
      * @access public
      */
     public function getId(): int;
+
+    // }}}
+    // {{{ getSku()
+
+    /**
+     * Get the product's SKU.
+     *
+     * @return string The product's SKU.
+     * @access public
+     */
+    public function getSku(): string;
 
     // }}}
     // {{{ getName()
@@ -77,6 +95,28 @@ interface ProductFactory {
      * @access public
      */
     public function getType(): string;
+
+    // }}}
+    // {{{ getUnit()
+
+    /**
+     * Get the product's unit.
+     *
+     * @return string The product's unit.
+     * @access public
+     */
+    public function getUnit(): string;
+
+    // }}}
+    // {{{ getUnitValue()
+
+    /**
+     * Get the product's unit value.
+     *
+     * @return float The product's unit value.
+     * @access public
+     */
+    public function getUnitValue(): float;
 
     // }}}
 }
