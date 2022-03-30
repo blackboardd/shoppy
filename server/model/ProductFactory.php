@@ -13,7 +13,7 @@
  * @link      https://bitbucket.org/blackboardd/shoppy
  */
 
-namespace Shoppy\Model\Product;
+namespace Shoppy\Model;
 
 // {{{ ProductFactory
 
@@ -40,6 +40,17 @@ interface ProductFactory
      * @access public
      */
     public function getId(): int;
+
+    // }}}
+    // {{{ getSku()
+
+    /**
+     * Get the product's SKU.
+     *
+     * @return string The product's SKU.
+     * @access public
+     */
+    public function getSku(): string;
 
     // }}}
     // {{{ getName()
@@ -84,6 +95,28 @@ interface ProductFactory
      * @access public
      */
     public function getType(): string;
+
+    // }}}
+    // {{{ getUnit()
+
+    /**
+     * Get the product's unit.
+     *
+     * @return string The product's unit.
+     * @access public
+     */
+    public function getUnit(): string;
+
+    // }}}
+    // {{{ getUnitValue()
+
+    /**
+     * Get the product's unit value.
+     *
+     * @return float The product's unit value.
+     * @access public
+     */
+    public function getUnitValue(): float;
 
     // }}}
 }

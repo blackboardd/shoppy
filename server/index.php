@@ -3,7 +3,7 @@
 /**
  * Entry point for the server.
  *
- * PHP version 8.1
+ * PHP version 7.4
  *
  * @category  Server
  * @package   Shoppy\Server
@@ -16,326 +16,207 @@
 namespace Shoppy\Server;
 
 require_once __DIR__ . '/vendor/autoload.php';
-require_once 'Request.php';
-require_once 'Router.php';
-require_once './model/BookProductMapper.php';
-require_once './model/BookProduct.php';
-require_once './model/DiscProductMapper.php';
-require_once './model/DiscProduct.php';
-require_once './model/FurnitureProductMapper.php';
-require_once './model/FurnitureProduct.php';
 require_once './model/ProductMapper.php';
 require_once './model/Product.php';
+require_once './Database.php';
 
-use Shoppy\Model\Product;
 use Dotenv;
 use PDOException;
 use PDO;
+use Shoppy\Model\ProductMapper;
+use Shoppy\Model\Product;
 
 /**
  * Router for the server.
  *
- * @var Router $router
+ * @var \Klein\Klein $router
  */
-$router = new Router(new Request());
-
-// Fetch an existing product.
-$router->get(
-    '/api/v1/product',
-    function ($request) {
-        /**
-         * Test variable.
-         */
-        $product_id = 12;
-
-        /**
-         * Create database connection using .env file.
-         *
-         * @var Dotenv $dotenv
-         */
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-
-        /**
-         * Database name.
-         *
-         * @var string $database
-         */
-        $database = $_ENV['MYSQL_DATABASE'];
-
-        /**
-         * Database username.
-         *
-         * @var string $user
-         */
-        $user = 'root';
-
-        /**
-         * Database password.
-         *
-         * @var string $pass
-         */
-        $pass = $_ENV['MYSQL_ROOT_PASSWORD'];
-
-        /**
-         * Database host.
-         *
-         * @var string $host
-         */
-        $host = 'mysql';
-
-        /**
-         * Database schema name.
-         *
-         * @var string $dsn
-         */
-        $dsn = 'mysql:host={$host};dbname={$database};charset=utf8mb4';
-
-        try {
-            /**
-             * Database base handler.
-             *
-             * @var PDO $dbh
-             */
-            $dbh = new PDO($dsn, $user, $pass);
-
-            // set the PDO error mode to exception.
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            /**
-             * Product mapper.
-             *
-             * @var ProductMapper $product
-             */
-            $productMapper = new Product\ProductMapper($dbh);
-
-            /**
-             * Get product by id.
-             */
-            $product = $productMapper->get($product_id);
-
-            if ($product['type'] === 'disc') {
-                /**
-                 * DiscProduct mapper.
-                 *
-                 * @var DiscProductMapper $discProductMapper
-                 */
-                $discProductMapper = new Product\DiscProductMapper($dbh);
-
-                /**
-                 * DiscProduct.
-                 *
-                 * @var DiscProduct $discProduct
-                 */
-                $discProduct = $discProductMapper->get($product_id);
-
-                // return disc product
-                return $discProduct;
-            }
-
-            if ($product['type'] === 'book') {
-                /**
-                 * BookProduct mapper.
-                 *
-                 * @var BookProductMapper $bookProductMapper
-                 */
-                $bookProductMapper = new Product\BookProductMapper($dbh);
-
-                /**
-                 * BookProduct.
-                 *
-                 * @var BookProduct $bookProduct
-                 */
-                $bookProduct = $bookProductMapper->get($product_id);
-
-                // return book product
-                return $bookProduct;
-            }
-
-            if ($product['type'] === 'furniture') {
-                /**
-                 * FurnitureProduct mapper.
-                 *
-                 * @var FurnitureProductMapper $furnitureProductMapper
-                 */
-                $furnitureProductMapper = new Product\FurnitureProductMapper($dbh);
-
-                /**
-                 * FurnitureProduct.
-                 *
-                 * @var FurnitureProduct $furnitureProduct
-                 */
-                $furnitureProduct = $furnitureProductMapper->get($product_id);
-
-                // return furniture product
-                return $furnitureProduct;
-            }
-        } catch (PDOException $e) {
-            return 'Connection failed: ' . $e->getMessage();
-        }
-
-        $body = $request->getBody();
-
-        // Return json encoded data on completion.
-        return json_encode($body);
-    }
-);
+$router = new \Klein\Klein();
 
 // Create a new product.
-$router->post(
+$router->respond(
+    'POST',
     '/api/v1/product',
-    function ($request) {
+    function ($req) {
         /**
-         * Create database connection using .env file.
+         * Initialize database.
          *
-         * @var Dotenv $dotenv
+         * @var PDO $db
          */
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
-
-        /**
-         * Database name.
-         *
-         * @var string $database
-         */
-        $database = $_ENV['MYSQL_DATABASE'];
-
-        /**
-         * Database username.
-         *
-         * @var string $user
-         */
-        $user = 'root';
-
-        /**
-         * Database password.
-         *
-         * @var string $pass
-         */
-        $pass = $_ENV['MYSQL_ROOT_PASSWORD'];
-
-        /**
-         * Database host.
-         *
-         * @var string $host
-         */
-        $host = 'mysql';
-
-        /**
-         * Database schema name.
-         *
-         * @var string $dsn
-         */
-        $dsn = 'mysql:host={$host};dbname={$database};charset=utf8mb4';
+        $db = (new Database())->connect();
 
         try {
-            /**
-             * Database base handler.
-             *
-             * @var PDO $dbh
-             */
-            $dbh = new PDO($dsn, $user, $pass);
-
-            // set the PDO error mode to exception.
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Create product table if it doesn't exist.
+            Product::createTable($db);
 
             /**
              * Product mapper.
              *
-             * @var ProductMapper $product
+             * @var ProductMapper $mapper
              */
-            $product = new Product\ProductMapper($dbh);
+            $mapper = new ProductMapper($db);
 
             /**
-             * Get body of request.
+             * Product model.
              *
-             * @var array
+             * @var Product $product
              */
-            $body = $request->getBody();
+            $model = new Product(
+                $req->id,
+                $req->sku,
+                $req->name,
+                $req->price,
+                $req->currency,
+                $req->type,
+                $req->unit,
+                $req->unit_value
+            );
 
             /**
              * Insert product into the database.
              */
-            $product->create(
-                new Product\Product(
-                    $body['id'],
-                    $body['name'],
-                    $body['price'],
-                    $body['currency'],
-                    $body['type']
-                )
-            );
+            $mapper->create($model);
 
-            if ($body['disc_id']) {
-                /**
-                 * Disc product mapper
-                 *
-                 * @var Product\DiscProductMapper $disc
-                 */
-                $disc = new Product\DiscProductMapper($dbh);
+            /**
+             * Product.
+             *
+             * @var Product $product
+             */
+            $product = $mapper->get($req->id);
 
-                /**
-                 * Insert disc product into the database.
-                 */
-                $disc->create(
-                    new Product\DiscProduct(
-                        $body['disc_id'],
-                        $body['size'],
-                        $body['unit']
-                    ),
-                    $body['id']
-                );
-            }
-
-            if ($body['furniture_id']) {
-                /**
-                 * Furniture product mapper.
-                 *
-                 * @var Product\FurnitureProductMapper $furniture
-                 */
-                $furniture = new Product\FurnitureProductMapper($dbh);
-
-                /**
-                 * Insert furniture product into the database.
-                 */
-                $furniture->create(
-                    new Product\FurnitureProduct(
-                        $body['furniture_id'],
-                        $body['width'],
-                        $body['height'],
-                        $body['length']
-                    ),
-                    $body['id']
-                );
-            }
-
-            if ($body['book_id']) {
-                /**
-                 * Book product mapper.
-                 *
-                 * @var Product\BookProductMapper $book
-                 */
-                $book = new Product\BookProductMapper($dbh);
-
-                /**
-                 * Insert book product into the database.
-                 */
-                $book->create(
-                    new Product\BookProduct(
-                        $body['book_id'],
-                        $body['weight'],
-                        $body['unit']
-                    ),
-                    $body['id']
-                );
-            }
+            return json_encode($product);
         } catch (PDOException $e) {
             return 'Connection failed: ' . $e->getMessage();
         }
-
-        $body = $request->getBody();
-
-        // Return json encoded data on completion.
-        return json_encode($body);
     }
 );
+
+// Fetch an existing product.
+$router->respond(
+    'GET',
+    '/api/v1/product/[i:id]',
+    function ($req) {
+        /**
+         * Initialize database.
+         *
+         * @var PDO $db
+         */
+        $db = (new Database())->connect();
+
+        try {
+            /**
+             * Product mapper.
+             *
+             * @var ProductMapper $mapper
+             */
+            $mapper = new ProductMapper($db);
+
+            /**
+             * Product.
+             *
+             * @var Product $product
+             */
+            $product = $mapper->get($req->id);
+
+            return json_encode($product);
+        } catch (PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+    }
+);
+
+// Update an existing product.
+$router->respond(
+    'POST',
+    '/api/v1/product/[i:id]',
+    function ($req) {
+        /**
+         * Initialize database.
+         *
+         * @var PDO $db
+         */
+        $db = (new Database())->connect();
+
+        try {
+            /**
+             * Product mapper.
+             *
+             * @var ProductMapper $mapper
+             */
+            $mapper = new ProductMapper($db);
+
+            /**
+             * Product model.
+             *
+             * @var Product $product
+             */
+            $model = new Product(
+                $req->id,
+                $req->sku,
+                $req->name,
+                $req->price,
+                $req->currency,
+                $req->type,
+                $req->unit,
+                $req->unit_value
+            );
+
+            /**
+             * Update product in the database.
+             */
+            $mapper->update($model);
+
+            /**
+             * Product.
+             *
+             * @var Product $product
+             */
+            $product = $mapper->get($req->id);
+
+            return json_encode($product);
+        } catch (PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+    }
+);
+
+// Delete an existing product.
+$router->respond(
+    'DELETE',
+    '/api/v1/product/[i:id]',
+    function ($req) {
+        /**
+         * Initialize database.
+         *
+         * @var PDO $db
+         */
+        $db = (new Database())->connect();
+
+        try {
+            /**
+             * Product mapper.
+             *
+             * @var ProductMapper $mapper
+             */
+            $mapper = new ProductMapper($db);
+
+            /**
+             * Product.
+             *
+             * @var Product $product
+             */
+            $product = $mapper->get($req->id);
+
+            /**
+             * Delete product from the database.
+             */
+            $mapper->delete($req->id);
+
+            return json_encode($product);
+        } catch (PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+    }
+);
+
+$router->dispatch();
