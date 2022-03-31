@@ -127,6 +127,7 @@
     "eslint-plugin-unused-imports": "^2.0.0",
     "gulp": "^4.0.2",
     "gulp4-run-sequence": "^1.0.1",
+    "http-proxy-middleware": "^2.0.4",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.7",
     "mini-css-extract-plugin": "^2.6.0",
@@ -151,6 +152,7 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
+  "proxy": "http://localhost:8000",
   "release": {
     "branches": [
       "master",

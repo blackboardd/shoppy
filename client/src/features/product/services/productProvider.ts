@@ -2,7 +2,6 @@ import {
   CURRENCY_SYMBOL,
   IProduct,
 } from '@/features/product/components/interface';
-import * as config from '@/config/api';
 import { Currency } from '../components/types';
 
 /**
@@ -21,7 +20,7 @@ export class ProductProvider {
   public static async getProducts(): Promise<IProduct[]> {
     // fetch products from api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products`)
+    return fetch(`/api/v1/products`, { mode: 'cors' })
       .then((res) => res.json())
       .then((data: IProduct[]) => {
         data.map((product: IProduct) => {
@@ -44,7 +43,7 @@ export class ProductProvider {
   public static async getProductById(id: number): Promise<IProduct> {
     // fetch product from api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products/${id}`)
+    return fetch(`/api/v1/products/${id}`, { mode: 'cors' })
       .then((res) => res.json())
       .then((data: IProduct) => {
         return data;
@@ -61,7 +60,8 @@ export class ProductProvider {
   public static async createProduct(product: IProduct): Promise<IProduct> {
     // fetch product from api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products/`, {
+    return fetch(`/api/v1/products/`, {
+      mode: 'cors',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -84,7 +84,8 @@ export class ProductProvider {
   public static async updateProduct(product: IProduct): Promise<IProduct> {
     // fetch product from api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products/${product.id}`, {
+    return fetch(`/api/v1/products/${product.id}`, {
+      mode: 'cors',
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -107,7 +108,8 @@ export class ProductProvider {
   public static async deleteProduct(id: number): Promise<IProduct> {
     // fetch product from api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products/${id}`, {
+    return fetch(`/api/v1/products/${id}`, {
+      mode: 'cors',
       method: 'DELETE',
     })
       .then((res) => res.json())

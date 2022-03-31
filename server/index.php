@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Entry point for the server.
  *
@@ -14,6 +13,8 @@
  */
 
 namespace Shoppy\Server;
+
+header("Access-Control-Allow-Origin: *");
 
 require_once __DIR__ . '/vendor/autoload.php';
 require_once './model/ProductMapper.php';
@@ -32,6 +33,13 @@ use Shoppy\Model\Product;
  * @var \Klein\Klein $router
  */
 $router = new \Klein\Klein();
+
+// enable cors requests on all routes
+$router->respond(function ($request, $response, $service) {
+    $response->header('Access-Control-Allow-Origin', '*');
+    $response->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    $response->header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept');
+});
 
 // Create a new product.
 $router->respond(
