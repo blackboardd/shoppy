@@ -36,7 +36,7 @@ $router = new \Klein\Klein();
 // Create a new product.
 $router->respond(
     'POST',
-    '/api/v1/product',
+    '/api/v1/products',
     function ($req) {
         /**
          * Initialize database.
@@ -91,10 +91,47 @@ $router->respond(
     }
 );
 
+// Fetch all products.
+$router->respond(
+    'GET',
+    '/api/v1/products',
+    function ($req) {
+        /**
+         * Initialize database.
+         *
+         * @var PDO $db
+         */
+        $db = (new Database())->connect();
+
+        try {
+            // Create product table if it doesn't exist.
+            Product::createTable($db);
+
+            /**
+             * Product mapper.
+             *
+             * @var ProductMapper $mapper
+             */
+            $mapper = new ProductMapper($db);
+
+            /**
+             * Fetch all products.
+             *
+             * @var array $products
+             */
+            $products = $mapper->getAll();
+
+            return json_encode($products);
+        } catch (PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+    }
+);
+
 // Fetch an existing product.
 $router->respond(
     'GET',
-    '/api/v1/product/[i:id]',
+    '/api/v1/products/[i:id]',
     function ($req) {
         /**
          * Initialize database.
@@ -127,7 +164,7 @@ $router->respond(
 
 // Update an existing product.
 $router->respond(
-    'POST',
+    'PUT',
     '/api/v1/product/[i:id]',
     function ($req) {
         /**

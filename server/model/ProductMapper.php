@@ -33,6 +33,17 @@ require_once 'Product.php';
  */
 interface ProductMapperInterface
 {
+    // {{{ getAll()
+
+    /**
+     * Get all products.
+     * 
+     * @access public
+     * @return array The products.
+     */
+    public function getAll(): array;
+
+    // }}}
     // {{{ get()
 
     /**
@@ -116,6 +127,25 @@ class ProductMapper implements ProductMapperInterface
     }
 
     // }}}
+    // {{{ getAll()
+    
+    /**
+     * Get all products.
+     * 
+     * @access public
+     * @return array The products.
+     */
+    public function getAll(): array
+    {
+        $stmt = $this->db->prepare('SELECT * FROM products');
+        $stmt->execute();
+        $products = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+
+        return $products;
+    }
+
+    // }}}
     // {{{ get()
 
     /**
@@ -128,7 +158,7 @@ class ProductMapper implements ProductMapperInterface
      */
     public function get(int $id): Product
     {
-        $query = 'SELECT * FROM product WHERE product_id = ?';
+        $query = 'SELECT * FROM products WHERE product_id = ?';
         $stmt = $this->db->prepare($query);
         $stmt->execute([$id]);
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
@@ -153,7 +183,7 @@ class ProductMapper implements ProductMapperInterface
     public function update(Product $product)
     {
         $query = '
-            UPDATE product
+            UPDATE products
             SET sku = :sku,
             name = :name,
             price = :price,
@@ -204,7 +234,7 @@ class ProductMapper implements ProductMapperInterface
      */
     public function delete(int $productId)
     {
-        $query = 'DELETE FROM product WHERE product_id = :id';
+        $query = 'DELETE FROM products WHERE product_id = :id';
         $stmt = $this->db->prepare($query);
 
         /**
@@ -233,7 +263,7 @@ class ProductMapper implements ProductMapperInterface
     public function create(Product $product)
     {
         $query = '
-        INSERT INTO product (
+        INSERT INTO products (
             product_id,
             sku,
             name,

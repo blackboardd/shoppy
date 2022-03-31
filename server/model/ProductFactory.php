@@ -113,10 +113,10 @@ interface ProductFactory
     /**
      * Get the product's unit value.
      *
-     * @return float The product's unit value.
+     * @return string The product's unit value.
      * @access public
      */
-    public function getUnitValue(): float;
+    public function getUnitValue(): string;
 
     // }}}
 }

@@ -1,3 +1,5 @@
+import './footer.styles.scss';
+
 /**
  * Navigation bar footer
  */

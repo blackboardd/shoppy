@@ -96,7 +96,7 @@ class Product implements ProductFactory, JsonSerializable
     /**
      * The product's unit value.
      *
-     * @var int
+     * @var string
      */
     private $_unitValue;
 
@@ -104,7 +104,7 @@ class Product implements ProductFactory, JsonSerializable
     // {{{ fromState
 
     /**
-     * Create a furniture product from a state.
+     * Create a product from a state.
      *
      * @param array $state The state to create the product from.
      *
@@ -140,7 +140,7 @@ class Product implements ProductFactory, JsonSerializable
     public static function createTable(\PDO $db)
     {
         $query = '
-        CREATE TABLE IF NOT EXISTS product (
+        CREATE TABLE IF NOT EXISTS products (
             product_id INTEGER PRIMARY KEY,
             sku TEXT NOT NULL,
             name TEXT NOT NULL,
@@ -148,7 +148,7 @@ class Product implements ProductFactory, JsonSerializable
             currency TEXT NOT NULL,
             type TEXT NOT NULL,
             unit TEXT NOT NULL,
-            unit_value REAL NOT NULL
+            unit_value TEXT NOT NULL
         )
         ';
 
@@ -160,7 +160,7 @@ class Product implements ProductFactory, JsonSerializable
     // {{{ __construct()
 
     /**
-     * Constructor for the furniture product.
+     * Constructor for the product.
      *
      * @param int    $_id        The product's id.
      * @param string $_sku       The product's SKU.
@@ -182,7 +182,7 @@ class Product implements ProductFactory, JsonSerializable
         string $_currency,
         string $_type,
         string $_unit,
-        float  $_unitValue
+        string $_unitValue
     ) {
         $this->_id = $_id;
         $this->_sku = $_sku;
@@ -300,10 +300,10 @@ class Product implements ProductFactory, JsonSerializable
     /**
      * Get the product's unit value.
      *
-     * @return float The product's unit value.
+     * @return string The product's unit value.
      * @access public
      */
-    public function getUnitValue(): float
+    public function getUnitValue(): string 
     {
         return $this->_unitValue;
     }
