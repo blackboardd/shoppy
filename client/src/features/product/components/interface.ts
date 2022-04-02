@@ -54,14 +54,46 @@ export const UNIT_TYPE = {
 };
 
 /**
- * Constant for the product unit.
+ * Constant for the product weight units.
  * 
  * @constant
  * @default
  * @property {string} KILOGRAMS - kgs
  * @property {string} POUNDS - lbs
  */
-export const UNIT = {
+export const UNIT_WEIGHT = {
   KILOGRAMS: 'kgs',
   POUNDS: 'lbs',
+};
+
+/**
+ * Constant for the product size units.
+ * 
+ * @constant
+ * @default
+ * @property {string} KILOBYTES - kbs
+ * @property {string} MEGABYTES - mbs
+ * @property {string} GIGABYTES - gbs
+ */
+export const UNIT_SIZE = {
+  KILOBYTES: 'kbs',
+  MEGABYTES: 'mbs',
+  GIGABYTES: 'gbs',
+};
+
+/**
+ * Constant for the product dimension units.
+ * @todo - add advanced sanitization to dimensions
+ *         so that they can be properly formatted
+ * 
+ * @constant
+ * @default
+ * @property {string} 'INCHES' - in
+ * @property {string} 'FEET' - ft
+ * @property {string} 'CENTIMETERS' - cm
+ */
+export const UNIT_DIMENSIONS = {
+  INCHES: 'in',
+  FEET: 'ft',
+  CENTIMETERS: 'cm',
 };

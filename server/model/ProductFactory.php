@@ -29,6 +29,59 @@ namespace Shoppy\Model;
  */
 interface ProductFactory
 {
+    // {{{ fromState
+
+    /**
+     * Create a product from a state.
+     *
+     * @param array $state The state to create the product from.
+     *
+     * @return Product The product.
+     * @access public
+     * @static
+     */
+    public static function fromState(array $state): Product;
+    
+    // }}}
+    // {{{ createTable()
+    
+    /**
+     * Create the product table.
+     *
+     * @param PDO $db The database to create the table in.
+     *
+     * @access public
+     * @return void
+     */
+    public static function createTable(\PDO $db);
+
+    // }}}
+    // {{{ dropTable()
+    
+    /**
+     * Drop the product table.
+     *
+     * @param PDO $db The database to drop the table from.
+     *
+     * @access public
+     * @return void
+     */
+    public static function dropTable(\PDO $db);
+
+    // }}}
+    // {{{ createTestData()
+    
+    /**
+     * Create test data.
+     *
+     * @param PDO $db The database to create the test data in.
+     *
+     * @access public
+     * @return void
+     */
+    public static function createTestData(\PDO $db);
+
+    // }}}
     // {{{ getId()
 
     /**

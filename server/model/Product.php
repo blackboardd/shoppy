@@ -157,6 +157,195 @@ class Product implements ProductFactory, JsonSerializable
     }
 
     // }}}
+    // {{{ dropTable()
+    
+    /**
+     * Drop the product table.
+     *
+     * @param PDO $db The database to drop the table from.
+     *
+     * @access public
+     * @return void
+     */
+    public static function dropTable(\PDO $db)
+    {
+        $query = 'DROP TABLE IF EXISTS products';
+
+        $stmt = $db->prepare($query);
+        $stmt->execute();
+    }
+
+    // }}}
+    // {{{ createTestData()
+    
+    /**
+     * Create test data.
+     *
+     * @param PDO $db The database to create the test data in.
+     *
+     * @access public
+     * @return void
+     */
+    public static function createTestData(\PDO $db)
+    {
+        $query = '
+        INSERT INTO products (
+            product_id,
+            sku,
+            name,
+            price,
+            currency,
+            type,
+            unit,
+            unit_value
+        ) VALUES (
+            :product_id,
+            :sku,
+            :name,
+            :price,
+            :currency,
+            :type,
+            :unit,
+            :unit_value
+        )
+        ';
+
+        $stmt = $db->prepare($query);
+
+        $stmt->execute([
+            ':product_id' => 1,
+            ':sku' => '30544275E04DC6F7',
+            ':name' => 'Run, Rose, Run: A Novel',
+            ':price' => 18.00,
+            ':currency' => 'USD',
+            ':type' => 'BOOK',
+            ':unit' => 'KILOGRAMS',
+            ':unit_value' => '0.67'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 2,
+            ':sku' => 'D48F823638D2827C',
+            ':name' => 'Loveseat Sofa Gray Fabric',
+            ':price' => 399.99,
+            ':currency' => 'USD',
+            ':type' => 'FURNITURE',
+            ':unit' => 'INCHES',
+            ':unit_value' => '30.7x66.5x30.7'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 3,
+            ':sku' => 'F5FB3F28BC08239F',
+            ':name' => 'Verbatim CD-R Blank Discs',
+            ':price' => 16.88,
+            ':currency' => 'USD',
+            ':type' => 'DISC',
+            ':unit' => 'MEGABYTES',
+            ':unit_value' => '700'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 4,
+            ':sku' => '7F88E5E990D6B08D',
+            ':name' => 'Maxell 625335 Lifetime Warranty',
+            ':price' => 15.30,
+            ':currency' => 'USD',
+            ':type' => 'DISC',
+            ':unit' => 'MEGABYTES',
+            ':unit_value' => '700'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 5,
+            ':sku' => 'E5481B3899D2F07B',
+            ':name' => 'Where the Crawdads Sing',
+            ':price' => 12.40,
+            ':currency' => 'USD',
+            ':type' => 'BOOK',
+            ':unit' => 'KILOGRAMS',
+            ':unit_value' => '0.59'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 6,
+            ':sku' => '90F3BBB4C0A5271A',
+            ':name' => 'My Dear Little One',
+            ':price' => 16.99,
+            ':currency' => 'USD',
+            ':type' => 'BOOK',
+            ':unit' => 'KILOGRAMS',
+            ':unit_value' => '0.79'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 7,
+            ':sku' => '73C6FAC669A06CA8',
+            ':name' => 'The Very Hungry Caterpillar',
+            ':price' => 5.06,
+            ':currency' => 'USD',
+            ':type' => 'BOOK',
+            ':unit' => 'KILOGRAMS',
+            ':unit_value' => '0.18'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 8,
+            ':sku' => '17F10071582536F8',
+            ':name' => '5 Drawer Dresser Industrial Gray',
+            ':price' => 104.99,
+            ':currency' => 'USD',
+            ':type' => 'FURNITURE',
+            ':unit' => 'INCHES',
+            ':unit_value' => '11.7x24.6x38.4'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 9,
+            ':sku' => '3E01A5E372ED6616',
+            ':name' => 'Upholstered Leather Sofa',
+            ':price' => 360.50,
+            ':currency' => 'USD',
+            ':type' => 'FURNITURE',
+            ':unit' => 'INCHES',
+            ':unit_value' => '32x53x35'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 10,
+            ':sku' => '9F459862646D6C8C',
+            ':name' => 'Digitech DVD CD-RW',
+            ':price' => 13.24,
+            ':currency' => 'USD',
+            ':type' => 'DISC',
+            ':unit' => 'MEGABYTES',
+            ':unit_value' => '400'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 11,
+            ':sku' => '1F9CB74BF1C2D07C',
+            ':name' => 'The Flames of Hope',
+            ':price' => 12.60,
+            ':currency' => 'USD',
+            ':type' => 'BOOK',
+            ':unit' => 'KILOGRAMS',
+            ':unit_value' => '0.45'
+        ]);
+
+        $stmt->execute([
+            ':product_id' => 12,
+            ':sku' => 'FD0B912FD364D168',
+            ':name' => 'Blueberry Muffin Ottoman',
+            ':price' => 1099.00,
+            ':currency' => 'USD',
+            ':type' => 'FURNITURE',
+            ':unit' => 'INCHES',
+            ':unit_value' => '74x101x33'
+        ]);
+    }
+
+    // }}}
     // {{{ __construct()
 
     /**

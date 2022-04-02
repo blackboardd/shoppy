@@ -35,12 +35,6 @@ export const ProductList: () => JSX.Element = (): JSX.Element => {
     );
   });
 
-  // create 20 copies of productList and append them
-  for (let i = 0; i < 2; i++) {
-    productList = productList.concat(productList);
-  }
-
-
   return (
     <ul className="product-list">
       {productList}
