@@ -1,8 +1,7 @@
 import Navbar from '@/features/navbar/components';
 import ProductList from '@/features/productList';
-import AddButton from './features/addButton/components';
-import FloatingButtons from './features/floatingButtons/components';
-import MassDeleteButton from './features/massDeleteButton/components';
+import { Routes, Route } from 'react-router';
+import ProductAdd from './features/productAdd/components';
 
 /**
  * Application entry point.
@@ -11,12 +10,12 @@ import MassDeleteButton from './features/massDeleteButton/components';
  */
 export const App: () => JSX.Element = (): JSX.Element => {
   return (
-    <div className="App">
-      <Navbar>
-        <FloatingButtons />
-        <ProductList />
-      </Navbar>
-    </div>
+    <Navbar>
+      <Routes>
+        <Route path="/" element={<ProductList />} />
+        <Route path="add" element={<ProductAdd />} />
+      </Routes>
+    </Navbar>
   );
 };
 

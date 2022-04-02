@@ -3,6 +3,8 @@ import Product from '@/features/product/components';
 import { IProduct } from '@/features/product/components/interface';
 import { ProductProvider } from '@/features/product/services/productProvider';
 import './styles.scss';
+import FloatingButtons from '../floatingButtons/components';
+import Navbar from '../navbar/components';
 
 /**
  * Application entry point.
@@ -36,9 +38,12 @@ export const ProductList: () => JSX.Element = (): JSX.Element => {
   });
 
   return (
-    <ul className="product-list">
-      {productList}
-    </ul>
+    <div className="product-list-container">
+      <FloatingButtons />
+      <ul className="product-list">
+        {productList}
+      </ul>
+    </div>
   );
 };
 
