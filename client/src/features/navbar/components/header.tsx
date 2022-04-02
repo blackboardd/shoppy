@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './header.styles.scss';
 
 /**
@@ -11,9 +12,9 @@ const Header = (): JSX.Element => {
       <div className="container-fluid">
         <div className="navbar-header-container">
           <div className="navbar-upper">
-            <a className="navbar-brand business-title header-text" href="#">
-              Shoppy
-            </a>
+            <div className="navbar-brand business-title header-text">
+              <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>Shoppy</Link>
+            </div>
             <h1 className="navbar-brand header-text">Product List</h1>
           </div>
           <div className="navbar-lower">
