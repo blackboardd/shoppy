@@ -13,14 +13,14 @@ export interface IProductProps {
  * @interface IProduct
  */
 export interface IProduct {
-  id: number;
+  product_id: number;
   sku: string;
   name: string;
   price: number;
   currency: string;
   type: string;
   unit: string;
-  unitValue: string;
+  unit_value: string;
 }
 
 /**
@@ -51,4 +51,17 @@ export const UNIT_TYPE = {
   BOOK: 'Weight',
   FURNITURE: 'Dimension',
   DISC: 'Size',
+};
+
+/**
+ * Constant for the product unit.
+ * 
+ * @constant
+ * @default
+ * @property {string} KILOGRAMS - kgs
+ * @property {string} POUNDS - lbs
+ */
+export const UNIT = {
+  KILOGRAMS: 'kgs',
+  POUNDS: 'lbs',
 };

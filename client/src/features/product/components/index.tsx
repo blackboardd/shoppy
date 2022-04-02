@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import { combineUnits } from '../helpers/product';
 import { IProductProps } from './interface';
+import './styles.scss';
 
 /**
  * Product component.
@@ -8,16 +10,21 @@ import { IProductProps } from './interface';
  * @returns {JSX.Element}
  */
 const Product = (props: IProductProps): JSX.Element => {
-  const { product } = props;
-  const { sku, name, price, type, currency, unit, unitValue } = product;
+  // usestate for checked
+  const [checked, setChecked] = useState(false);
 
-  const combinedUnit = combineUnits(unit, unitValue, type);
+  const { product } = props;
+  const { sku, name, price, type, currency, unit, unit_value } = product;
+
+  const combinedUnit = combineUnits(unit, unit_value, type);
+
+  // div className="product" should have an onClick function that calls setChecked
+  const handleClick = (): void => {
+    setChecked(!checked);
+  };
 
   return (
-    <div className="product">
-      <div className="product-checkbox">
-        <input type="checkbox" />
-      </div>
+    <div className="product" onClick={handleClick}>
       <div className="product__info">
         <div className="product__sku">{sku}</div>
         <div className="product__name">{name}</div>
@@ -26,6 +33,9 @@ const Product = (props: IProductProps): JSX.Element => {
           {price}
         </div>
         <div className="product__unit">{combinedUnit}</div>
+      </div>
+      <div className="product-checkbox">
+        <input className="form-check-input" checked={checked} type="checkbox" />
       </div>
     </div>
   );

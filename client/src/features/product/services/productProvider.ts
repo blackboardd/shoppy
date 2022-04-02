@@ -27,8 +27,7 @@ export class ProductProvider {
         data.map((product: IProduct) => {
           product.currency = CURRENCY_SYMBOL[product.currency as Currency];
           product.type = product.type.toUpperCase();
-          product.unit =
-            product.unit.charAt(0).toUpperCase() + product.unit.slice(1);
+          product.unit = product.unit.toUpperCase();
           return product;
         });
         return data;
@@ -84,7 +83,7 @@ export class ProductProvider {
   public static async updateProduct(product: IProduct): Promise<IProduct> {
     // fetch product from api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products/${product.id}`, {
+    return fetch(`${config.API_URL}/products/${product.product_id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

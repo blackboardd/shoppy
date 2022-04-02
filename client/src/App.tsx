@@ -1,4 +1,5 @@
 import Navbar from '@/features/navbar/components';
+import ProductList from '@/features/productList';
 
 /**
  * Application entry point.
@@ -9,7 +10,7 @@ export const App: () => JSX.Element = (): JSX.Element => {
   return (
     <div className="App">
       <Navbar>
-        <h1>Hello world!</h1>
+        <ProductList />
       </Navbar>
     </div>
   );

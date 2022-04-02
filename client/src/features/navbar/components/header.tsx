@@ -11,10 +11,10 @@ const Header = (): JSX.Element => {
       <div className="container-fluid">
         <div className="navbar-header-container">
           <div className="navbar-upper">
-            <a className="navbar-brand business-title" href="#">
+            <a className="navbar-brand business-title header-text" href="#">
               Shoppy
             </a>
-            <h1 className="navbar-brand">Product List</h1>
+            <h1 className="navbar-brand header-text">Product List</h1>
           </div>
           <div className="navbar-lower">
             <div className="navbar-horizontal-bar" />
