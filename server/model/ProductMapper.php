@@ -83,6 +83,17 @@ interface ProductMapperInterface
     public function delete(int $productId);
 
     // }}}
+    // {{{ deleteAll()
+
+    /**
+     * Delete all products.
+     *
+     * @access public
+     * @return void
+     */
+    public function deleteAll();
+
+    // }}}
     // {{{ create()
 
     /**
@@ -246,6 +257,22 @@ class ProductMapper implements ProductMapperInterface
 
         $stmt->bindValue(':id', $id);
 
+        $stmt->execute();
+    }
+
+    // }}}
+    // {{{ deleteAll()
+    
+    /**
+     * Delete all products.
+     *
+     * @access public
+     * @return void
+     */
+    public function deleteAll()
+    {
+        $query = 'DELETE FROM products';
+        $stmt = $this->db->prepare($query);
         $stmt->execute();
     }
 

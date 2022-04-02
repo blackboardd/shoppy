@@ -256,4 +256,92 @@ $router->respond(
     }
 );
 
+// Delete all products.
+$router->respond(
+    'DELETE',
+    '/api/v1/products',
+    function ($req) {
+        /**
+         * Initialize database.
+         *
+         * @var PDO $db
+         */
+        $db = (new Database())->connect();
+
+        try {
+            // Create product table if it doesn't exist.
+            Product::createTable($db);
+
+            /**
+             * Product mapper.
+             *
+             * @var ProductMapper $mapper
+             */
+            $mapper = new ProductMapper($db);
+
+            /**
+             * Delete all products from the database.
+             */
+            $mapper->deleteAll();
+
+            return json_encode([]);
+        } catch (PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+    }
+);
+
+/**
+ * Refresh the database by deleting all products, dropping the table, and then
+ * re-creating it. This route will also introduce test data for all three types
+ * of products: books, furniture, and discs.
+ */ 
+$router->respond(
+    'GET',
+    '/api/v1/refresh',
+    function ($req) {
+        /**
+         * Initialize database.
+         *
+         * @var PDO $db
+         */
+        $db = (new Database())->connect();
+
+        try {
+            /**
+             * Product mapper.
+             *
+             * @var ProductMapper $mapper
+             */
+            $mapper = new ProductMapper($db);
+
+            /**
+             * Drop product table.
+             */
+            Product::dropTable($db);
+
+            /**
+             * Create product table.
+             */
+            Product::createTable($db);
+
+            /**
+             * Create test data.
+             */
+            Product::createTestData($db);
+
+            /**
+             * Fetch all products.
+             *
+             * @var array $products
+             */
+            $products = $mapper->getAll();
+
+            return json_encode($products);
+        } catch (PDOException $e) {
+            return 'Connection failed: ' . $e->getMessage();
+        }
+    }
+);
+
 $router->dispatch();
