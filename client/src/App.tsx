@@ -1,11 +1,17 @@
-import './App.scss';
+import Navbar from '@/features/navbar/components';
+import ProductList from '@/features/productList';
 
-export const App: () => JSX.Element = () => {
+/**
+ * Application entry point.
+ *
+ * @return {JSX.Element}
+ */
+export const App: () => JSX.Element = (): JSX.Element => {
   return (
     <div className="App">
-      <div className="app-header">
-        <h1>Shoppy</h1>
-      </div>
+      <Navbar>
+        <ProductList />
+      </Navbar>
     </div>
   );
 };

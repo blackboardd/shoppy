@@ -1,0 +1,83 @@
+.product {
+  display: flex;
+  padding: 1rem;
+  padding-top: 2rem;
+  background: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+
+  // grow the product as zoomed out
+  transition: transform 0.2s ease-out;
+  &:hover {
+    // tilt and scale the product as it is hovered
+    transform: scale(1.05);
+  }
+
+  // when clicked, zoom in
+  &:active {
+    transform: scale(1.2);
+  }
+
+  @media (min-width: 360px) {
+    font-size: 1.5rem;
+    width: 300px;
+    height: 300px;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1rem;
+    width: 200px;
+    height: 200px;
+  }
+
+  // increase width and height as screen size increases
+  @media (min-width: 1920px) {
+    font-size: 1.5rem;
+    width: 300px;
+    height: 300px;
+  }
+
+  // increase width and height as screen size increases
+  @media (min-width: 4000px) {
+    font-size: 3rem;
+    width: 500px;
+    height: 500px;
+  }
+
+
+}
+
+.product-checkbox {
+  @media (min-width: 360px) {
+    position: absolute;
+    margin-top: 230px;
+    margin-left: 250px;
+  }
+
+  @media (min-width: 768px) {
+    position: absolute;
+    margin-top: 130px;
+    margin-left: 150px;
+  }
+
+  @media (min-width: 1920px) {
+    position: absolute;
+    margin-top: 210px;
+    margin-left: 230px;
+  }
+
+  @media (min-width: 4000px) {
+    // move out of edge
+    position: absolute;
+    justify-self: end;
+    align-self: end;
+    margin-left: 400px;
+    margin-bottom: 20px;
+  }
+}
+
+.product__info {
+  padding-bottom: 2rem;
+
+  // make it so that the text can't be selected
+  user-select: none;
+}
