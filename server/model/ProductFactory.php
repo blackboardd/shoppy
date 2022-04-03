@@ -41,10 +41,10 @@ interface ProductFactory
      * @static
      */
     public static function fromState(array $state): Product;
-    
+
     // }}}
     // {{{ createTable()
-    
+
     /**
      * Create the product table.
      *
@@ -57,7 +57,7 @@ interface ProductFactory
 
     // }}}
     // {{{ dropTable()
-    
+
     /**
      * Drop the product table.
      *
@@ -70,7 +70,7 @@ interface ProductFactory
 
     // }}}
     // {{{ createTestData()
-    
+
     /**
      * Create test data.
      *

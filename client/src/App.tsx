@@ -1,7 +1,7 @@
 import Navbar from '@/features/navbar/components';
 import ProductList from '@/features/productList/components';
 import { Routes, Route } from 'react-router';
-import ProductAdd from './features/productAdd/components';
+import ProductAdd from '@/features/productAdd/components';
 
 /**
  * Application entry point.

@@ -158,7 +158,7 @@ class Product implements ProductFactory, JsonSerializable
 
     // }}}
     // {{{ dropTable()
-    
+
     /**
      * Drop the product table.
      *
@@ -177,7 +177,7 @@ class Product implements ProductFactory, JsonSerializable
 
     // }}}
     // {{{ createTestData()
-    
+
     /**
      * Create test data.
      *
@@ -212,7 +212,8 @@ class Product implements ProductFactory, JsonSerializable
 
         $stmt = $db->prepare($query);
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 1,
             ':sku' => '30544275E04DC6F7',
             ':name' => 'Run, Rose, Run: A Novel',
@@ -221,9 +222,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'BOOK',
             ':unit' => 'KILOGRAMS',
             ':unit_value' => '0.67'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 2,
             ':sku' => 'D48F823638D2827C',
             ':name' => 'Loveseat Sofa Gray Fabric',
@@ -232,9 +235,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'FURNITURE',
             ':unit' => 'INCHES',
             ':unit_value' => '30.7x66.5x30.7'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 3,
             ':sku' => 'F5FB3F28BC08239F',
             ':name' => 'Verbatim CD-R Blank Discs',
@@ -243,9 +248,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'DISC',
             ':unit' => 'MEGABYTES',
             ':unit_value' => '700'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 4,
             ':sku' => '7F88E5E990D6B08D',
             ':name' => 'Maxell 625335 Lifetime Warranty',
@@ -254,9 +261,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'DISC',
             ':unit' => 'MEGABYTES',
             ':unit_value' => '700'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 5,
             ':sku' => 'E5481B3899D2F07B',
             ':name' => 'Where the Crawdads Sing',
@@ -265,9 +274,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'BOOK',
             ':unit' => 'KILOGRAMS',
             ':unit_value' => '0.59'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 6,
             ':sku' => '90F3BBB4C0A5271A',
             ':name' => 'My Dear Little One',
@@ -276,9 +287,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'BOOK',
             ':unit' => 'KILOGRAMS',
             ':unit_value' => '0.79'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 7,
             ':sku' => '73C6FAC669A06CA8',
             ':name' => 'The Very Hungry Caterpillar',
@@ -287,9 +300,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'BOOK',
             ':unit' => 'KILOGRAMS',
             ':unit_value' => '0.18'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 8,
             ':sku' => '17F10071582536F8',
             ':name' => '5 Drawer Dresser Industrial Gray',
@@ -298,9 +313,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'FURNITURE',
             ':unit' => 'INCHES',
             ':unit_value' => '11.7x24.6x38.4'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 9,
             ':sku' => '3E01A5E372ED6616',
             ':name' => 'Upholstered Leather Sofa',
@@ -309,9 +326,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'FURNITURE',
             ':unit' => 'INCHES',
             ':unit_value' => '32x53x35'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 10,
             ':sku' => '9F459862646D6C8C',
             ':name' => 'Digitech DVD CD-RW',
@@ -320,9 +339,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'DISC',
             ':unit' => 'MEGABYTES',
             ':unit_value' => '400'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 11,
             ':sku' => '1F9CB74BF1C2D07C',
             ':name' => 'The Flames of Hope',
@@ -331,9 +352,11 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'BOOK',
             ':unit' => 'KILOGRAMS',
             ':unit_value' => '0.45'
-        ]);
+            ]
+        );
 
-        $stmt->execute([
+        $stmt->execute(
+            [
             ':product_id' => 12,
             ':sku' => 'FD0B912FD364D168',
             ':name' => 'Blueberry Muffin Ottoman',
@@ -342,7 +365,8 @@ class Product implements ProductFactory, JsonSerializable
             ':type' => 'FURNITURE',
             ':unit' => 'INCHES',
             ':unit_value' => '74x101x33'
-        ]);
+            ]
+        );
     }
 
     // }}}
@@ -492,7 +516,7 @@ class Product implements ProductFactory, JsonSerializable
      * @return string The product's unit value.
      * @access public
      */
-    public function getUnitValue(): string 
+    public function getUnitValue(): string
     {
         return $this->_unitValue;
     }

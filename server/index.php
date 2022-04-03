@@ -309,7 +309,7 @@ $router->respond(
  * Refresh the database by deleting all products, dropping the table, and then
  * re-creating it. This route will also introduce test data for all three types
  * of products: books, furniture, and discs.
- */ 
+ */
 $router->respond(
     'GET',
     '/api/v1/refresh',

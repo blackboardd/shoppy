@@ -21,3 +21,4 @@
   "exclude": ["node_modules", "./style-dictionary-dist/**/*"],
   "extends": "./tsconfig.paths.json"
 }
+, "node_modules/features"
