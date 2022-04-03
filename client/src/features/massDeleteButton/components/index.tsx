@@ -1,33 +1,29 @@
-import * as config from '@/config/api';
-import './styles.scss';
+import { TrashFill } from 'react-bootstrap-icons';
+import { IMassDeleteButtonProps } from './interface';
 
 /**
  * Mass delete button component.
- * 
+ *
+ * @param {IMassDeleteButtonProps} props - The props.
  * @returns {JSX.Element}
  */
-const MassDeleteButton = (): JSX.Element => {
-  // handleClick function to send a fetch request to the config.API_URL endpoint to delete all products
-  const handleClick = (): void => {
-    fetch(`${config.API_URL}/products`, {
-      method: 'DELETE',
-    })
-      .then(() => {
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-  };
+const MassDeleteButton = (props: IMassDeleteButtonProps): JSX.Element => {
+  const { handleDelete } = props;
 
   return (
     <div className="btn-mass-delete">
-      <button className="btn btn-primary btn-lg btn-block" onClick={handleClick}>
-        Mass Delete
+      <button
+        className="btn-float btn btn-primary btn-lg btn-icon"
+        onClick={handleDelete}
+      >
+        <p style={{ marginBottom: 0 }}>Mass Delete</p>
+        <div className="floating-btn-icon">
+          {' '}
+          <TrashFill />
+        </div>
       </button>
     </div>
-  )
+  );
 };
 
 export default MassDeleteButton;

@@ -1,8 +1,8 @@
-import './styles.scss';
+import { PlusCircleFill } from 'react-bootstrap-icons';
 
 /**
  * Add button component.
- * 
+ *
  * @returns {JSX.Element}
  */
 const AddButton = (): JSX.Element => {
@@ -13,11 +13,18 @@ const AddButton = (): JSX.Element => {
 
   return (
     <div className="btn-add">
-      <button className="btn btn-primary btn-lg btn-block" onClick={handleClick}>
-        Add 
+      <button
+        className="btn-float btn-icon btn btn-primary btn-lg"
+        onClick={handleClick}
+      >
+        <p style={{ marginBottom: 0 }}>Add</p>
+        <div className="floating-btn-icon">
+          {' '}
+          <PlusCircleFill />
+        </div>
       </button>
     </div>
-  )
+  );
 };
 
 export default AddButton;

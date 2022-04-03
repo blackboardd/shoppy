@@ -57,19 +57,26 @@ $router->respond(
             $mapper = new ProductMapper($db);
 
             /**
+             * Body of product request.
+             *
+             * @var object $body
+             */
+            $body = json_decode($req->body());
+
+            /**
              * Product model.
              *
              * @var Product $product
              */
             $model = new Product(
-                $req->id,
-                $req->sku,
-                $req->name,
-                $req->price,
-                $req->currency,
-                $req->type,
-                $req->unit,
-                $req->unit_value
+                $body->product_id,
+                $body->sku,
+                $body->name,
+                $body->price,
+                $body->currency,
+                $body->type,
+                $body->unit,
+                $body->unit_value
             );
 
             /**
@@ -165,7 +172,7 @@ $router->respond(
 // Update an existing product.
 $router->respond(
     'PUT',
-    '/api/v1/product/[i:id]',
+    '/api/v1/products/[i:id]',
     function ($req) {
         /**
          * Initialize database.
@@ -183,19 +190,26 @@ $router->respond(
             $mapper = new ProductMapper($db);
 
             /**
+             * Body of product request.
+             *
+             * @var object $body
+             */
+            $body = json_decode($req->body());
+
+            /**
              * Product model.
              *
              * @var Product $product
              */
             $model = new Product(
-                $req->id,
-                $req->sku,
-                $req->name,
-                $req->price,
-                $req->currency,
-                $req->type,
-                $req->unit,
-                $req->unit_value
+                $body->product_id,
+                $body->sku,
+                $body->name,
+                $body->price,
+                $body->currency,
+                $body->type,
+                $body->unit,
+                $body->unit_value
             );
 
             /**
@@ -220,7 +234,7 @@ $router->respond(
 // Delete an existing product.
 $router->respond(
     'DELETE',
-    '/api/v1/product/[i:id]',
+    '/api/v1/products/[i:id]',
     function ($req) {
         /**
          * Initialize database.

@@ -1,9 +1,5 @@
-import {
-  CURRENCY_SYMBOL,
-  IProduct,
-} from '@/features/product/components/interface';
+import { IProduct } from '@/features/product/components/interface';
 import * as config from '@/config/api';
-import { Currency } from '../components/types';
 
 /**
  * Provider for product.
@@ -25,7 +21,6 @@ export class ProductProvider {
       .then((res) => res.json())
       .then((data: IProduct[]) => {
         data.map((product: IProduct) => {
-          product.currency = CURRENCY_SYMBOL[product.currency as Currency];
           product.type = product.type.toUpperCase();
           product.unit = product.unit.toUpperCase();
           return product;
@@ -57,20 +52,16 @@ export class ProductProvider {
    * @returns {Promise<IProduct>}
    */
 
-  public static async createProduct(product: IProduct): Promise<IProduct> {
-    // fetch product from api
+  public static async createProduct(product: IProduct): Promise<Response> {
+    // insert product using api
     // api route is defined in config/api.js
-    return fetch(`${config.API_URL}/products/`, {
+    return fetch(`${config.API_URL}/products`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(product),
-    })
-      .then((res) => res.json())
-      .then((data: IProduct) => {
-        return data;
-      });
+    });
   }
 
   /**
@@ -113,5 +104,18 @@ export class ProductProvider {
       .then((data: IProduct) => {
         return data;
       });
+  }
+
+  /**
+   * Refresh products with database defaults.
+   *
+   * @returns {Promise<IProduct[]>}
+   * @memberof ProductProvider
+   * @static
+   */
+  public static async refreshProducts(): Promise<Response> {
+    // fetch products from api
+    // api route is defined in config/api.js
+    return fetch(`${config.API_URL}/refresh`);
   }
 }

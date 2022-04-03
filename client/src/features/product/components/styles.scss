@@ -6,15 +6,15 @@
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 
   // grow the product as zoomed out
-  transition: transform 0.2s ease-out;
+  transition: transform 0.05s ease-out;
   &:hover {
     // tilt and scale the product as it is hovered
-    transform: scale(1.05);
+    transform: scale(1.025);
   }
 
   // when clicked, zoom in
   &:active {
-    transform: scale(1.2);
+    transform: scale(1.05);
   }
 
   @media (min-width: 360px) {
@@ -42,8 +42,6 @@
     width: 500px;
     height: 500px;
   }
-
-
 }
 
 .product-checkbox {
