@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { combineUnits } from '../helpers/product';
-import { IProductProps } from './interface';
+import { IProductProps, CURRENCY_SYMBOL } from './interface';
 import './styles.scss';
+import { Currency } from './types';
 
 /**
  * Product component.
@@ -10,32 +10,42 @@ import './styles.scss';
  * @returns {JSX.Element}
  */
 const Product = (props: IProductProps): JSX.Element => {
-  // usestate for checked
-  const [checked, setChecked] = useState(false);
-
-  const { product } = props;
+  const { product, handleClick, handleKeyDown, checked } = props;
   const { sku, name, price, type, currency, unit, unit_value } = product;
 
+  const currencySymbol = CURRENCY_SYMBOL[currency as Currency];
   const combinedUnit = combineUnits(unit, unit_value, type);
 
-  // div className="product" should have an onClick function that calls setChecked
-  const handleClick = (): void => {
-    setChecked(!checked);
-  };
+  // format price to 2 decimal places
+  const formattedPrice = String(Number(price).toFixed(2));
 
   return (
-    <div className="product" onClick={handleClick}>
+    <div
+      role="checkbox"
+      className="product delete-checkbox"
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      aria-checked={checked}
+    >
       <div className="product__info">
         <div className="product__sku">{sku}</div>
         <div className="product__name">{name}</div>
         <div className="product__price">
-          {currency}
-          {price}
+          {currencySymbol}
+          {formattedPrice}
         </div>
         <div className="product__unit">{combinedUnit}</div>
       </div>
       <div className="product-checkbox">
-        <input className="form-check-input" checked={checked} type="checkbox" />
+        <input
+          className="form-check-input"
+          tabIndex={-1}
+          disabled
+          checked={checked}
+          type="checkbox"
+          style={{ opacity: 1 }}
+        />
       </div>
     </div>
   );

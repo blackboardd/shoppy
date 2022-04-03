@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "outDir": "./dist",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -21,13 +17,7 @@
     "noEmit": false,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "stories"
-  ],
-  "exclude": [
-    "node_modules",
-    "./style-dictionary-dist/**/*"
-  ],
+  "include": ["src", "stories"],
+  "exclude": ["node_modules", "./style-dictionary-dist/**/*"],
   "extends": "./tsconfig.paths.json"
 }

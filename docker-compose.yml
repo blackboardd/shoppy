@@ -37,9 +37,9 @@ services:
     composer:
         image: composer:2.3
         container_name: composer-container
-        command: ["composer", "install"]
         volumes:
-            - ./server:/var/www
+            - ./server:/app
+        command: ["composer", "install"]
 
 networks:
     app-network:

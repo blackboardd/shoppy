@@ -13,7 +13,9 @@ const Header = (): JSX.Element => {
         <div className="navbar-header-container">
           <div className="navbar-upper">
             <div className="navbar-brand business-title header-text">
-              <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>Shoppy</Link>
+              <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
+                Shoppy
+              </Link>
             </div>
             <h1 className="navbar-brand header-text">Product List</h1>
           </div>

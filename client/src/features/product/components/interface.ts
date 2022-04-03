@@ -3,7 +3,10 @@
  *
  * @interface IProductProps
  */
-export interface IProductProps {
+export interface IProductProps extends React.HTMLAttributes<HTMLElement> {
+  handleClick: (event: React.MouseEvent<HTMLDivElement>) => void;
+  handleKeyDown: (event: React.KeyboardEvent<HTMLDivElement>) => void;
+  checked: boolean;
   product: IProduct;
 }
 
@@ -16,7 +19,7 @@ export interface IProduct {
   product_id: number;
   sku: string;
   name: string;
-  price: number;
+  price: string;
   currency: string;
   type: string;
   unit: string;
@@ -55,7 +58,7 @@ export const UNIT_TYPE = {
 
 /**
  * Constant for the product weight units.
- * 
+ *
  * @constant
  * @default
  * @property {string} KILOGRAMS - kgs
@@ -68,7 +71,7 @@ export const UNIT_WEIGHT = {
 
 /**
  * Constant for the product size units.
- * 
+ *
  * @constant
  * @default
  * @property {string} KILOBYTES - kbs
@@ -85,7 +88,7 @@ export const UNIT_SIZE = {
  * Constant for the product dimension units.
  * @todo - add advanced sanitization to dimensions
  *         so that they can be properly formatted
- * 
+ *
  * @constant
  * @default
  * @property {string} 'INCHES' - in

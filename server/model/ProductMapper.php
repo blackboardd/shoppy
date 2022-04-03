@@ -37,7 +37,7 @@ interface ProductMapperInterface
 
     /**
      * Get all products.
-     * 
+     *
      * @access public
      * @return array The products.
      */
@@ -139,10 +139,10 @@ class ProductMapper implements ProductMapperInterface
 
     // }}}
     // {{{ getAll()
-    
+
     /**
      * Get all products.
-     * 
+     *
      * @access public
      * @return array The products.
      */
@@ -262,7 +262,7 @@ class ProductMapper implements ProductMapperInterface
 
     // }}}
     // {{{ deleteAll()
-    
+
     /**
      * Delete all products.
      *

@@ -22,5 +22,3 @@ export type SizeUnit = 'KILOBYTES' | 'MEGABYTES' | 'GIGABYTES';
  * Type for dimension size unit.
  */
 export type DimensionUnit = 'CENTIMETERS' | 'INCHES' | 'FEET';
-
-
