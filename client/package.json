@@ -56,6 +56,7 @@
     "type-check": "tsc --noEmit",
     "precommit": "pretty-quick --staged && npm run lint && npm run type-check",
     "prepare": "cd .. && husky install",
+    "test": "jest --coverage --passWithNoTests",
     "commit": "git-cz",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
