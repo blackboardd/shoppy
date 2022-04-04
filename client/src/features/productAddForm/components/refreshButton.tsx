@@ -27,7 +27,7 @@ const RefreshButton = (): JSX.Element => {
         {' '}
         <ArrowCounterclockwise />
       </div>
-      <p style={{ marginBottom: 0 }}>Reset Database</p>
+      <p style={{ marginBottom: 0 }}>RESET DATABASE</p>
     </button>
   );
 };

@@ -1,16 +1,17 @@
 {
   "color": {
-    "background": {
-      "primary": {
-        "value": "#000"
-      },
-      "secondary": {
-        "value": "#fff"
-      }
-    },
     "base": {
       "primary": {
-        "value": "#ffbcff"
+        "value": "#ff00a8"
+      },
+      "secondary": {
+        "value": "#244664"
+      },
+      "light": {
+        "value": "#fff"
+      },
+      "dark": {
+        "value": "#000"
       },
       "gray": {
         "value": "#b2b2b2"

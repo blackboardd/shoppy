@@ -2,6 +2,7 @@ import Navbar from '@/features/navbar/components';
 import ProductList from '@/features/productList/components';
 import { Routes, Route } from 'react-router';
 import ProductAdd from '@/features/productAdd/components';
+import { BrowserRouter } from 'react-router-dom';
 
 /**
  * Application entry point.
@@ -10,12 +11,26 @@ import ProductAdd from '@/features/productAdd/components';
  */
 export const App: () => JSX.Element = (): JSX.Element => {
   return (
-    <Navbar>
+    <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ProductList />} />
-        <Route path="add" element={<ProductAdd />} />
+        <Route
+          path="/"
+          element={
+            <Navbar>
+              <ProductList />
+            </Navbar>
+          }
+        />
+        <Route
+          path="/add/"
+          element={
+            <Navbar>
+              <ProductAdd />
+            </Navbar>
+          }
+        />
       </Routes>
-    </Navbar>
+    </BrowserRouter>
   );
 };
 

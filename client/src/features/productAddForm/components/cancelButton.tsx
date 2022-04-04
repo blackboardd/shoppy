@@ -20,7 +20,7 @@ const CancelButton = (): JSX.Element => {
         {' '}
         <XCircleFill />
       </div>
-      <p style={{ marginBottom: 0 }}>Cancel</p>
+      <p style={{ marginBottom: 0 }}>CANCEL</p>
     </button>
   );
 };

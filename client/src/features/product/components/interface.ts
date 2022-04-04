@@ -65,8 +65,8 @@ export const UNIT_TYPE = {
  * @property {string} POUNDS - lbs
  */
 export const UNIT_WEIGHT = {
-  KILOGRAMS: 'kgs',
-  POUNDS: 'lbs',
+  KILOGRAMS: 'kg',
+  POUNDS: 'lb',
 };
 
 /**
@@ -79,9 +79,9 @@ export const UNIT_WEIGHT = {
  * @property {string} GIGABYTES - gbs
  */
 export const UNIT_SIZE = {
-  KILOBYTES: 'kbs',
-  MEGABYTES: 'mbs',
-  GIGABYTES: 'gbs',
+  KILOBYTES: 'kb',
+  MEGABYTES: 'mb',
+  GIGABYTES: 'gb',
 };
 
 /**

@@ -2,6 +2,11 @@ import { useEffect, useState } from 'react';
 import { validateNumber } from '../validation/number';
 import { IGroupProps, IUnitValue } from './group.interface';
 import './group.styles.scss';
+import {
+  UNIT_DIMENSIONS,
+  UNIT_SIZE,
+  UNIT_WEIGHT,
+} from '../../product/components/interface';
 
 /**
  * Form group for products.
@@ -56,18 +61,23 @@ const Group = (props: IGroupProps): JSX.Element => {
         <div className="form-group-container">
           <div className="form-group">
             <label htmlFor="size">Size</label>
-            <input
-              required
-              type="number"
-              name="DISC.size"
-              onInput={handleChange}
-              placeholder="0"
-              value={unitValue.DISC.size}
-              className={`form-control ${
-                validations.unitValue.isValid ? '' : 'invalid-input'
-              }`}
-              id="size"
-            />
+            <div className="input-group">
+              <input
+                required
+                type="number"
+                name="DISC.size"
+                onInput={handleChange}
+                placeholder="0"
+                value={unitValue.DISC.size}
+                className={`form-control ${
+                  validations.unitValue.isValid ? '' : 'invalid-input'
+                }`}
+                id="size"
+              />
+              <span className="input-group-addon">
+                {UNIT_SIZE['MEGABYTES']}
+              </span>
+            </div>
             {UnitValueError(unitValue.DISC.size, 'Invalid size.')}
           </div>
         </div>
@@ -78,18 +88,23 @@ const Group = (props: IGroupProps): JSX.Element => {
         <div className="form-group-container">
           <div className="form-group">
             <label htmlFor="weight">Weight</label>
-            <input
-              required
-              type="number"
-              name="BOOK.weight"
-              onInput={handleChange}
-              value={unitValue.BOOK.weight}
-              placeholder="0"
-              className={`form-control ${
-                validations.unitValue.isValid ? '' : 'invalid-input'
-              }`}
-              id="weight"
-            />
+            <div className="input-group">
+              <input
+                required
+                type="number"
+                name="BOOK.weight"
+                onInput={handleChange}
+                value={unitValue.BOOK.weight}
+                placeholder="0"
+                className={`form-control ${
+                  validations.unitValue.isValid ? '' : 'invalid-input'
+                }`}
+                id="weight"
+              />
+              <span className="input-group-addon">
+                {UNIT_WEIGHT['KILOGRAMS']}
+              </span>
+            </div>
             {UnitValueError(unitValue.BOOK.weight, 'Invalid weight.')}
           </div>
         </div>
@@ -100,58 +115,75 @@ const Group = (props: IGroupProps): JSX.Element => {
         <div className="form-group-container">
           <div className="form-group">
             <label htmlFor="height">Height</label>
-            <input
-              required
-              type="number"
-              name="FURNITURE.height"
-              onInput={handleChange}
-              value={unitValue.FURNITURE.height}
-              placeholder="0"
-              className={`form-control ${
-                validateNumber(unitValue.FURNITURE.height)
-                  ? ''
-                  : 'invalid-input'
-              }`}
-              id="height"
-            />
+            <div className="input-group">
+              <input
+                required
+                type="number"
+                name="FURNITURE.height"
+                onInput={handleChange}
+                value={unitValue.FURNITURE.height}
+                placeholder="0"
+                className={`form-control ${
+                  validateNumber(unitValue.FURNITURE.height)
+                    ? ''
+                    : 'invalid-input'
+                }`}
+                id="height"
+              />
+              <span className="input-group-addon">
+                {UNIT_DIMENSIONS['CENTIMETERS']}
+              </span>
+            </div>
             {UnitValueError(unitValue.FURNITURE.height, 'Invalid height.')}
           </div>
         </div>
         <div className="form-group-container">
           <div className="form-group">
             <label htmlFor="width">Width</label>
-            <input
-              required
-              type="number"
-              name="FURNITURE.width"
-              onInput={handleChange}
-              value={unitValue.FURNITURE.width}
-              placeholder="0"
-              className={`form-control ${
-                validateNumber(unitValue.FURNITURE.width) ? '' : 'invalid-input'
-              }`}
-              id="width"
-            />
+            <div className="input-group">
+              <input
+                required
+                type="number"
+                name="FURNITURE.width"
+                onInput={handleChange}
+                value={unitValue.FURNITURE.width}
+                placeholder="0"
+                className={`form-control ${
+                  validateNumber(unitValue.FURNITURE.width)
+                    ? ''
+                    : 'invalid-input'
+                }`}
+                id="width"
+              />
+              <span className="input-group-addon">
+                {UNIT_DIMENSIONS['CENTIMETERS']}
+              </span>
+            </div>
             {UnitValueError(unitValue.FURNITURE.width, 'Invalid width.')}
           </div>
         </div>
         <div className="form-group-container">
           <div className="form-group">
             <label htmlFor="length">Length</label>
-            <input
-              required
-              type="number"
-              name="FURNITURE.length"
-              onInput={handleChange}
-              value={unitValue.FURNITURE.length}
-              placeholder="0"
-              className={`form-control ${
-                validateNumber(unitValue.FURNITURE.length)
-                  ? ''
-                  : 'invalid-input'
-              }`}
-              id="length"
-            />
+            <div className="input-group">
+              <input
+                required
+                type="number"
+                name="FURNITURE.length"
+                onInput={handleChange}
+                value={unitValue.FURNITURE.length}
+                placeholder="0"
+                className={`form-control ${
+                  validateNumber(unitValue.FURNITURE.length)
+                    ? ''
+                    : 'invalid-input'
+                }`}
+                id="length"
+              />
+              <span className="input-group-addon">
+                {UNIT_DIMENSIONS['CENTIMETERS']}
+              </span>
+            </div>
             {UnitValueError(unitValue.FURNITURE.length, 'Invalid length.')}
           </div>
         </div>

@@ -14,7 +14,7 @@ const TypeSwitcher = (props: ITypeSwitcherProps): JSX.Element => {
         <label htmlFor="productType">Product Type</label>
         <select
           onChange={handlers.type}
-          className="form-control"
+          className="form-control form-select"
           id="productType"
         >
           <option value="DISC">DVD</option>
