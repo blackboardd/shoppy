@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
   plugins: [
     new MiniCssExtractPlugin({
-      linkType: "text/css",
+      linkType: 'text/css',
     }),
     new HtmlWebpackPlugin({
       title: 'Production',
@@ -32,18 +32,19 @@ module.exports = {
       },
       {
         test: /\.s[ac]ss$/i,
-        use: ['style-loader', 'css-loader',
+        use: [
+          'style-loader',
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
               postcssOptions: {
-                plugins: [
-                  require('autoprefixer'),
-                ],
-              }
-            }
+                plugins: [require('autoprefixer')],
+              },
+            },
           },
-          'sass-loader'],
+          'sass-loader',
+        ],
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
