@@ -20,7 +20,7 @@ module.exports = merge(common, {
       patterns: [
         {
           from: 'public/_redirects',
-          to: '_redirects',
+          to: '.',
         },
       ],
     })
