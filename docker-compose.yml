@@ -3,6 +3,8 @@ services:
     nginx:
         image: nginx:alpine
         container_name: nginx-container
+        environment:
+            ENABLE_CORS: true
         ports:
             - 8000:80
         links:
@@ -15,12 +17,10 @@ services:
     php:
         build: .
         container_name: php-container
-        expose:
-            - 9000
         links:
             - mysql
-        working_dir: /var/www/
         volumes:
+            - .env:/var/www/.env
             - ./server:/var/www
         networks:
             - app-network
@@ -31,33 +31,15 @@ services:
             - 3306:3306
         volumes:
             - ./db:/var/lib/mysql
-        environment:
-            - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-            - MYSQL_DATABASE=${MYSQL_DATABASE}
-            - MYSQL_USER=${MYSQL_USER}
-            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-        networks:
-            - app-network
-    adminer:
-        image: adminer:latest
-        container_name: adminer-container
-        environment:
-            ADMINER_DEFAULT_SERVER: mysql
-            ADMINER_DESIGN: hydra
-        restart: always
-        links:
-            - mysql
-        ports:
-            - 8080:8080
+        env_file: './.env'
         networks:
             - app-network
     composer:
         image: composer:2.3
         container_name: composer-container
-        command: ["composer", "install"]
-        working_dir: /var/www/
         volumes:
-            - ./server:/var/www
+            - ./server:/app
+        command: ["composer", "install"]
 
 networks:
     app-network:

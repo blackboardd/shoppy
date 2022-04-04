@@ -1,12 +1,35 @@
-import './App.scss';
+import Navbar from '@/features/navbar/components';
+import ProductList from '@/features/productList/components';
+import ProductAdd from '@/features/productAdd/components';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-export const App: () => JSX.Element = () => {
+/**
+ * Application entry point.
+ *
+ * @return {JSX.Element}
+ */
+export const App: () => JSX.Element = (): JSX.Element => {
   return (
-    <div className="App">
-      <div className="app-header">
-        <h1>Shoppy</h1>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Navbar>
+              <ProductList />
+            </Navbar>
+          }
+        />
+        <Route
+          path="/add/"
+          element={
+            <Navbar>
+              <ProductAdd />
+            </Navbar>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

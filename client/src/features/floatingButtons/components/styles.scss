@@ -1,0 +1,31 @@
+.btn-float-container {
+  // float buttons to the bottom right of the screen in a column alignment
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-bottom: 20px;
+  margin-right: 20px;
+
+  z-index: 1;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.btn-icon {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  margin: 0 !important;
+}
+
+.floating-btn-icon {
+  padding-left: 10px;
+  padding-bottom: 5px;
+}
+
+.btn-float {
+  margin: 1rem !important;
+}
