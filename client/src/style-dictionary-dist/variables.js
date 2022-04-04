@@ -1,11 +1,12 @@
 /**
  * Do not edit directly
- * Generated on Thu, 24 Mar 2022 04:55:11 GMT
+ * Generated on Mon, 04 Apr 2022 01:24:01 GMT
  */
 
-export const ColorBackgroundPrimary = '#000000';
-export const ColorBackgroundSecondary = '#ffffff';
-export const ColorBasePrimary = '#ffbcff';
+export const ColorBasePrimary = '#ff00a8';
+export const ColorBaseSecondary = '#244664';
+export const ColorBaseLight = '#ffffff';
+export const ColorBaseDark = '#000000';
 export const ColorBaseGray = '#b2b2b2';
 export const ColorFontPrimary = '#ffffff';
 export const ColorFontSecondary = '#000000';

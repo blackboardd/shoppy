@@ -17,7 +17,7 @@ const AddButton = (): JSX.Element => {
         className="btn-float btn-icon btn btn-primary btn-lg"
         onClick={handleClick}
       >
-        <p style={{ marginBottom: 0 }}>Add</p>
+        <p style={{ marginBottom: 0 }}>ADD</p>
         <div className="floating-btn-icon">
           {' '}
           <PlusCircleFill />

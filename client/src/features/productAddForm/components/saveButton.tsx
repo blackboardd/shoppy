@@ -17,7 +17,7 @@ const SaveButton = (): JSX.Element => {
         {' '}
         <Save2Fill />
       </div>
-      <p style={{ marginBottom: 0 }}>Save</p>
+      <p style={{ marginBottom: 0 }}>SAVE</p>
     </button>
   );
 };

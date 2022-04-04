@@ -1,11 +1,13 @@
+@import '../../../style-dictionary-dist/variables.scss';
+
 .footer {
   left: 0;
   bottom: 0;
   position: fixed;
-  width: 99%;
+  width: 99.99%;
   height: 20px;
 
-  background-color: #f5f5f5;
+  background-color: $token-color-base-dark;
   border-top: 1px solid #e5e5e5;
   color: #777;
   font-size: 0.8rem;

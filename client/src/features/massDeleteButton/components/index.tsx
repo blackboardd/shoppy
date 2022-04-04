@@ -16,7 +16,7 @@ const MassDeleteButton = (props: IMassDeleteButtonProps): JSX.Element => {
         className="btn-float btn btn-primary btn-lg btn-icon"
         onClick={handleDelete}
       >
-        <p style={{ marginBottom: 0 }}>Mass Delete</p>
+        <p style={{ marginBottom: 0 }}>MASS DELETE</p>
         <div className="floating-btn-icon">
           {' '}
           <TrashFill />

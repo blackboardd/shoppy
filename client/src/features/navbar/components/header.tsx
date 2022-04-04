@@ -8,12 +8,12 @@ import './header.styles.scss';
  */
 const Header = (): JSX.Element => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <div className="navbar-header-container">
           <div className="navbar-upper">
             <div className="navbar-brand business-title header-text">
-              <Link to="/" style={{ color: 'black', textDecoration: 'none' }}>
+              <Link to="/" style={{ color: '#fff', textDecoration: 'none' }}>
                 Shoppy
               </Link>
             </div>
