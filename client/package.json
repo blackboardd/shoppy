@@ -12,7 +12,7 @@
     "url": "https://bitbucket.org/blackboardd/shoppy"
   },
   "homepage": "https://brightentompkinsjuniordevelopertesttask.000webhostapp.com/",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.11.4",
@@ -113,6 +113,7 @@
     "@types/webpack-dev-server": "^4.7.2",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@webpack-cli/generators": "^2.4.2",
+    "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.11.0",
