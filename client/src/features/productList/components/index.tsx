@@ -6,14 +6,13 @@ import './styles.scss';
 import FloatingButtons from '../../floatingButtons/components';
 import { IChecked } from './interface';
 import * as Sentry from '@sentry/react';
-import 'regenerator-runtime/runtime';
 
 /**
  * Application entry point.
  *
  * @return {JSX.Element}
  */
-const ProductList: () => JSX.Element = (): JSX.Element => {
+export const ProductList: () => JSX.Element = (): JSX.Element => {
   // call productprovider getProducts function as await function
   // set list to nothing if fetch fails, but if it succeeds, set it to the result
   const [products, setProducts] = useState<IProduct[]>([]);

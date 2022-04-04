@@ -1,39 +1,23 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
-    "module": "esnext",
     "target": "es5",
-    "jsx": "react-jsx",
-    "strict": true,
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "outDir": "./dist",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "watch": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "es6",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "declaration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "downlevelIteration": true,
-    "baseUrl": ".",
+    "noEmit": false,
+    "jsx": "react-jsx"
   },
-  "include": [
-    "src",
-    "stories"
-  ],
-  "exclude": [
-    "node_modules",
-    "./style-dictionary-dist/**/*"
-  ],
+  "include": ["src", "stories"],
+  "exclude": ["node_modules", "./style-dictionary-dist/**/*"],
   "extends": "./tsconfig.paths.json"
 }

@@ -1,5 +1,4 @@
 import { IProduct } from '@/features/product/components/interface';
-import 'regenerator-runtime/runtime';
 import * as config from '@/config/api';
 
 /**

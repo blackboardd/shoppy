@@ -5,4 +5,9 @@ import App from './App';
 import './custom.scss';
 import './index.scss';
 
-ReactDOM.render(<App />, document.querySelector('#root'));
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);

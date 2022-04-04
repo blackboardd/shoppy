@@ -1,61 +1,34 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const devMode = process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development';
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: [
-    path.resolve(__dirname, './node_modules/regenerator-runtime/runtime.js'),
-    path.resolve(__dirname, './src/index.tsx'),
-  ],
+  entry: './src/index.tsx',
   plugins: [
     new MiniCssExtractPlugin({
       linkType: "text/css",
     }),
     new HtmlWebpackPlugin({
-      filename: 'index.html',
+      title: 'Production',
       template: 'public/index.html',
-      inject: 'body',
-      minify: false,
+      favicon: 'public/favicon.ico',
     }),
   ],
   output: {
-    path: path.join(__dirname, './dist/'),
-    publicPath: '/',
-    filename: 'assets/js/[name].[contenthash:8].js',
-    chunkFilename: 'assets/js/[name].[contenthash:8].js',
-    sourceMapFilename: 'assets/js/[name].[contenthash:8].js.map',
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
-        test: /\.ts[x]?$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/preset-env', { targets: 'defaults' }]],
-          },
-        },
+        test: /\.(ts|tsx)$/i,
+        loader: 'ts-loader',
+        exclude: ['/node_modules/'],
       },
       {
-        test: /\.css$/,
-        use: [
-          devMode ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
-        ],
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
       },
       {
         test: /\.s[ac]ss$/i,
@@ -80,8 +53,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(__dirname, 'src'),
     },
-    extensions: ['.tsx', '.ts', '.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js'],
   },
 };

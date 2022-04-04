@@ -1,14 +1,15 @@
 import Navbar from '@/features/navbar/components';
 import ProductList from '@/features/productList/components';
+import { Routes, Route } from 'react-router';
 import ProductAdd from '@/features/productAdd/components';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 /**
  * Application entry point.
  *
  * @return {JSX.Element}
  */
-const App: () => JSX.Element = (): JSX.Element => {
+export const App: () => JSX.Element = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Routes>
@@ -21,7 +22,7 @@ const App: () => JSX.Element = (): JSX.Element => {
           }
         />
         <Route
-          path="/add"
+          path="/add/"
           element={
             <Navbar>
               <ProductAdd />
