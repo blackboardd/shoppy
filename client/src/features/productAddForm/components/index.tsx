@@ -1,4 +1,5 @@
 import Product from '@/features/product/components';
+import 'regenerator-runtime/runtime';
 import { IProduct } from '@/features/product/components/interface';
 import { useEffect, useState } from 'react';
 import CancelButton from './cancelButton';

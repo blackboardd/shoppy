@@ -1,34 +1,61 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const devMode = process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'development';
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './src/index.tsx',
+  entry: [
+    path.resolve(__dirname, './node_modules/regenerator-runtime/runtime.js'),
+    path.resolve(__dirname, './src/index.tsx'),
+  ],
   plugins: [
     new MiniCssExtractPlugin({
       linkType: "text/css",
     }),
     new HtmlWebpackPlugin({
-      title: 'Production',
+      filename: 'index.html',
       template: 'public/index.html',
-      favicon: 'public/favicon.ico',
+      inject: 'body',
+      minify: false,
     }),
   ],
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.join(__dirname, './dist/'),
+    publicPath: '/',
+    filename: 'assets/js/[name].[contenthash:8].js',
+    chunkFilename: 'assets/js/[name].[contenthash:8].js',
+    sourceMapFilename: 'assets/js/[name].[contenthash:8].js.map',
   },
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/i,
-        loader: 'ts-loader',
-        exclude: ['/node_modules/'],
+        test: /\.ts[x]?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', { targets: 'defaults' }]],
+          },
+        },
       },
       {
-        test: /\.css$/i,
-        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader'],
+        test: /\.css$/,
+        use: [
+          devMode ? { loader: 'style-loader' } : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
       },
       {
         test: /\.s[ac]ss$/i,
@@ -53,8 +80,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': path.resolve(__dirname, './src'),
     },
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.jsx'],
   },
 };

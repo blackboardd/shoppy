@@ -1,5 +1,6 @@
 import { ProductProvider } from '@/features/product/services/productProvider';
 import { ArrowCounterclockwise } from 'react-bootstrap-icons';
+import 'regenerator-runtime/runtime';
 
 /**
  * Cancel button component.
