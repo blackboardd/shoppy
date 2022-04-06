@@ -10,14 +10,14 @@ const SaveButton = (): JSX.Element => {
   return (
     <button
       type="submit"
-      className="btn btn-primary product-form-button btn-icon"
+      className="save btn btn-primary product-form-button btn-icon"
       form="product_form"
     >
       <div className="icon">
         {' '}
         <Save2Fill />
       </div>
-      <p style={{ marginBottom: 0 }}>SAVE</p>
+      <p style={{ marginBottom: 0, textTransform: 'uppercase' }}>Save</p>
     </button>
   );
 };
