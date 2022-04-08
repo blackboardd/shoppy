@@ -6,6 +6,9 @@
 # vs code
 .vscode/
 
+# certbot
+/data/
+
 # dependencies
 /client/node_modules
 /.pnp

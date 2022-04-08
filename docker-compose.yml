@@ -3,6 +3,7 @@ services:
     nginx:
         image: nginx:alpine
         container_name: nginx-container
+        command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
         environment:
             ENABLE_CORS: true
         ports:
@@ -14,9 +15,16 @@ services:
         volumes:
             - ./server:/var/www
             - ./nginx/conf.d/:/etc/nginx/conf.d/
-            - ./certs:/etc/nginx/certs
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
         networks:
             - app-network
+    certbot:
+        image: certbot/certbot
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+        volumes:
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
     php:
         build: .
         container_name: php-container
